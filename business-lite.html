@@ -162,7 +162,11 @@
   .task-title{font-size:14.5px}
   .task-body{padding:12px 14px 14px;color:var(--ink2);font-size:13.2px;line-height:1.48}
   .task-body p{margin:0 0 10px}.task-body b{color:var(--ink)}
-  .prompt-text{white-space:pre-wrap;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin:4px 0 12px;color:var(--ink);font:12.5px/1.45 Consolas,"Courier New",monospace;overflow:auto}
+  .prompt-text{white-space:pre-wrap;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:11px 86px 11px 12px;margin:4px 0 12px;color:var(--ink);font:12.5px/1.45 Consolas,"Courier New",monospace;overflow:auto}
+  .prompt-wrap{position:relative}
+  .copy-prompt{position:absolute;top:8px;right:8px;border:0;border-radius:6px;padding:5px 11px;min-height:32px;font-size:12px;font-weight:600;letter-spacing:.2px;background:rgba(0,0,0,.55);color:#fff;cursor:pointer;font-family:inherit;transition:background .15s}
+  .copy-prompt:hover{background:rgba(0,0,0,.78)}
+  .copy-prompt.copied{background:#3E8E22}
   .exec-flow{margin:0;padding-left:20px}.exec-flow li{margin:5px 0;color:var(--ink2)}
 
   /* refs footer */
@@ -1221,11 +1225,63 @@ Tailored follow-up drafts queued for each owner</pre>
   var content;
   var lastTrigger;
   var closeTimer;
+  function fallbackCopyText(text){
+    return new Promise(function(resolve,reject){
+      var area=document.createElement('textarea');
+      area.value=text;
+      area.setAttribute('readonly','');
+      area.style.position='fixed';
+      area.style.top='-9999px';
+      area.style.opacity='0';
+      document.body.appendChild(area);
+      area.select();
+      area.setSelectionRange(0,area.value.length);
+      var copied=false;
+      try{copied=document.execCommand('copy');}catch(e){}
+      document.body.removeChild(area);
+      if(copied){resolve();}else{reject();}
+    });
+  }
+  function copyPromptText(text){
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(text).catch(function(){return fallbackCopyText(text);});
+    }
+    return fallbackCopyText(text);
+  }
+  function enhancePromptBlocks(){
+    content.querySelectorAll('.prompt-text').forEach(function(pre){
+      var wrap=pre.parentElement&&pre.parentElement.classList.contains('prompt-wrap')?pre.parentElement:null;
+      if(!wrap){
+        wrap=document.createElement('div');
+        wrap.className='prompt-wrap';
+        pre.parentNode.insertBefore(wrap,pre);
+        wrap.appendChild(pre);
+      }
+      if(wrap.querySelector('.copy-prompt')){return;}
+      var button=document.createElement('button');
+      button.type='button';
+      button.className='copy-prompt';
+      button.setAttribute('aria-label','Copy prompt');
+      button.textContent='Copy';
+      button.addEventListener('click',function(){
+        copyPromptText(pre.textContent||'').then(function(){
+          button.textContent='Copied';
+          button.classList.add('copied');
+          window.setTimeout(function(){
+            button.textContent='Copy';
+            button.classList.remove('copied');
+          },1500);
+        });
+      });
+      wrap.appendChild(button);
+    });
+  }
   function openTask(button){
     var source=document.getElementById(button.getAttribute('data-task-id'));
     if(!source||!modal||!content){return;}
     lastTrigger=button;
     content.innerHTML=source.innerHTML;
+    enhancePromptBlocks();
     if(!content.querySelector('#task-modal-title')){
       var title=content.querySelector('.task-title');
       if(title){title.id='task-modal-title';}
