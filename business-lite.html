@@ -185,7 +185,11 @@
 
   /* ===== Theme toggle ===== */
   .top-row{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:4px}
-  .header-actions{display:inline-flex;align-items:center;flex-shrink:0}
+  .header-start{display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .back-to-main{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--ink2);text-decoration:none;padding:6px 10px;border-radius:10px;background:var(--soft);border:1px solid var(--line);transition:background .15s,color .15s,border-color .15s;line-height:1}
+  .back-to-main:hover{background:var(--line);color:var(--ink);text-decoration:none}
+  .back-to-main:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+  .header-actions{display:inline-flex;align-items:center;flex-shrink:0;margin-left:auto}
   .theme-toggle{display:inline-flex;gap:2px;align-items:center;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px;flex-shrink:0}
   .theme-toggle button{appearance:none;background:transparent;border:0;color:var(--mute);font:700 11.5px/1 "Segoe UI",system-ui,sans-serif;padding:6px 11px;border-radius:999px;cursor:pointer;letter-spacing:.4px;text-transform:uppercase}
   .theme-toggle button:hover{color:var(--ink)}
@@ -272,7 +276,12 @@
 
 <header class="top"><div class="wrap">
   <div class="top-row">
-    <div class="eyebrow">A practical guide</div>
+    <div class="header-start">
+      <a class="back-to-main" href="index.html" aria-label="Back to the main landing page">
+        <span aria-hidden="true">&larr;</span> Back to main
+      </a>
+      <div class="eyebrow">A practical guide</div>
+    </div>
     <div class="header-actions">
       <div class="theme-toggle" role="group" aria-label="Theme">
         <button type="button" data-tset="system" title="Match system">Sys</button>
