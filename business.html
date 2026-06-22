@@ -194,11 +194,14 @@
 
   /* ===== Theme toggle ===== */
   .top-row{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:4px}
+  .header-actions{display:inline-flex;align-items:center;flex-shrink:0}
   .theme-toggle{display:inline-flex;gap:2px;align-items:center;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px;flex-shrink:0}
   .theme-toggle button{appearance:none;background:transparent;border:0;color:var(--mute);font:700 11.5px/1 "Segoe UI",system-ui,sans-serif;padding:6px 11px;border-radius:999px;cursor:pointer;letter-spacing:.4px;text-transform:uppercase}
   .theme-toggle button:hover{color:var(--ink)}
   .theme-toggle button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.06)}
   .theme-toggle button:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+  .visit-counter{display:block;height:20px;margin-left:10px;flex-shrink:0}
+  @media (max-width:480px){.visit-counter{display:none}}
 
   /* ===== Dark theme override ===== */
   html[data-theme="dark"]{
@@ -279,10 +282,13 @@
 <header class="top"><div class="wrap">
   <div class="top-row">
     <div class="eyebrow">A practical guide</div>
-    <div class="theme-toggle" role="group" aria-label="Theme">
-      <button type="button" data-tset="system" title="Match system">Sys</button>
-      <button type="button" data-tset="light" title="Light">Light</button>
-      <button type="button" data-tset="dark" title="Dark">Dark</button>
+    <div class="header-actions">
+      <div class="theme-toggle" role="group" aria-label="Theme">
+        <button type="button" data-tset="system" title="Match system">Sys</button>
+        <button type="button" data-tset="light" title="Light">Light</button>
+        <button type="button" data-tset="dark" title="Dark">Dark</button>
+      </div>
+      <img src="https://hits.sh/steffiyappy.github.io/copilot-what-to-use-when/business.html.svg?style=flat-square&amp;label=visits&amp;color=1A6FD6&amp;labelColor=F6F7FB" alt="Visit count" class="visit-counter" loading="lazy">
     </div>
   </div>
   <h1>Copilot, Cowork, Studio &amp; Scout: <span class="accent">what to use when</span></h1>

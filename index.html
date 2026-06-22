@@ -31,11 +31,13 @@
   .brand{display:flex; align-items:center; gap:12px; min-width:0}
   .brand img{width:38px; height:38px; flex:0 0 auto}
   .brand .name{font-weight:800; letter-spacing:.2px}
+  .header-actions{display:inline-flex;align-items:center;flex-shrink:0}
   .theme-toggle{display:inline-flex;gap:2px;align-items:center;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px;flex-shrink:0}
   .theme-toggle button{appearance:none;background:transparent;border:0;color:var(--muted);font:700 11.5px/1 'Segoe UI',system-ui,sans-serif;padding:6px 11px;border-radius:999px;cursor:pointer;letter-spacing:.4px;text-transform:uppercase}
   .theme-toggle button:hover{color:var(--fg)}
   .theme-toggle button[aria-pressed="true"]{background:var(--card);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.12)}
   .theme-toggle button:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+  .visit-counter{display:block;height:20px;margin-left:10px;flex-shrink:0}
   .hero{max-width:1100px; margin:0 auto; padding:34px 24px 16px; width:100%}
   .eyebrow{font-size:13px; font-weight:800; letter-spacing:1.2px; color:var(--brand); text-transform:uppercase; margin-bottom:8px}
   h1{font-size:clamp(30px,4vw,48px); line-height:1.1; margin:0 0 12px; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
@@ -53,6 +55,7 @@
   footer{max-width:1100px; margin:0 auto; padding:18px 24px 28px; width:100%; color:var(--muted); font-size:12.5px}
   footer a{color:var(--link)}
   @media (max-width:780px){.grid{grid-template-columns:1fr}.card{min-height:auto}.hero{padding-top:26px}}
+  @media (max-width:480px){.visit-counter{display:none}}
   @media (max-width:420px){header,.hero,main,footer{padding-left:16px;padding-right:16px}.theme-toggle button{font-size:10.5px;padding:5px 8px}.brand .name{font-size:14px}}
 </style>
 <script>
@@ -93,10 +96,13 @@
         <img src="copilot-color.png" alt="">
         <div class="name">Microsoft Copilot</div>
       </div>
-      <div class="theme-toggle" role="group" aria-label="Theme">
-        <button type="button" data-tset="system" title="Match system">Sys</button>
-        <button type="button" data-tset="light" title="Light">Light</button>
-        <button type="button" data-tset="dark" title="Dark">Dark</button>
+      <div class="header-actions">
+        <div class="theme-toggle" role="group" aria-label="Theme">
+          <button type="button" data-tset="system" title="Match system">Sys</button>
+          <button type="button" data-tset="light" title="Light">Light</button>
+          <button type="button" data-tset="dark" title="Dark">Dark</button>
+        </div>
+        <img src="https://hits.sh/steffiyappy.github.io/copilot-what-to-use-when/.svg?style=flat-square&amp;label=visits&amp;color=2563EB&amp;labelColor=F5F7FB" alt="Visit count" class="visit-counter" loading="lazy">
       </div>
     </div>
   </header>
