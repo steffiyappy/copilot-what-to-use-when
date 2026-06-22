@@ -172,9 +172,21 @@ def parse_page(path: Path) -> dict:
         subtitle = find_first(r'<p class="sec-sub">([\s\S]*?)</p>', section) or find_first(r'<span class="hint">([\s\S]*?)</span>', section)
         bullets = extract_bullets(section, heading)
         sections.append({"title": heading, "subtitle": subtitle, "bullets": bullets, "special": None})
-    refs = re.findall(r'<a href="([^"]+)"[^>]*>([\s\S]*?)</a>', html, flags=re.I | re.S)
-    ref_titles = [clean_text(label) for _, label in refs]
-    return {"title": title, "lede": lede, "sections": sections, "refs": ref_titles[:8]}
+    refs_raw = re.findall(r'<a href="([^"]+)"[^>]*>([\s\S]*?)</a>', html, flags=re.I | re.S)
+    seen = set()
+    refs = []
+    for url, label in refs_raw:
+        label_clean = clean_text(label)
+        if not label_clean or label_clean in SECTION_STOP_WORDS:
+            continue
+        if not url.startswith("http"):
+            continue
+        key = (url, label_clean)
+        if key in seen:
+            continue
+        seen.add(key)
+        refs.append({"url": url, "label": label_clean})
+    return {"title": title, "lede": lede, "sections": sections, "refs": refs[:8]}
 
 
 def extract_label_value(detail_html: str, label: str) -> str:
@@ -459,12 +471,31 @@ def add_cowork_schedule_tip(prs: Presentation, theme: dict) -> None:
     add_textbox(slide, SCHEDULED_PROMPT_TIP, 1.35, 2.75, 7.2, 0.95, 17, theme["ink"])
 
 
-def add_refs_slide(prs: Presentation, refs: list[str], theme: dict) -> None:
+def add_refs_slide(prs: Presentation, refs: list[dict], theme: dict) -> None:
     slide = prs.slides.add_slide(prs.slide_layouts[5])
     set_background(slide, theme["bg"])
     add_header(slide, "References", theme, "Microsoft sources")
-    clean_refs = [r for r in refs if r and r not in SECTION_STOP_WORDS][:8]
-    add_bullets(slide, clean_refs, 0.8, 1.45, 8.4, 3.4, theme, 12)
+    box = slide.shapes.add_textbox(Inches(0.8), Inches(1.45), Inches(8.4), Inches(3.4))
+    tf = box.text_frame
+    tf.word_wrap = True
+    tf.margin_left = Inches(0.08)
+    tf.margin_right = Inches(0.08)
+    tf.margin_top = Inches(0.04)
+    for i, ref in enumerate(refs[:8]):
+        p = tf.paragraphs[0] if i == 0 else tf.add_paragraph()
+        p.space_after = Pt(5)
+        bullet_run = p.add_run()
+        bullet_run.text = "\u2022 "
+        bullet_run.font.name = "Segoe UI"
+        bullet_run.font.size = Pt(12)
+        bullet_run.font.color.rgb = theme["ink"]
+        link_run = p.add_run()
+        link_run.text = ref["label"]
+        link_run.font.name = "Segoe UI"
+        link_run.font.size = Pt(12)
+        link_run.font.color.rgb = theme["accent"]
+        link_run.font.underline = True
+        link_run.hyperlink.address = ref["url"]
 
 
 def build_deck(page_file: str, out_file: str, kind: str) -> None:
