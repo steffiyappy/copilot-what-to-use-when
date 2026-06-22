@@ -357,10 +357,10 @@
 
 <header class="top">
   <div class="wrap top-inner">
-    <img class="logo-img" src="copilot-color.png" alt="Microsoft Copilot logo">
+    <img class="logo-img" src="copilot-color.png" alt="Microsoft 365 Copilot logo">
     <div>
       <h1>Microsoft 365 Copilot &amp; Cowork: <span class="accent">what to use when</span></h1>
-      <div class="top-sub">Microsoft 365 Copilot is your everyday AI assistant. Copilot Cowork is the AI coworker that does the work for you. This guide shows the quickest path for everyday work and when to bring Cowork in. Every claim is grounded in Microsoft Learn or microsoft.com, with links at the bottom.</div>
+      <div class="top-sub">Microsoft 365 Copilot is your everyday AI assistant. Copilot Cowork is the AI coworker that does the work for you. This guide shows the quickest path for everyday work and when to bring Cowork in. Every claim is grounded in Microsoft Learn or microsoft.com, with links at the bottom. Preview features are labelled and may change.</div>
     </div>
     <div class="theme-toggle" role="group" aria-label="Theme">
       <button type="button" data-tset="system" title="Match system">Sys</button>
@@ -407,7 +407,7 @@
         <blockquote>"Microsoft 365 Copilot Cowork can carry out tasks on your behalf. You describe what you need, and Cowork sends emails, schedules meetings, creates documents, posts in Teams, and manages your calendar. You approve each action before it happens."</blockquote>
         <ul>
           <li>Built-in skills: Word, Excel, PowerPoint, PDF, Email, Scheduling, Calendar Management, Meetings, Daily Briefing, Enterprise Search, Communications, Deep Research, Adaptive Cards.</li>
-          <li>Extend with up to 50 custom skills and Microsoft 365 App Store plugins.</li>
+          <li>Extend with up to 50 custom skills and Microsoft 365 App Store plugins, where enabled by your admin.</li>
           <li>Stay in control: pause, resume, cancel, and approve sensitive actions with risk indicators.</li>
         </ul>
         <a class="src-link" href="https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/" target="_blank">Source: Copilot Cowork overview, Microsoft Learn</a>
@@ -463,7 +463,7 @@
             <td class="why">Researcher agent is "designed for deeper reasoning... excels at tackling complex tasks that require thoughtful analysis... delivers a more comprehensive, insightful response" with cited sources.</td>
           </tr>
           <tr>
-            <td class="task">Take real action across M365 (send emails, schedule meetings, post in Teams, organise files)</td>
+            <td class="task">Take real action across Microsoft 365 (send emails, schedule meetings, post in Teams, organise files)</td>
             <td class="cell"><span class="no">No</span></td>
             <td class="cell"><span class="no">No</span></td>
             <td class="cell"><span class="no">No</span></td>
@@ -687,6 +687,7 @@
       <span class="hint">What light, medium, and heavy looks like with Copilot Cowork.</span>
     </div>
     <p style="color:var(--mute);font-size:13.5px;max-width:1040px">Light means quick everyday handoffs Cowork can finish in minutes, pulling from a source or two. Medium means recurring multi-step work that fills your week, reasoning across several sources. Heavy means the big multi-part work you would block out serious time for, producing a full set of artifacts.</p>
+    <p style="color:var(--mute);font-size:13.5px;max-width:1040px">These displayed examples use Microsoft 365 data and files. Plugin-dependent tasks are intentionally excluded here, although Cowork can be extended through Microsoft 365 App Store plugins such as Fabric IQ, Dynamics 365 Sales, monday.com, Miro, Prezi, and Templafy where enabled by your admin.</p>
     <div class="cowork-tier-intro">
       <div class="cowork-tier-note light"><b>Light:</b> Quick handoffs, a small number of sources, and minutes to finish.</div>
       <div class="cowork-tier-note medium"><b>Medium:</b> Recurring multi-step work across several sources.</div>
@@ -730,7 +731,7 @@ Follow-up prompts: Accept and decline meetings. Create a customer meeting prep d
                   </ol>
                 <p><b>Note:</b></p>
                 <ul class="task-notes">
-                  <li>You can schedule this to run automatically by starting your prompt with "Create a skill where this occurs every Monday morning."</li>
+                  <li>To automate this, save the prompt, then in Microsoft 365 Copilot hover the saved prompt and choose "Schedule this prompt". Use a skill separately when you want the same workflow instructions reused.</li>
                 </ul>
                 </div>
               </div></td></tr>
@@ -766,20 +767,20 @@ Then build a lightweight HTML recap page for the archive, project outcomes, key 
               </div></td></tr>
             <tr><td>All teams</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-3">
                 <span class="tier-badge light">Light</span>
-                <span class="task-title">Catch up on messages and send replies automatically</span>
+                <span class="task-title">Catch up on messages and prepare replies for approval</span>
               </button>
               <div class="task-modal-data" id="task-technical-lite-3">
                 <div class="task-modal-heading">
                   <span class="tier-badge light">Light</span>
-                  <span class="task-title">Catch up on messages and send replies automatically</span>
+                  <span class="task-title">Catch up on messages and prepare replies for approval</span>
                 </div>
                 <div class="task-body">
 <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
                   <p><b>Goal:</b> Close the loop on unanswered questions without scrolling back through a week of threads.</p>
-                  <p><b>Outcome:</b> Routine acknowledgments handled automatically, higher-stakes replies drafted for review, so you stay responsive without spending hours catching up.</p>
+                  <p><b>Outcome:</b> Routine acknowledgments and higher-stakes replies drafted for your review, so you stay responsive without spending hours catching up.</p>
                   <p><b>Prompt:</b></p>
                   <pre class="prompt-text">Go through my Teams messages and emails from this week where someone asked me a direct question and I haven't responded.
-For anything that just needs a quick acknowledgment or "got it," send the reply. For anything that needs a real answer, draft it and show me first.</pre>
+For anything that just needs a quick acknowledgment or "got it," prepare the reply for my approval. For anything that needs a real answer, draft it and show me first.</pre>
                   <p><b>Execution flow:</b></p>
                   <ol class="exec-flow">
                     <li>Email + Teams -&gt; Scan weekly conversations</li>
@@ -787,8 +788,8 @@ For anything that just needs a quick acknowledgment or "got it," send the reply.
                     <li>Classify -&gt; Acknowledgment vs. substantive reply</li>
                     <li>Generate -&gt; Quick acknowledgment responses</li>
                     <li>Draft -&gt; Substantive replies for review</li>
-                    <li>Auto-send -&gt; Low-risk acknowledgments</li>
-                    <li>Surface -&gt; Drafted replies for approval Catch up on messages and send replies automatically</li>
+                    <li>Prepare -&gt; Low-risk acknowledgments for approval</li>
+                    <li>Surface -&gt; Drafted replies for approval Catch up on messages and prepare replies for approval</li>
                   </ol>
                 </div>
               </div></td></tr>
@@ -856,7 +857,7 @@ Once the drafts are ready, send me an email summary reminding me to review them,
                   </ol>
                 <p><b>Note:</b></p>
                 <ul class="task-notes">
-                  <li>This is a scheduled Cowork prompt, it runs automatically every Monday morning. Save it as a skill so it repeats without re-prompting. All replies are held as drafts for your review before anything is sent. See Cowork skills.</li>
+                  <li>Schedule the saved prompt to run every Monday morning. All replies are held as drafts for your review before anything is sent. Use a Cowork skill if you want to preserve the repeatable workflow instructions.</li>
                 </ul>
                 </div>
               </div></td></tr>
@@ -930,7 +931,7 @@ Send me this weekly brief every Friday afternoon.</pre>
                   </ol>
                 <p><b>Note:</b></p>
                 <ul class="task-notes">
-                  <li>This task features a scheduled prompt, which tells Cowork you want it to run automatically on a recurring basis. To create a scheduled prompt, simply describe what you want and when in your message.</li>
+                  <li>This task can use a scheduled prompt. In Microsoft 365 Copilot, save the prompt, hover it, choose "Schedule this prompt", and set the recurrence.</li>
                 </ul>
                 </div>
               </div></td></tr>
@@ -1301,7 +1302,7 @@ Minor, tone, formatting
 For each finding:
 Capture the issue, the business impact, and a specific recommended fix
 Map the finding to an owner using file ownership metadata or the latest editor
-Bring it all together in a sortable Excel report, total assets reviewed, findings by severity, the most common drift patterns, an owner-routed fix list, and the recommended order to address. Route each finding to its owner through the report.</pre>
+Bring it all together in a sortable Excel report, total assets reviewed, findings by severity, the most common drift patterns, an owner-mapped fix list, and the recommended order to address. List each finding with its recommended owner in the report.</pre>
                   <p><b>Execution flow:</b></p>
                   <ol class="exec-flow">
                     <li>OneDrive [Folder] -&gt; Read every asset in full</li>
@@ -1310,7 +1311,7 @@ Bring it all together in a sortable Excel report, total assets reviewed, finding
                     <li>Categorize -&gt; Critical · Major · Minor</li>
                     <li>Capture -&gt; Issue · impact · fix</li>
                     <li>Map -&gt; Owner per finding</li>
-                    <li>Route -&gt; Findings via Excel</li>
+                    <li>List -&gt; Findings and owners in Excel</li>
                     <li>Deliver -&gt; Sortable audit report</li>
                   </ol>
                 <p><b>Note:</b></p>
@@ -1331,7 +1332,7 @@ Bring it all together in a sortable Excel report, total assets reviewed, finding
                 <div class="task-body">
 <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
                   <p><b>Goal:</b> Run a weekly customer-signal sweep that feeds next week's messaging, content, and campaign moves, correlated against live campaign performance.</p>
-                  <p><b>Outcome:</b> Every Friday, a Word customer signal brief, themes, objections, message implications, recommended campaign adjustments, and owner follow-ups, grounded in customer voice and Fabric IQ campaign response data.</p>
+                  <p><b>Outcome:</b> Every Friday, a Word customer signal brief, themes, objections, message implications, recommended campaign adjustments, and owner follow-ups, grounded in customer voice and accessible campaign performance reports.</p>
                   <p><b>Prompt:</b></p>
                   <pre class="prompt-text">Every Friday at 9 AM, run the customer signal sweep so we walk into Monday with next week's moves already informed by the last seven days of customer voice.
 Monitor:
@@ -1339,7 +1340,7 @@ Customer call recordings and notes in [Customer Calls Folder]
 Sales feedback emails tagged [Sales Feedback Tag]
 [Sales Channel] and [Customer Success Channel] Teams discussions
 Support themes from [Support Ticket Folder]
-[Industry/Segment] market signals from research feeds
+[Industry/Segment] market signals from accessible research sources
 Synthesize:
 Top three themes of the week
 Emerging objections
@@ -1356,14 +1357,14 @@ Tailored follow-up drafts queued for each owner</pre>
                     <li>Email (sales feedback) -&gt; Pull front-line patterns into view</li>
                     <li>Teams [Sales + CS Channels] -&gt; Read live discussions</li>
                     <li>Support [Folder] -&gt; Identify support themes</li>
-                    <li>Web / research feeds -&gt; Capture market signals</li>
+                    <li>Accessible research sources -&gt; Capture market signals</li>
                     <li>Synthesize -&gt; Themes · objections · implications</li>
                     <li>Post -&gt; Summary to [Marketing Channel]</li>
                     <li>Queue -&gt; Owner-specific follow-ups</li>
                   </ol>
                 <p><b>Note:</b></p>
                 <ul class="task-notes">
-                  <li>This is a scheduled Cowork prompt, describe what you want and when, and Cowork runs it on a recurring schedule in the background. Pair it with a saved skill so your team can subscribe to the same signal. See Cowork skills.</li>
+                  <li>This can run as a scheduled prompt. Save the prompt, hover it in Microsoft 365 Copilot, choose "Schedule this prompt", and set the recurrence. Pair it with a saved Cowork skill when you want the same workflow instructions reused.</li>
                 </ul>
                 </div>
               </div></td></tr>
@@ -1373,7 +1374,7 @@ Tailored follow-up drafts queued for each owner</pre>
     </div>
   </section>
   <div class="goldrule rule addon-tip">
-    <p><span class="gr-title">Add-on tip</span> Any of these Cowork tasks can be scheduled to run automatically. In Microsoft 365 Copilot, hover a saved prompt and pick "Schedule this prompt", then choose a daily or weekly cadence (requires a Microsoft 365 Copilot licence).</p>
+    <p><span class="gr-title">Add-on tip</span> Any of these Cowork tasks can be scheduled to run automatically. In Microsoft 365 Copilot, hover a saved prompt and pick "Schedule this prompt", then choose a daily, weekly, monthly, or custom cadence (requires a Microsoft 365 Copilot licence).</p>
   </div>
   <footer class="btm">
     <div class="src">
@@ -1385,7 +1386,7 @@ Tailored follow-up drafts queued for each owner</pre>
       <div class="line"><span class="lab">LEARN</span>Agents for Microsoft 365 Copilot Chat: <a href="https://learn.microsoft.com/en-us/copilot/agents" target="_blank">learn.microsoft.com/copilot/agents</a></div>
       <div class="line"><span class="lab">SUPPORT</span>Schedule your most used Copilot prompts: <a href="https://support.microsoft.com/en-us/microsoft-365-copilot/schedule-your-most-used-copilot-prompts" target="_blank">support.microsoft.com/microsoft-365-copilot/schedule-your-most-used-copilot-prompts</a></div>
       <div class="line"><span class="lab">ADOPTION</span>Cowork for the AI user (prompt structure): <a href="https://adoption.microsoft.com/en-us/copilot/cowork/ai-user/" target="_blank">adoption.microsoft.com/copilot/cowork/ai-user</a></div>
-      <div class="line"><span class="lab">ADOPTION</span>Microsoft Copilot Adoption hub: <a href="https://adoption.microsoft.com/" target="_blank">adoption.microsoft.com</a></div>
+      <div class="line"><span class="lab">ADOPTION</span>Microsoft 365 Copilot Adoption hub: <a href="https://adoption.microsoft.com/" target="_blank">adoption.microsoft.com</a></div>
     </div>
   </footer>
 
