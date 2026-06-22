@@ -132,6 +132,30 @@
   .s4 h3{font-size:15px;margin:4px 0 6px;color:var(--ink)}
   .s4 p{font-size:13px;color:var(--ink2)}
 
+
+  /* Cowork tasks in action */
+  .cowork-action{margin-top:42px}
+  .cowork-tier-intro{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:16px 0 20px}
+  .cowork-tier-note{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:13px 15px;color:var(--ink2);font-size:14px;line-height:1.45}
+  .cowork-tier-note b{color:var(--ink)}
+  .cowork-tier-note.light{border-top:4px solid var(--green)}
+  .cowork-tier-note.medium{border-top:4px solid var(--teal)}
+  .cowork-tier-note.heavy{border-top:4px solid var(--pink)}
+  .cowork-tier{margin-top:22px}
+  .cowork-tier h3{font-size:20px;margin-bottom:10px;color:var(--ink);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .tier-pill{display:inline-flex;align-items:center;border-radius:99px;padding:4px 11px;font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#fff}
+  .tier-pill.light{background:var(--green)}.tier-pill.medium{background:var(--teal)}.tier-pill.heavy{background:var(--pink)}
+  .cowork-audience-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;align-items:stretch}
+  .cowork-audience{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;border-top:4px solid var(--green);display:flex;flex-direction:column;gap:10px}
+  .cowork-tier.medium .cowork-audience{border-top-color:var(--teal)}
+  .cowork-tier.heavy .cowork-audience{border-top-color:var(--pink)}
+  .cowork-audience h4{font-size:13px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--mute)}
+  .cowork-task{padding-top:10px;border-top:1px dashed var(--line)}
+  .cowork-task:first-of-type{border-top:0;padding-top:0}
+  .cowork-task b{display:block;color:var(--ink);font-size:15px;line-height:1.35;margin-bottom:3px}
+  .cowork-task span{display:block;color:var(--ink2);font-size:13.5px;line-height:1.42}
+
+
   /* refs footer */
   footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line)}
   .refs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:8px 18px}
@@ -449,6 +473,133 @@
     </div>
   </section>
 
+  <!-- Section: Cowork tasks in action -->
+  <section class="cowork-action">
+    <div class="sec-eyebrow">Cowork tasks in action</div>
+    <h2>Cowork tasks in action</h2>
+    <p class="sec-sub">What light, medium, and heavy looks like with Copilot Cowork.</p>
+    <p class="sec-sub">Light means quick everyday handoffs Cowork can finish in minutes, pulling from a source or two. Medium means recurring multi-step work that fills your week, reasoning across several sources. Heavy means the big multi-part work you would block out serious time for, producing a full set of artifacts.</p>
+    <div class="cowork-tier-intro">
+      <div class="cowork-tier-note light"><b>Light:</b> Quick handoffs, a small number of sources, and minutes to finish.</div>
+      <div class="cowork-tier-note medium"><b>Medium:</b> Recurring multi-step work across several sources.</div>
+      <div class="cowork-tier-note heavy"><b>Heavy:</b> Big jobs with multiple artifacts and approvals.</div>
+    </div>
+    <div class="cowork-tier light">
+      <h3><span class="tier-pill light">Light</span>Light tasks</h3>
+      <div class="cowork-audience-grid">
+        <div class="cowork-audience">
+          <h4>All teams</h4>
+          <div class="cowork-task">
+            <b>Rebalance your week and protect focus time</b>
+            <span>Reshapes a fragmented calendar into a conflict-free week with focus blocks.</span>
+          </div>
+          <div class="cowork-task">
+            <b>Wrap up projects and organize all related work</b>
+            <span>Closes a project with a clean, shareable OneDrive archive.</span>
+          </div>
+          <div class="cowork-task">
+            <b>Catch up on messages and send replies automatically</b>
+            <span>Handles routine replies and drafts higher-stakes responses for review.</span>
+          </div>
+        </div>
+        <div class="cowork-audience">
+          <h4>Sales</h4>
+          <div class="cowork-task">
+            <b>Pricing screenshot to customer presentation</b>
+            <span>Turns approved pricing into a customer-ready deck and draft email.</span>
+          </div>
+          <div class="cowork-task">
+            <b>Weekly external customer email review</b>
+            <span>Surfaces customer action items, drafts replies, and sends a Teams reminder.</span>
+          </div>
+        </div>
+        <div class="cowork-audience">
+          <h4>Marketing</h4>
+          <div class="cowork-task">
+            <b>Research and insights alignment recap</b>
+            <span>Posts decisions, open issues, and named next steps to Teams.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cowork-tier medium">
+      <h3><span class="tier-pill medium">Medium</span>Medium tasks</h3>
+      <div class="cowork-audience-grid">
+        <div class="cowork-audience">
+          <h4>All teams</h4>
+          <div class="cowork-task">
+            <b>Turn inbox noise into a curated intelligence brief</b>
+            <span>Creates a weekly trend brief from the publications you follow.</span>
+          </div>
+        </div>
+        <div class="cowork-audience">
+          <h4>Marketing</h4>
+          <div class="cowork-task">
+            <b>Partner and channel activation kit</b>
+            <span>Produces partner-ready and channel-ready kits with a routing plan.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cowork-tier heavy">
+      <h3><span class="tier-pill heavy">Heavy</span>Heavy tasks</h3>
+      <div class="cowork-audience-grid">
+        <div class="cowork-audience">
+          <h4>All teams</h4>
+          <div class="cowork-task">
+            <b>Prepare a complete out-of-office handoff</b>
+            <span>Builds a handoff from active projects, owners, deadlines, and files.</span>
+          </div>
+          <div class="cowork-task">
+            <b>Analyze and optimize your OneDrive at scale</b>
+            <span>Creates a structured catalog with cleanup decisions queued for approval.</span>
+          </div>
+          <div class="cowork-task">
+            <b>Audit and surface against a standard</b>
+            <span>Audits many files against a policy and returns a sortable fix list.</span>
+          </div>
+          <div class="cowork-task">
+            <b>Onboard a new hire with a complete 30-60-90 plan</b>
+            <span>Creates the plan, getting started dashboard, and check-ins.</span>
+          </div>
+        </div>
+        <div class="cowork-audience">
+          <h4>Sales</h4>
+          <div class="cowork-task">
+            <b>Product launch customer pitch</b>
+            <span>Creates the comparison, value prop, and customer-ready pitch deck.</span>
+          </div>
+          <div class="cowork-task">
+            <b>New customer onboarding automation</b>
+            <span>Sets up onboarding artifacts, team message, and welcome email from one email.</span>
+          </div>
+          <div class="cowork-task">
+            <b>Customer adoption materials</b>
+            <span>Builds persona-tailored learning paths with a recommended rollout order.</span>
+          </div>
+          <div class="cowork-task">
+            <b>ROI and value selling artifact</b>
+            <span>Produces an executive deck and microsite with use cases and ROI model.</span>
+          </div>
+        </div>
+        <div class="cowork-audience">
+          <h4>Marketing</h4>
+          <div class="cowork-task">
+            <b>Analyst briefing prep and rehearsal routing</b>
+            <span>Builds a briefing dashboard and locks rehearsal time on the calendar.</span>
+          </div>
+          <div class="cowork-task">
+            <b>Messaging drift audit and remediation routing</b>
+            <span>Flags inconsistencies with severity, recommended fix, and owner.</span>
+          </div>
+          <div class="cowork-task">
+            <b>Scheduled customer signal activation</b>
+            <span>Creates a Friday customer signal brief with campaign adjustments.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <footer>
     <div class="sec-eyebrow" style="margin-bottom:10px">References</div>
     <div class="refs">
