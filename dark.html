@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microsoft 365 Copilot, Cowork, Studio &amp; Scout: what to use when</title>
+<style>
+  :root{
+    --bg:#0E1430; --bg2:#161E45; --edge:#2C3A78; --band:#131B40;
+    --rowA:#172046; --rowB:#1B2552; --white:#FFFFFF; --mute:#AEB8E0; --sub:#8B97C9;
+    --teal:#00B7C3; --blue:#2B88D8; --purp:#8B6FD6; --green:#73B82E; --gold:#E3A008;
+    --pink:#E3508F; --magenta:#B146C2; --link:#7FB2FF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 800px at 20% -10%,#1a2350 0%,var(--bg) 55%) fixed;
+    color:var(--white);line-height:1.55;padding:0 0 48px;
+  }
+  .wrap{max-width:1600px;margin:0 auto;padding:0 18px}
+
+  header.top{background:var(--bg2);border-bottom:1px solid var(--edge);padding:22px 0}
+  .top-inner{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .logo-img{width:46px;height:46px;flex:0 0 auto;display:block;object-fit:contain}
+  h1{font-size:clamp(22px,3.4vw,32px);font-weight:800;letter-spacing:.2px}
+  h1 .accent{color:var(--link)}
+  .top-sub{color:var(--mute);font-size:15px;margin-top:4px;max-width:840px}
+  .region-chip{margin-left:auto;background:#fff;color:#0E1430;border-radius:7px;
+    padding:7px 14px;font-weight:800;font-size:13px;letter-spacing:.4px}
+
+  .reco{margin:26px 0 8px;border:1px solid var(--gold);border-radius:14px;
+    background:linear-gradient(180deg,rgba(227,160,8,.14),rgba(227,160,8,.05));
+    padding:18px 22px;display:flex;gap:16px;align-items:flex-start}
+  .reco .badge{flex:0 0 auto;font-size:22px;line-height:1.1;margin-top:2px}
+  .reco h2{font-size:17px;color:#F3CE6B;margin-bottom:5px;letter-spacing:.2px}
+  .reco p{color:#EAF1FF;font-size:14.5px}
+  .reco p b{color:#fff}
+
+  section{margin-top:34px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .sec-num{font-size:13px;font-weight:800;color:var(--bg);background:var(--teal);
+    border-radius:20px;padding:3px 11px;letter-spacing:.5px}
+  .sec-head h2{font-size:clamp(18px,2.6vw,24px);font-weight:800}
+  .sec-head .hint{color:var(--mute);font-size:14px}
+
+  .progress{display:flex;justify-content:space-between;color:var(--mute);
+    font-size:12.5px;font-weight:600;margin:2px 2px 8px}
+  .progress .a{color:#7FE3D2}.progress .b{color:#B7E59A}
+  .spectrum{height:10px;border-radius:6px;margin-bottom:18px;
+    background:linear-gradient(90deg,var(--teal),var(--blue),var(--purp),var(--magenta),var(--green),var(--pink))}
+
+  .tbl-scroll{overflow-x:auto;border-radius:14px;border:1px solid var(--edge)}
+  table{width:100%;border-collapse:collapse;min-width:1200px;background:var(--rowB)}
+  th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--edge);vertical-align:middle;font-size:13.5px}
+  thead th{background:var(--band);font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;color:var(--white);font-weight:700}
+  thead th.tool{text-align:center}
+  .tool-pill{display:inline-flex;flex-direction:column;align-items:center;gap:3px}
+  .tool-pill .n{font-weight:700;font-size:13px}
+  .tool-pill .num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#fff}
+  .tool-pill .tag{font-size:9px;font-weight:700;letter-spacing:.4px}
+  th.t1{border-top:3px solid var(--teal)} th.t2{border-top:3px solid var(--blue)}
+  th.t3{border-top:3px solid var(--purp)} th.t4{border-top:3px solid var(--magenta)}
+  th.t5{border-top:3px solid var(--green)} th.t6{border-top:3px solid var(--pink)}
+  tbody tr:nth-child(odd){background:var(--rowA)}
+  td.task{font-weight:600;color:#fff;width:18%}
+  td.cell{text-align:center;font-size:16px}
+  td.why{color:var(--mute);font-size:12.5px;width:22%}
+  .best{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;border-radius:8px;padding:4px 10px}
+  .best.t1{background:var(--teal)}.best.t2{background:var(--blue)}.best.t3{background:var(--purp)}
+  .best.t4{background:var(--magenta)}.best.t5{background:var(--green)}.best.t6{background:var(--pink)}
+  .ok{color:var(--mute);font-weight:700}.no{color:#5A6699}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;color:var(--mute);font-size:13px}
+  .legend b{color:#fff}
+
+  .goldrule{margin-top:16px;border:1px solid var(--edge);background:var(--band);border-radius:12px;padding:16px 20px}
+  .goldrule .gr-title{display:inline-flex;align-items:center;gap:6px;color:#0E1430;background:var(--green);font-weight:800;font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;border-radius:7px;padding:4px 11px;margin-right:9px}
+  .goldrule .gr-title::before{content:"📌";font-size:12px}
+  .goldrule p{font-size:14px;color:#EAF1FF;margin-top:10px}
+  .goldrule p:first-child{margin-top:0}
+  .goldrule.rule{position:relative;border-color:var(--green);padding-left:24px;background:linear-gradient(180deg,rgba(115,184,46,.18),rgba(115,184,46,.04));box-shadow:0 8px 22px rgba(0,0,0,.22)}
+  .goldrule.rule::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;border-radius:12px 0 0 12px;background:linear-gradient(180deg,var(--green),var(--teal))}
+  .goldrule.rule .big{font-size:15px;color:#fff}
+  .k-teal{color:var(--teal);font-weight:700}.k-blue{color:var(--blue);font-weight:700}
+  .k-purp{color:var(--purp);font-weight:700}.k-magenta{color:var(--magenta);font-weight:700}
+  .k-green{color:var(--green);font-weight:700}.k-pink{color:var(--pink);font-weight:700}
+
+  .product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:6px;align-items:stretch}
+  .pcard{background:var(--rowB);border:1px solid var(--edge);border-radius:14px;overflow:hidden;border-left:5px solid var(--teal);padding:16px 18px;display:flex;flex-direction:column}
+  .pcard.b{border-left-color:var(--green)}
+  .pcard.c{border-left-color:var(--magenta)}
+  .pcard.d{border-left-color:var(--pink)}
+  .pcard .nm{font-weight:800;font-size:16.5px}
+  .pcard .ga{display:inline-block;margin-left:8px;font-size:9.5px;font-weight:700;letter-spacing:.5px;padding:2px 6px;border-radius:6px;background:var(--green);color:#0E1430}
+  .pcard .fr{background:var(--pink);color:#fff}
+  .pcard blockquote{color:#EAF1FF;font-size:13.5px;border-left:3px solid var(--edge);padding:6px 0 6px 12px;margin:8px 0 10px;font-style:italic}
+  .pcard ul{margin-left:18px;color:#EAF1FF;font-size:13px}
+  .pcard ul li{margin-bottom:3px}
+  .src-link{font-size:11.5px;color:var(--link);text-decoration:none;display:inline-block;margin-top:6px}
+  .src-link:hover{text-decoration:underline}
+
+  .scen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin-top:6px;align-items:stretch}
+  .scen{background:var(--rowB);border:1px solid var(--edge);border-radius:14px;padding:16px 18px;border-top:4px solid var(--teal);display:flex;flex-direction:column}
+  .scen.b{border-top-color:var(--purp)}
+  .scen.c{border-top-color:var(--green)}
+  .scen.d{border-top-color:var(--pink)}
+  .scen.e{border-top-color:var(--magenta)}
+  .scen .role{font-size:11.5px;font-weight:700;letter-spacing:.4px;color:var(--sub);text-transform:uppercase}
+  .scen .title{font-weight:800;font-size:15.5px;margin:4px 0 8px}
+  .scen p{color:#EAF1FF;font-size:13.5px;margin-bottom:9px}
+  .scen .pick{font-size:12.5px;color:var(--mute)}
+  .scen .pick b{color:#fff}
+  .scen .tag{display:inline-block;font-size:10.5px;font-weight:800;color:#fff;border-radius:6px;padding:2px 7px;margin-right:5px}
+  .tg-chat{background:var(--teal)}.tg-app{background:var(--blue)}.tg-agt{background:var(--purp)}
+  .tg-std{background:var(--magenta)}.tg-cow{background:var(--green);color:#0E1430}.tg-sct{background:var(--pink)}
+
+  .appgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;margin-top:6px;align-items:stretch}
+  .acard{background:var(--rowB);border:1px solid var(--edge);border-radius:12px;padding:16px 18px;display:flex;flex-direction:column}
+  .acard .ah{display:flex;align-items:center;gap:10px;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid var(--edge)}
+  .acard .ah .ic{font-size:22px}
+  .acard .ah .nm{font-weight:800;font-size:17px;color:#fff}
+  .acard .opt{display:flex;flex-direction:column;gap:6px;padding:10px 0;border-top:1px dashed var(--edge)}
+  .acard .opt:first-of-type{border-top:0;padding-top:2px}
+  .acard .opt .tag{align-self:flex-start;font-size:13px;font-weight:800;padding:5px 13px;color:#fff;border-radius:99px;letter-spacing:.2px;white-space:nowrap;display:inline-flex;align-items:center}
+  .acard .opt .tag.tg-cow{color:#0E1430}
+  .acard .opt .desc{font-size:14.5px;color:#EAF1FF;line-height:1.55}
+  .acard .opt .desc b{color:#fff}
+  .acard .opt b{color:#fff}
+
+  .validate{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+  .panel{background:var(--rowB);border:1px solid var(--edge);border-radius:14px;overflow:hidden}
+  .panel .cap{height:5px}
+  .panel .pad{padding:18px 20px}
+  .panel h3{font-size:18px;font-weight:800}
+  .panel .lbl{font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin:6px 0 12px}
+  .panel p{color:var(--mute);font-size:13px;margin-top:8px}
+
+  .prompt-frame{background:var(--bg2);border:1px solid var(--edge);border-radius:14px;padding:20px 22px;margin-top:14px}
+  .prompt-frame h3{font-size:17px;font-weight:800;margin-bottom:10px}
+  .prompt-frame .grid5{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:8px 0 14px}
+  .prompt-frame .gb{background:var(--rowA);border:1px solid var(--edge);border-radius:10px;padding:11px 13px;border-top:3px solid var(--teal)}
+  .prompt-frame .gb:nth-child(2){border-top-color:var(--blue)}
+  .prompt-frame .gb:nth-child(3){border-top-color:var(--purp)}
+  .prompt-frame .gb:nth-child(4){border-top-color:var(--magenta)}
+  .prompt-frame .gb:nth-child(5){border-top-color:var(--green)}
+  .prompt-frame .gb .n{font-weight:800;font-size:13.5px;margin-bottom:4px}
+  .prompt-frame .gb .d{color:var(--mute);font-size:12.5px}
+  .prompt-frame .exb{background:var(--rowA);border:1px solid var(--edge);border-radius:10px;padding:14px 16px;margin-top:10px}
+  .prompt-frame .exb .lab{font-size:11px;font-weight:800;letter-spacing:.5px;color:var(--sub);text-transform:uppercase;margin-bottom:5px}
+  .prompt-frame .exb p{color:#EAF1FF;font-size:13.5px;font-style:italic}
+  .prompt-frame .exb.good{border-left:4px solid var(--green)}
+  .prompt-frame .exb.bad{border-left:4px solid var(--pink)}
+
+  footer.btm{margin-top:36px;border-top:1px solid var(--edge);padding-top:16px}
+  .src{font-size:12px;color:var(--sub);max-width:100%}
+  .src a{color:var(--link);text-decoration:none;word-break:break-all}
+  .src a:hover{text-decoration:underline}
+  .src .line{margin-bottom:5px}
+  .src .lab{display:inline-block;font-weight:800;color:#fff;font-size:11px;background:var(--edge);border-radius:6px;padding:2px 7px;margin-right:6px;letter-spacing:.3px}
+  .by{font-size:13px;color:var(--mute);margin-top:14px}.by b{color:var(--sub)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <img class="logo-img" src="copilot-color.png" alt="Microsoft Copilot logo">
+    <div>
+      <h1>Copilot, Cowork, Studio &amp; Scout: <span class="accent">what to use when</span></h1>
+      <div class="top-sub">Most tasks work in more than one place. This guide shows the quickest path for everyday work and where to graduate when things get bigger. Every claim is grounded in Microsoft Learn or microsoft.com, with links at the bottom.</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="reco">
+    <div class="badge">💡</div>
+    <div>
+      <h2>How to read this guide</h2>
+      <p>Almost any task can be done in more than one tool. We suggest the most convenient option and explain why, but <b>the final choice depends on your context, your data permissions, and how your team works</b>. Treat this as a starting point, then adapt it.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">1</span>
+      <h2>The four tools at a glance</h2>
+      <span class="hint">Verbatim from Microsoft Learn and microsoft.com.</span>
+    </div>
+
+    <div class="product-grid">
+
+      <div class="pcard">
+        <div class="nm">Microsoft 365 Copilot</div>
+        <blockquote>"Microsoft 365 Copilot... includes features that can help end users and admins with work tasks... Use Microsoft 365 Copilot for both web-based (internet) and work-based (Microsoft Graph) chat."</blockquote>
+        <ul>
+          <li>In-app experiences across Teams, Word, Excel, PowerPoint, Outlook.</li>
+          <li>Secure AI chat grounded on both the web and your organisational data.</li>
+          <li>Built-in agents and the ability to create custom ones.</li>
+          <li>Copilot Search across Microsoft 365 and third-party data sources.</li>
+        </ul>
+        <a class="src-link" href="https://learn.microsoft.com/en-us/microsoft-365/copilot/which-copilot-for-your-organization" target="_blank">Source: Decide which Copilot is right for you, Microsoft Learn</a>
+      </div>
+
+      <div class="pcard b">
+        <div class="nm">Microsoft 365 Copilot Cowork</div>
+        <blockquote>"Microsoft 365 Copilot Cowork can carry out tasks on your behalf. You describe what you need, and Cowork sends emails, schedules meetings, creates documents, posts in Teams, and manages your calendar. You approve each action before it happens."</blockquote>
+        <ul>
+          <li>Built-in skills: Word, Excel, PowerPoint, PDF, Email, Scheduling, Calendar Management, Meetings, Daily Briefing, Enterprise Search, Communications, Deep Research, Adaptive Cards.</li>
+          <li>Extend with up to 50 custom skills and Microsoft 365 App Store plugins.</li>
+          <li>Stay in control: pause, resume, cancel, and approve sensitive actions with risk indicators.</li>
+        </ul>
+        <a class="src-link" href="https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/" target="_blank">Source: Copilot Cowork overview, Microsoft Learn</a>
+      </div>
+
+      <div class="pcard c">
+        <div class="nm">Microsoft Copilot Studio</div>
+        <blockquote>"Copilot Studio is a graphical, low-code tool for building agents and agent flows... connect to other data sources by using prebuilt or custom connectors."</blockquote>
+        <ul>
+          <li>Agents handle complex conversations and autonomously determine the best action to take based on instructions and context.</li>
+          <li>Flows automate repetitive tasks; trigger manually, by events, by agents, or on a schedule.</li>
+          <li>Publish to websites, mobile apps, Facebook, Microsoft Teams, or any channel supported by Azure Bot Service.</li>
+          <li>Use agents on their own, or to extend Microsoft 365 Copilot with enterprise data and scenarios.</li>
+        </ul>
+        <a class="src-link" href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio" target="_blank">Source: Overview, Microsoft Copilot Studio, Microsoft Learn</a>
+      </div>
+
+      <div class="pcard d">
+        <div class="nm">Microsoft Scout</div>
+        <blockquote>"Autopilots are always-on agents that work autonomously, with their own identity, and act on your behalf... Microsoft Scout is our first Autopilot agent."</blockquote>
+        <ul>
+          <li>Integrated across Microsoft 365 (Teams, Outlook, OneDrive, SharePoint) and into your browser and local resources via the desktop app and MCP servers.</li>
+          <li>Proactively schedules meetings across time zones, prepares materials, blocks time for upcoming deliverables, and spots risks like stalled decisions.</li>
+          <li>Every agent operates under its own governed identity; Microsoft Purview sensitivity labels and loss prevention are enforced before anything is sent or written.</li>
+        </ul>
+        <a class="src-link" href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/06/02/introducing-microsoft-scout-your-always-on-personal-agent/" target="_blank">Source: Introducing Microsoft Scout, Microsoft 365 Blog</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">2</span>
+      <h2>What should I use for each task?</h2>
+      <span class="hint">From simplest and fastest to most powerful and automated.</span>
+    </div>
+
+    <div class="progress"><span class="a">Simpler and faster</span><span class="b">More powerful and automated</span></div>
+    <div class="spectrum"></div>
+
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Task or need</th>
+            <th class="tool t1"><span class="tool-pill"><span class="num" style="background:var(--teal)">1</span><span class="n">Copilot Chat</span><span class="tag" style="color:var(--mute)">M365 Copilot</span></span></th>
+            <th class="tool t2"><span class="tool-pill"><span class="num" style="background:var(--blue)">2</span><span class="n">In the app</span><span class="tag" style="color:var(--mute)">Word, Excel, PPT, Outlook, Teams</span></span></th>
+            <th class="tool t3"><span class="tool-pill"><span class="num" style="background:var(--purp)">3</span><span class="n">Ready agents</span><span class="tag" style="color:var(--mute)">Researcher, Analyst, etc.</span></span></th>
+            <th class="tool t4"><span class="tool-pill"><span class="num" style="background:var(--magenta)">4</span><span class="n">Copilot Studio</span><span class="tag" style="color:var(--mute)">Your own agent</span></span></th>
+            <th class="tool t5"><span class="tool-pill"><span class="num" style="background:var(--green)">5</span><span class="n">Copilot Cowork</span></span></th>
+            <th class="tool t6"><span class="tool-pill"><span class="num" style="background:var(--pink)">6</span><span class="n">Microsoft Scout</span></span></th>
+            <th>When to choose each one</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="task">Quick question, brainstorm, or short reply</td>
+            <td class="cell"><span class="best t1">★ Best</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="why">Microsoft Learn calls this "the standard Copilot experience": optimised for speed and efficiency, great for quicker tasks like summarising emails or drafting short replies.</td>
+          </tr>
+          <tr>
+            <td class="task">Draft or reply in Outlook, summarise a Teams meeting, edit a Word, Excel, or PowerPoint file</td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="best t2">★ Best</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="why">Microsoft 365 Copilot provides "in-app experiences in your Microsoft 365 apps, like Teams, Word, Excel, PowerPoint, and Outlook".</td>
+          </tr>
+          <tr>
+            <td class="task">Deep, multi-source research with citations and a shareable report</td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="best t3">★ Best</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="why">Researcher agent is "designed for deeper reasoning... excels at tackling complex tasks that require thoughtful analysis... delivers a more comprehensive, insightful response" with cited sources.</td>
+          </tr>
+          <tr>
+            <td class="task">Take real action across M365 (send emails, schedule meetings, post in Teams, organise files)</td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="best t5">★ Best</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="why">Cowork "carries out tasks across your Microsoft 365 environment. Rather than describing what you could do, it does the work." You approve each action before it happens.</td>
+          </tr>
+          <tr>
+            <td class="task">One prompt, multiple deliverables (for example: a Word brief, an Excel model, and a deck)</td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="best t5">★ Best</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="why">Cowork can "create Word documents, Excel spreadsheets, PowerPoint presentations, and PDFs from scratch" in one flow, browsing your Work IQ to pull in the content it needs.</td>
+          </tr>
+          <tr>
+            <td class="task">A small, content-focused Q&amp;A bot for yourself or a small team (for example: answer questions from a team SharePoint)</td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="best t4">★ Best</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="why">Microsoft Learn: choose Microsoft 365 Copilot Agent Builder for "lightweight Q&amp;A agents with organizational knowledge" for "individuals or small teams".</td>
+          </tr>
+          <tr>
+            <td class="task">A repeated, role-specific process for a whole department or external customers (for example: dealer onboarding, customer service, IT helpdesk triage, sales assistant on CRM)</td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="best t4">★ Best</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="why">Microsoft Learn: choose Copilot Studio for "agents with complex scenarios like multi-step workflows or business system integration, and that require enterprise governance and robust controls."</td>
+          </tr>
+          <tr>
+            <td class="task">Connect to a line-of-business system (ERP, banking core, telco BSS, logistics platform)</td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="best t4">★ Best</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="why">Copilot Studio provides "prebuilt and custom connectors to connect with data sources beyond Microsoft 365" with lifecycle management, versioning, and role-based access controls.</td>
+          </tr>
+          <tr>
+            <td class="task">Proactive daily briefing before the workday starts</td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="best t6">★ Best</span></td>
+            <td class="why">Cowork offers a daily briefing skill on demand. Scout is "always-on" and "stay[s] active in the background... without needing to be prompted each time".</td>
+          </tr>
+          <tr>
+            <td class="task">Continuous monitoring that acts on your behalf (for example: payment delays, supplier risk, stalled decisions)</td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="best t6">★ Best</span></td>
+            <td class="why">Scout "can also spot risks, like stalled decisions, so you can address them before they become blockers", operating within Entra identity and Purview policies.</td>
+          </tr>
+          <tr>
+            <td class="task">Reach beyond M365 to your browser, local resources, or MCP servers</td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="ok">✓</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="best t6">★ Best</span></td>
+            <td class="why">Scout extends through the desktop app to "your browser, local resources, and model context protocol servers".</td>
+          </tr>
+          <tr>
+            <td class="task">Run prompts on a recurring schedule</td>
+            <td class="cell"><span class="best t1">★ Best</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="cell"><span class="no">–</span></td>
+            <td class="why">Scheduled prompts are part of the licensed Microsoft 365 Copilot experience. Hover a prompt, select "Schedule this prompt", set the cadence and notifications. Requires a Microsoft 365 Copilot licence.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="legend">
+      <span><b>★</b> Best option</span>
+      <span><b>✓</b> Also works</span>
+      <span><span class="no">–</span> Not recommended</span>
+    </div>
+
+    <div class="goldrule rule">
+      <p><span class="gr-title">Practical rule</span> <span class="big"><b>One app</b> for ONE file, <b>one Studio agent</b> for ONE repeated team process, <b>Cowork</b> for AN ENTIRE process on demand, <b>Scout</b> to stay ahead of your day automatically.</span></p>
+      <p><span class="k-teal">Copilot Chat</span> is the gateway: from chat you mention agents with @. Licensed Microsoft 365 Copilot also lets you schedule a saved prompt to run on a cadence (requires a Microsoft 365 Copilot licence).</p>
+      <p><span class="k-blue">In the app</span> means inside the open document in edit mode. <span class="k-purp">Ready agents</span> like Researcher and Analyst are already built and waiting in Copilot Chat.</p>
+      <p><span class="k-magenta">Copilot Studio</span> is for when the process is yours: build it once, govern it, share it with the rest of the team.</p>
+      <p><span class="k-green">Copilot Cowork</span> is reactive but powerful: one prompt, many deliverables, with each action approved. <span class="k-pink">Scout</span> is proactive and continuous, watching the signals you choose.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num">3</span>
+      <h2>Which Copilot for each app's work</h2>
+      <span class="hint">Same app, different power. Some Copilot options live inside the app; others act on its files and signals from their own surface.</span>
+    </div>
+
+    <div class="appgrid">
+
+      <div class="acard">
+        <div class="ah"><span class="ic">📊</span><span class="nm">Excel</span></div>
+        <div class="opt"><span class="tag tg-app">Copilot in Excel</span><span class="desc"><b>Edit the open workbook.</b> Format, summarise, suggest formulas, build a quick chart in the side pane.</span></div>
+        <div class="opt"><span class="tag tg-agt">Analyst agent</span><span class="desc"><b>Deeper data analysis.</b> Code-grounded reasoning across one or several files, with cited working you can verify.</span></div>
+        <div class="opt"><span class="tag tg-cow">Copilot Cowork</span><span class="desc"><b>Build it end-to-end.</b> Create a workbook from emails, Teams threads, or SharePoint inputs, then share or schedule it.</span></div>
+      </div>
+
+      <div class="acard">
+        <div class="ah"><span class="ic">📝</span><span class="nm">Word</span></div>
+        <div class="opt"><span class="tag tg-app">Copilot in Word</span><span class="desc"><b>Work the open document.</b> Draft, rewrite, summarise, reference other files inline.</span></div>
+        <div class="opt"><span class="tag tg-agt">Researcher agent</span><span class="desc"><b>Cited multi-source report.</b> Use when the analysis must be defensible and traceable to sources.</span></div>
+        <div class="opt"><span class="tag tg-cow">Copilot Cowork</span><span class="desc"><b>Brief plus supporting docs.</b> Produce the full set, save to the right folder, post the link in Teams.</span></div>
+      </div>
+
+      <div class="acard">
+        <div class="ah"><span class="ic">📬</span><span class="nm">Outlook</span></div>
+        <div class="opt"><span class="tag tg-app">Copilot in Outlook</span><span class="desc"><b>Draft and triage.</b> Reply, summarise long threads, write in your tone from the reading pane.</span></div>
+        <div class="opt"><span class="tag tg-cow">Copilot Cowork</span><span class="desc"><b>Send and schedule.</b> Send emails, book meetings, follow up after the meeting, all with your approval.</span></div>
+        <div class="opt"><span class="tag tg-sct">Microsoft Scout</span><span class="desc"><b>Proactive watch across M365.</b> Scout is its own Autopilot agent (Frontier preview): reads inbox and calendar signals, surfaces what needs attention, schedules across time zones, acts ahead of you.</span></div>
+      </div>
+
+      <div class="acard">
+        <div class="ah"><span class="ic">📽️</span><span class="nm">PowerPoint</span></div>
+        <div class="opt"><span class="tag tg-app">Copilot in PowerPoint</span><span class="desc"><b>Polish the open deck.</b> Add a slide, rewrite a slide, refine speaker notes, reformat.</span></div>
+        <div class="opt"><span class="tag tg-cow">Copilot Cowork</span><span class="desc"><b>Build the deck from a brief.</b> Generate the full pack from a Word doc, with a matching summary and sharing email.</span></div>
+      </div>
+
+      <div class="acard">
+        <div class="ah"><span class="ic">💬</span><span class="nm">Teams</span></div>
+        <div class="opt"><span class="tag tg-app">Copilot in Teams</span><span class="desc"><b>Meeting and chat help.</b> Recap, action items, catch up on a missed channel, search across chats.</span></div>
+        <div class="opt"><span class="tag tg-std">Copilot Studio</span><span class="desc"><b>Channel agent.</b> Publish a team-specific agent for repeated questions or workflows inside a channel.</span></div>
+        <div class="opt"><span class="tag tg-cow">Copilot Cowork</span><span class="desc"><b>Turn talk into action.</b> Post updates, kick off follow-up tasks, convert a meeting into deliverables across apps.</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num" style="background:var(--green);color:var(--bg)">★</span>
+      <h2>How to ask Cowork well</h2>
+      <span class="hint">Verbatim from the Microsoft Adoption AI user guidance.</span>
+    </div>
+
+    <div class="prompt-frame">
+      <h3>The five-part prompt structure for Cowork</h3>
+      <p style="color:var(--mute);font-size:13.5px">"Most Cowork outcomes depend on how clearly you scope your request. A prompt like 'clean up my calendar' leaves too much open to interpretation, so Cowork has to guess what you want, which shapes the results you get. Be specific about what success looks like when you ask."</p>
+      <div class="grid5">
+        <div class="gb"><div class="n">1. Outcome</div><div class="d">One sentence describing what done looks like.</div></div>
+        <div class="gb"><div class="n">2. Inputs</div><div class="d">The specific people, files, sites, or time ranges the task should use.</div></div>
+        <div class="gb"><div class="n">3. Definition of done</div><div class="d">The concrete deliverable, e.g., an email sent, a document saved in OneDrive, a meeting on the calendar.</div></div>
+        <div class="gb"><div class="n">4. Constraints</div><div class="d">Things to avoid or honour, e.g., do not contact customers, keep it under one page, use the FY27 template.</div></div>
+        <div class="gb"><div class="n">5. Approval scope</div><div class="d">Which actions you want to review explicitly, beyond the default checkpoints.</div></div>
+      </div>
+
+      <div class="exb bad">
+        <div class="lab">✗ Before</div>
+        <p>"Help me prep for my offsite next week."</p>
+      </div>
+      <div class="exb good">
+        <div class="lab">✓ After</div>
+        <p><b>Outcome:</b> A briefing pack and a draft agenda for the offsite on June 12. <b>Inputs:</b> The offsite invite, the three pre-reads I attached to it, and emails from the offsite distribution list in the last two weeks. <b>Definition of done:</b> A one-page Word doc saved to my OneDrive Offsite folder, and a draft agenda emailed to my direct reports for feedback. <b>Constraints:</b> No external attendees. <b>Approval scope:</b> Default, review the email before sending.</p>
+      </div>
+      <a class="src-link" href="https://adoption.microsoft.com/en-us/copilot/cowork/ai-user/" target="_blank">Source: Cowork for the AI user, Microsoft Adoption</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num" style="background:var(--pink)">4</span>
+      <h2>Scenarios by department</h2>
+      <span class="hint">How the tools play together in real work, across the functions most teams have.</span>
+    </div>
+
+    <div class="scen-grid">
+
+      <div class="scen">
+        <div class="role">Sales</div>
+        <div class="title">Monday pipeline review</div>
+        <p>This week's closed deals, slipping opportunities, and at-risk renewals, in a 10-minute update.</p>
+        <div class="pick"><span class="tag tg-app">In the app</span> Copilot in Outlook and Excel for the open file. <b>Why:</b> the thread and the model are already open in front of you.</div>
+        <div class="pick" style="margin-top:6px"><span class="tag tg-agt">Researcher</span> When a competitor or market scan needs to be cited.</div>
+      </div>
+
+      <div class="scen b">
+        <div class="role">Marketing</div>
+        <div class="title">Campaign launch pack</div>
+        <p>A brief, a deck, social copy, and a launch email, all from one input document.</p>
+        <div class="pick"><span class="tag tg-cow">Copilot Cowork</span> One prompt builds the full set. <b>Why:</b> Cowork creates Word, Excel, PowerPoint and PDF together in the same flow.</div>
+        <div class="pick" style="margin-top:6px"><span class="tag tg-app">In PowerPoint</span> Polish slides slide-by-slide before sending.</div>
+      </div>
+
+      <div class="scen c">
+        <div class="role">Finance</div>
+        <div class="title">Month-end variance pack</div>
+        <p>Variance analysis, an executive summary, and a board pack from finance and CRM data.</p>
+        <div class="pick"><span class="tag tg-agt">Analyst agent</span> Do the analysis with cited code-grounded working. <b>Why:</b> designed for deeper reasoning across data files.</div>
+        <div class="pick" style="margin-top:6px"><span class="tag tg-cow">Cowork</span> Compile the summary and pack from the Analyst output.</div>
+      </div>
+
+      <div class="scen d">
+        <div class="role">HR</div>
+        <div class="title">New-hire 30-day onboarding journey</div>
+        <p>Welcome email, training plan, and manager check-in cadence, repeated for every joiner.</p>
+        <div class="pick"><span class="tag tg-std">Copilot Studio</span> Build the journey once, run it for every new starter. <b>Why:</b> it is a repeated, role-specific process with workflows and approvals.</div>
+      </div>
+
+      <div class="scen e">
+        <div class="role">IT</div>
+        <div class="title">Internal helpdesk triage</div>
+        <p>Triage tickets, route to the right team, and deflect common issues with self-service.</p>
+        <div class="pick"><span class="tag tg-std">Copilot Studio</span> Publish an IT triage agent to Teams. <b>Why:</b> Microsoft Learn lists IT helpdesk triage as a canonical Copilot Studio use case.</div>
+      </div>
+
+      <div class="scen">
+        <div class="role">Operations</div>
+        <div class="title">Supplier and inventory risk</div>
+        <p>Watch supplier on-time delivery and stock thresholds; flag exposure before it bites.</p>
+        <div class="pick"><span class="tag tg-sct">Microsoft Scout</span> Always-on monitoring with proactive alerts. <b>Why:</b> Scout reaches beyond M365 through MCP servers and spots risks like stalled decisions.</div>
+      </div>
+
+      <div class="scen b">
+        <div class="role">Customer Service</div>
+        <div class="title">Top 30 query bot</div>
+        <p>Cover the queries that drive most volume, both on your website and inside Teams.</p>
+        <div class="pick"><span class="tag tg-std">Copilot Studio</span> Publish a customer-service agent to web and Teams. <b>Why:</b> grounded on your knowledge base, with handoff to a human and enterprise governance.</div>
+      </div>
+
+      <div class="scen c">
+        <div class="role">Legal</div>
+        <div class="title">Contract redline against your playbook</div>
+        <p>Compare a counterparty draft against your standard clauses; mark the gaps and risks.</p>
+        <div class="pick"><span class="tag tg-app">Copilot in Word</span> Redline against the open playbook document. <b>Why:</b> in-app Copilot has the full context of both files.</div>
+        <div class="pick" style="margin-top:6px"><span class="tag tg-agt">Researcher</span> For case law or regulatory context with sources you can verify.</div>
+      </div>
+
+      <div class="scen d">
+        <div class="role">Procurement</div>
+        <div class="title">RFP shortlist and evaluation</div>
+        <p>Compare vendor responses against criteria; draft a recommendation memo for the evaluation panel.</p>
+        <div class="pick"><span class="tag tg-agt">Researcher</span> For the comparative analysis with citations. <b>Why:</b> deeper reasoning that holds up to scrutiny.</div>
+        <div class="pick" style="margin-top:6px"><span class="tag tg-cow">Cowork</span> Compile the memo and the panel briefing email.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="sec-num" style="background:var(--gold);color:var(--bg)">✓</span>
+      <h2>Before building your own agent, check this order</h2>
+      <span class="hint">Building should be the last step, not the first.</span>
+    </div>
+
+    <div class="validate">
+      <div class="panel">
+        <div class="cap" style="background:var(--teal)"></div>
+        <div class="pad">
+          <div class="lbl" style="color:var(--teal)">Step 1 · simplest</div>
+          <h3>Can a saved or scheduled prompt do it?</h3>
+          <p>If a repeatable prompt handles the job, save it and reuse it. Licensed Microsoft 365 Copilot also lets you schedule a prompt to run on a cadence: hover the prompt, choose "Schedule this prompt", and set the frequency and notifications. Requires a Microsoft 365 Copilot licence.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="cap" style="background:var(--purp)"></div>
+        <div class="pad">
+          <div class="lbl" style="color:var(--purp)">Step 2 · reuse</div>
+          <h3>Is there already a ready Microsoft agent?</h3>
+          <p>Check Researcher, Analyst, and other built-in agents first. Researcher and Analyst are pre-installed for Microsoft 365 Copilot licence holders by default.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="cap" style="background:var(--green)"></div>
+        <div class="pad">
+          <div class="lbl" style="color:var(--green)">Step 3 · scale on demand</div>
+          <h3>Does Cowork already cover the full process?</h3>
+          <p>If the task is an end-to-end process producing multiple deliverables, Cowork may handle it without a custom build. It loads skills dynamically and pauses for approvals.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="cap" style="background:var(--magenta)"></div>
+        <div class="pad">
+          <div class="lbl" style="color:var(--magenta)">Step 4 · build it</div>
+          <h3>Use Agent Builder or Copilot Studio</h3>
+          <p>Use Agent Builder for a small team or yourself, Copilot Studio for a whole department, organisation, or external customers, or anywhere you need connectors, multi-step workflows, or enterprise governance.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="goldrule rule" style="margin-top:16px">
+      <p><span class="gr-title">Practical rule</span> <span class="big"><span class="k-teal">Saved or scheduled prompt</span> → <span class="k-purp">ready Microsoft agent</span> → <span class="k-green">Copilot Cowork</span> → (only if nothing applies) <span class="k-magenta">your own agent in Agent Builder or Copilot Studio</span>.</span></p>
+    </div>
+  </section>
+
+  <!-- Cost section removed -->
+
+  <footer class="btm">
+    <div class="src">
+      <div class="line"><b style="color:#fff">References (all Microsoft-authored)</b></div>
+      <div class="line"><span class="lab">LEARN</span>Decide which Copilot is right for you: <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/which-copilot-for-your-organization" target="_blank">learn.microsoft.com/microsoft-365/copilot/which-copilot-for-your-organization</a></div>
+      <div class="line"><span class="lab">LEARN</span>Copilot Cowork overview: <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/" target="_blank">learn.microsoft.com/microsoft-365/copilot/cowork</a></div>
+      <div class="line"><span class="lab">LEARN</span>Copilot Cowork common questions: <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-faq" target="_blank">learn.microsoft.com/microsoft-365/copilot/cowork/cowork-faq</a></div>
+      <div class="line"><span class="lab">LEARN</span>Overview, Microsoft Copilot Studio: <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio" target="_blank">learn.microsoft.com/microsoft-copilot-studio/fundamentals-what-is-copilot-studio</a></div>
+      <div class="line"><span class="lab">LEARN</span>Choose between Agent Builder in Microsoft 365 Copilot and Copilot Studio: <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/copilot-studio-experience" target="_blank">learn.microsoft.com/microsoft-365/copilot/extensibility/copilot-studio-experience</a></div>
+      <div class="line"><span class="lab">LEARN</span>What is Researcher Agent in Microsoft 365 Copilot: <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/researcher-agent" target="_blank">learn.microsoft.com/microsoft-365/copilot/researcher-agent</a></div>
+      <div class="line"><span class="lab">LEARN</span>Agents for Microsoft 365 Copilot Chat: <a href="https://learn.microsoft.com/en-us/copilot/agents" target="_blank">learn.microsoft.com/copilot/agents</a></div>
+      <div class="line"><span class="lab">LEARN</span>Microsoft Scout setup: <a href="https://learn.microsoft.com/microsoft-scout" target="_blank">learn.microsoft.com/microsoft-scout</a></div>
+      <div class="line"><span class="lab">BLOG</span>Introducing Microsoft Scout, your always-on personal agent: <a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/06/02/introducing-microsoft-scout-your-always-on-personal-agent/" target="_blank">microsoft.com/microsoft-365/blog/2026/06/02/introducing-microsoft-scout-your-always-on-personal-agent</a></div>
+      <div class="line"><span class="lab">SUPPORT</span>Schedule your most used Copilot prompts: <a href="https://support.microsoft.com/en-us/microsoft-365-copilot/schedule-your-most-used-copilot-prompts" target="_blank">support.microsoft.com/microsoft-365-copilot/schedule-your-most-used-copilot-prompts</a></div>
+      <div class="line"><span class="lab">ADOPTION</span>Cowork for the AI user (prompt structure): <a href="https://adoption.microsoft.com/en-us/copilot/cowork/ai-user/" target="_blank">adoption.microsoft.com/copilot/cowork/ai-user</a></div>
+      <div class="line"><span class="lab">ADOPTION</span>Microsoft Copilot Adoption hub: <a href="https://adoption.microsoft.com/" target="_blank">adoption.microsoft.com</a></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
