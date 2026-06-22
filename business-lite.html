@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Copilot, Cowork, Studio & Scout: what to use when</title>
+<title>Microsoft 365 Copilot &amp; Cowork: what to use when</title>
 <style>
   :root{
     --ink:#1B1B2C; --ink2:#3A3A52; --mute:#6B6B82; --line:#E4E4ED;
@@ -143,15 +143,6 @@
   .refs .src-lab.blog{background:var(--purp)}
   .refs .src-lab.adopt{background:var(--green)}
 
-  /* show/hide toggles */
-  .toggle-bar{display:flex;gap:18px;align-items:center;padding:14px 18px;background:var(--soft);border:1px solid var(--line);border-radius:10px;margin-top:16px;font-size:15px;flex-wrap:wrap}
-  .toggle-bar .lab{font-weight:800;color:var(--ink);font-size:13px;letter-spacing:.5px;text-transform:uppercase;margin-right:4px}
-  .toggle-bar label{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;color:var(--ink2);user-select:none;padding:6px 12px;border:1px solid var(--line);border-radius:99px;background:var(--card);transition:all .15s}
-  .toggle-bar label:hover{border-color:var(--blue);color:var(--ink)}
-  .toggle-bar label.off{opacity:.5;text-decoration:line-through}
-  .toggle-bar input{width:16px;height:16px;cursor:pointer;accent-color:var(--blue);margin:0}
-  body.hide-studio [data-prod~="studio"]{display:none !important}
-  body.hide-scout [data-prod~="scout"]{display:none !important}
 
   /* ===== Theme toggle ===== */
   .top-row{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:4px}
@@ -223,17 +214,17 @@
       <button type="button" data-tset="dark" title="Dark">Dark</button>
     </div>
   </div>
-  <h1>Copilot, Cowork, Studio &amp; Scout: <span class="accent">what to use when</span></h1>
-  <p class="lede">Most tasks work in more than one tool. This is the simplest way to pick the right one and graduate as the work gets bigger. Every claim is grounded in Microsoft Learn or microsoft.com, with links at the bottom.</p>
+  <h1>Microsoft 365 Copilot &amp; Cowork: <span class="accent">what to use when</span></h1>
+  <p class="lede">Microsoft 365 Copilot is your everyday AI assistant. Copilot Cowork is the AI coworker that does the work for you. This guide helps you pick the right one for each task. Every claim is grounded in Microsoft Learn or microsoft.com, with links at the bottom.</p>
 </div></header>
 
 <div class="wrap">
 
-  <!-- Section 1: four tools -->
+  <!-- Section 1: two tools -->
   <section>
-    <div class="sec-eyebrow">01 · The four tools</div>
+    <div class="sec-eyebrow">01 · The two tools</div>
     <h2>At a glance</h2>
-    <p class="sec-sub">Pick by how the work shows up: a question, a process, a repeated team task, or something that needs to run on its own.</p>
+    <p class="sec-sub">Pick by how the work shows up: a question to answer, or a job to get done end-to-end.</p>
 
     <div class="pgrid">
       <div class="pcard">
@@ -254,26 +245,6 @@
           <li>Sends emails, books meetings, creates files, posts in Teams</li>
           <li>You approve each action before it happens</li>
           <li>Loads built-in and custom skills, pauses for risky actions</li>
-        </ul>
-      </div>
-      <div class="pcard c">
-        <div class="ico">🛠️</div>
-        <div class="nm">Copilot Studio</div>
-        <div class="what">Low-code platform to build and govern your own agents.</div>
-        <ul class="bullets">
-          <li>For repeated processes a whole team or department uses</li>
-          <li>Connect to CRM, ERP, and other line-of-business systems</li>
-          <li>Publish to Teams, web, or your own channels</li>
-        </ul>
-      </div>
-      <div class="pcard d">
-        <div class="ico">🛰️</div>
-        <div class="nm">Microsoft Scout</div>
-        <div class="what">An always-on agent that stays ahead of your day, acting on your behalf.</div>
-        <ul class="bullets">
-          <li>Proactive: works without being prompted each time</li>
-          <li>Spots risks early, blocks prep time, coordinates across time zones</li>
-          <li>Runs under its own governed identity with Purview controls</li>
         </ul>
       </div>
     </div>
@@ -319,38 +290,8 @@
 
       <div class="tcard">
         <div class="task">A small Q&amp;A bot for yourself or a small team</div>
-        <div class="reco"><span class="pill p-std">Agent Builder</span></div>
+        <div class="reco"><span class="pill p-chat">Agent Builder in Copilot Chat</span></div>
         <div class="why">Quick to set up in Copilot Chat, no code, grounded on your content.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">A repeated, team-wide process with workflows and approvals</div>
-        <div class="reco"><span class="pill p-std">Copilot Studio</span></div>
-        <div class="why">For broader audiences and enterprise governance.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">Connect to a line-of-business system (ERP, CRM, banking core)</div>
-        <div class="reco"><span class="pill p-std">Copilot Studio</span></div>
-        <div class="why">Prebuilt and custom connectors with lifecycle controls.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">Proactive morning briefing before the day starts</div>
-        <div class="reco"><span class="pill p-sct">Microsoft Scout</span></div>
-        <div class="alt">Or Cowork on demand if you want to trigger it yourself.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">Continuous monitoring that acts on your behalf</div>
-        <div class="reco"><span class="pill p-sct">Microsoft Scout</span></div>
-        <div class="why">Watches signals in the background, flags risks early.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">Reach beyond M365 (browser, local files, MCP servers)</div>
-        <div class="reco"><span class="pill p-sct">Microsoft Scout</span></div>
-        <div class="why">Extends through the desktop app to outside resources.</div>
       </div>
 
       <div class="tcard">
@@ -362,7 +303,7 @@
     </div>
 
     <div class="rule">
-      <b>The simple rule.</b> One app for one file. One Studio agent for one team-wide process. Cowork for an entire process on demand. Scout to stay ahead of your day automatically.
+      <b>The simple rule.</b> Use Microsoft 365 Copilot inside the file you are working in. Use Copilot Cowork when you want a full process done from one prompt.
     </div>
   </section>
 
@@ -392,7 +333,6 @@
         <div class="ah"><span class="ic">📬</span><span class="nm">Outlook</span></div>
         <div class="opt"><span class="pill p-app">Copilot in Outlook</span><span class="desc"><b>Draft and triage.</b> Reply, summarise long threads, and write in your tone from the reading pane.</span></div>
         <div class="opt"><span class="pill p-cow">Copilot Cowork</span><span class="desc"><b>Send and schedule.</b> Send emails, book meetings, follow up after the meeting, all with your approval.</span></div>
-        <div class="opt"><span class="pill p-sct">Microsoft Scout</span><span class="desc"><b>Proactive watch across M365.</b> Scout is its own Autopilot agent (Frontier preview): reads inbox and calendar signals, surfaces what needs attention, schedules across time zones, acts ahead of you.</span></div>
       </div>
 
       <div class="acard">
@@ -404,7 +344,6 @@
       <div class="acard">
         <div class="ah"><span class="ic">💬</span><span class="nm">Teams</span></div>
         <div class="opt"><span class="pill p-app">Copilot in Teams</span><span class="desc"><b>Meeting and chat help.</b> Recap, action items, catch up on a channel, search across chats.</span></div>
-        <div class="opt"><span class="pill p-std">Copilot Studio</span><span class="desc"><b>Channel agent.</b> Publish a team-specific agent for repeated questions or workflows in a channel.</span></div>
         <div class="opt"><span class="pill p-cow">Copilot Cowork</span><span class="desc"><b>Turn talk into action.</b> Post updates, kick off follow-up tasks, convert a meeting into deliverables across apps.</span></div>
       </div>
 
@@ -465,34 +404,6 @@
         <div class="use"><b>Use:</b> Analyst agent for the analysis. Cowork to compile the summary and deck.</div>
       </div>
 
-      <div class="scen d">
-        <div class="role">HR</div>
-        <div class="t">New-hire 30-day onboarding journey</div>
-        <div class="desc">Welcome email, training plan, manager check-in cadence, repeated for every joiner.</div>
-        <div class="use"><b>Use:</b> Copilot Studio. Build once, run for every new starter.</div>
-      </div>
-
-      <div class="scen e">
-        <div class="role">IT</div>
-        <div class="t">Internal helpdesk triage</div>
-        <div class="desc">Triage tickets, route to the right team, deflect common issues with self-service.</div>
-        <div class="use"><b>Use:</b> Copilot Studio. Publish to Teams so staff can self-serve.</div>
-      </div>
-
-      <div class="scen">
-        <div class="role">Operations</div>
-        <div class="t">Supplier and inventory risk</div>
-        <div class="desc">Watch supplier on-time delivery and stock thresholds; flag exposure before it bites.</div>
-        <div class="use"><b>Use:</b> Microsoft Scout. Always-on monitoring with proactive alerts.</div>
-      </div>
-
-      <div class="scen b">
-        <div class="role">Customer Service</div>
-        <div class="t">Top 30 query bot</div>
-        <div class="desc">Cover the queries that drive most volume, on website and inside Teams.</div>
-        <div class="use"><b>Use:</b> Copilot Studio. Grounded in your knowledge base, with handoff to a human.</div>
-      </div>
-
       <div class="scen c">
         <div class="role">Legal</div>
         <div class="t">Contract redline against your playbook</div>
@@ -510,11 +421,11 @@
     </div>
   </section>
 
-  <!-- Section 6: before building -->
+  <!-- Section 6: get more from Copilot and Cowork -->
   <section>
-    <div class="sec-eyebrow">06 · Before you build</div>
+    <div class="sec-eyebrow">06 · Before you ask Cowork to build it</div>
     <h2>Check this order first</h2>
-    <p class="sec-sub">Building your own agent should be the last step, not the first.</p>
+    <p class="sec-sub">Lean on what is already there before you reach for a bigger tool.</p>
 
     <div class="steps4">
       <div class="s4">
@@ -527,19 +438,13 @@
         <div class="num">2</div>
         <div class="lab">Reuse</div>
         <h3>Is there a ready Microsoft agent?</h3>
-        <p>Researcher and Analyst are already there for Copilot licence holders. Check the agent store first.</p>
+        <p>Researcher and Analyst are already there for Copilot licence holders. Check the agent store before you go further.</p>
       </div>
       <div class="s4">
         <div class="num">3</div>
         <div class="lab">Scale on demand</div>
-        <h3>Does Cowork already cover it?</h3>
-        <p>For end-to-end processes that produce several deliverables, Cowork often handles it without a custom build.</p>
-      </div>
-      <div class="s4">
-        <div class="num">4</div>
-        <div class="lab">Build it</div>
-        <h3>Agent Builder or Copilot Studio</h3>
-        <p>Agent Builder for yourself or a small team. Studio for a department, organisation, or external customers.</p>
+        <h3>Does Cowork cover the full job?</h3>
+        <p>For end-to-end processes that produce several deliverables, Cowork often handles it in a single flow, with you approving each step.</p>
       </div>
     </div>
   </section>
@@ -550,12 +455,8 @@
       <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/which-copilot-for-your-organization" target="_blank"><span class="src-lab learn">LEARN</span>Decide which Copilot is right for you</a>
       <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/" target="_blank"><span class="src-lab learn">LEARN</span>Copilot Cowork overview</a>
       <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-faq" target="_blank"><span class="src-lab learn">LEARN</span>Copilot Cowork common questions</a>
-      <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio" target="_blank"><span class="src-lab learn">LEARN</span>Microsoft Copilot Studio overview</a>
-      <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/copilot-studio-experience" target="_blank"><span class="src-lab learn">LEARN</span>Agent Builder vs Copilot Studio</a>
       <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/researcher-agent" target="_blank"><span class="src-lab learn">LEARN</span>Researcher agent in Microsoft 365 Copilot</a>
       <a href="https://learn.microsoft.com/en-us/copilot/agents" target="_blank"><span class="src-lab learn">LEARN</span>Agents for Microsoft 365 Copilot Chat</a>
-      <a href="https://learn.microsoft.com/microsoft-scout" target="_blank"><span class="src-lab learn">LEARN</span>Microsoft Scout setup</a>
-      <a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/06/02/introducing-microsoft-scout-your-always-on-personal-agent/" target="_blank"><span class="src-lab blog">BLOG</span>Introducing Microsoft Scout</a>
       <a href="https://support.microsoft.com/en-us/microsoft-365-copilot/schedule-your-most-used-copilot-prompts" target="_blank"><span class="src-lab learn">SUPPORT</span>Schedule your most used Copilot prompts</a>
       <a href="https://adoption.microsoft.com/en-us/copilot/cowork/ai-user/" target="_blank"><span class="src-lab adopt">ADOPT</span>Cowork for the AI user (prompt structure)</a>
       <a href="https://adoption.microsoft.com/" target="_blank"><span class="src-lab adopt">ADOPT</span>Microsoft Copilot Adoption hub</a>

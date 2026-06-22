@@ -7,90 +7,144 @@
 <link rel="icon" href="copilot-color.png">
 <style>
   :root{
-    --bg:#0b1020; --fg:#e9ecf6; --muted:#aab0c6;
-    --card:#121833; --line:rgba(255,255,255,.08);
-    --grad:linear-gradient(135deg,#2563eb 0%,#22d3ee 50%,#a855f7 100%);
+    --bg:#ffffff; --fg:#151827; --muted:#5f667c; --card:#ffffff; --soft:#f5f7fb;
+    --line:#dfe4f0; --link:#1a6fd6; --brand:#2563eb; --accent:#7a4fcf;
+    --grad:linear-gradient(135deg,#2563eb 0%,#0e8e92 52%,#7a4fcf 100%);
+  }
+  html[data-theme="dark"]{
+    --bg:#0b1020; --fg:#e9ecf6; --muted:#aab0c6; --card:#121833; --soft:#10162d;
+    --line:rgba(255,255,255,.1); --link:#9ec5fe; --brand:#7dd3fc; --accent:#d8b4fe;
+    --grad:linear-gradient(135deg,#7dd3fc 0%,#22d3ee 50%,#d8b4fe 100%);
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
+  html{scroll-behavior:smooth}
   body{
     font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
-    background:radial-gradient(1200px 600px at 10% -10%, #1a2150 0%, transparent 60%),
-               radial-gradient(900px 500px at 110% 10%, #1b3a52 0%, transparent 55%),
+    background:radial-gradient(1200px 600px at 10% -10%, rgba(37,99,235,.14) 0%, transparent 60%),
+               radial-gradient(900px 500px at 110% 10%, rgba(14,142,146,.13) 0%, transparent 55%),
                var(--bg);
-    color:var(--fg); min-height:100vh; display:flex; flex-direction:column;
+    color:var(--fg); min-height:100vh; display:flex; flex-direction:column; line-height:1.55;
   }
-  header{padding:28px 24px 8px; max-width:1100px; margin:0 auto; width:100%}
-  .brand{display:flex; align-items:center; gap:12px}
-  .brand img{width:38px; height:38px}
-  .brand .name{font-weight:700; letter-spacing:.2px}
-  .hero{max-width:1100px; margin:0 auto; padding:32px 24px 16px; width:100%}
-  h1{font-size:clamp(28px,4vw,44px); line-height:1.15; margin:8px 0 12px;
-     background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
-  .lede{font-size:17px; color:var(--muted); max-width:760px; line-height:1.55; margin:0}
+  header{padding:24px 24px 8px; max-width:1100px; margin:0 auto; width:100%}
+  .top-row{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap}
+  .brand{display:flex; align-items:center; gap:12px; min-width:0}
+  .brand img{width:38px; height:38px; flex:0 0 auto}
+  .brand .name{font-weight:800; letter-spacing:.2px}
+  .theme-toggle{display:inline-flex;gap:2px;align-items:center;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px;flex-shrink:0}
+  .theme-toggle button{appearance:none;background:transparent;border:0;color:var(--muted);font:700 11.5px/1 'Segoe UI',system-ui,sans-serif;padding:6px 11px;border-radius:999px;cursor:pointer;letter-spacing:.4px;text-transform:uppercase}
+  .theme-toggle button:hover{color:var(--fg)}
+  .theme-toggle button[aria-pressed="true"]{background:var(--card);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+  .theme-toggle button:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+  .hero{max-width:1100px; margin:0 auto; padding:34px 24px 16px; width:100%}
+  .eyebrow{font-size:13px; font-weight:800; letter-spacing:1.2px; color:var(--brand); text-transform:uppercase; margin-bottom:8px}
+  h1{font-size:clamp(30px,4vw,48px); line-height:1.1; margin:0 0 12px; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .lede{font-size:17px; color:var(--muted); max-width:820px; margin:0}
   main{max-width:1100px; margin:0 auto; padding:24px; width:100%; flex:1}
-  .grid{display:grid; grid-template-columns:1fr 1fr; gap:20px}
-  @media (max-width:780px){ .grid{grid-template-columns:1fr} }
-  .card{
-    background:var(--card); border:1px solid var(--line); border-radius:18px;
-    padding:24px; display:flex; flex-direction:column; gap:14px;
-    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
-    text-decoration:none; color:inherit;
-  }
-  .card:hover{transform:translateY(-2px); border-color:rgba(255,255,255,.18);
-              box-shadow:0 14px 40px rgba(0,0,0,.35)}
-  .pill{display:inline-block; font-size:12px; font-weight:700; letter-spacing:.4px;
-        padding:4px 10px; border-radius:999px; text-transform:uppercase; align-self:flex-start}
-  .pill.biz{background:rgba(34,211,238,.15); color:#7dd3fc; border:1px solid rgba(125,211,252,.35)}
-  .pill.it{background:rgba(168,85,247,.15); color:#d8b4fe; border:1px solid rgba(216,180,254,.35)}
-  .card h2{margin:2px 0 0; font-size:22px}
-  .card p{margin:0; color:var(--muted); line-height:1.55; font-size:15px}
-  .for{font-size:13px; color:#cbd5e1}
-  .for b{color:#fff}
-  .cta{margin-top:auto; display:inline-flex; align-items:center; gap:8px;
-       font-weight:700; color:#fff}
-  .cta:after{content:"→"; transition:transform .15s ease}
-  .card:hover .cta:after{transform:translateX(4px)}
-  footer{max-width:1100px; margin:0 auto; padding:18px 24px 28px; width:100%;
-         color:var(--muted); font-size:12.5px; line-height:1.5}
-  footer a{color:#9ec5fe}
+  .grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:22px; display:flex; flex-direction:column; gap:12px; transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease; text-decoration:none; color:inherit; min-height:245px}
+  .card:hover{transform:translateY(-2px); border-color:var(--brand); box-shadow:0 14px 38px rgba(0,0,0,.16); text-decoration:none}
+  .pill{display:inline-flex; font-size:12px; font-weight:800; letter-spacing:.4px; padding:4px 10px; border-radius:999px; text-transform:uppercase; align-self:flex-start; border:1px solid var(--line); color:var(--brand); background:var(--soft)}
+  .pill.it{color:var(--accent)}
+  .card h2{margin:2px 0 0; font-size:22px; line-height:1.25}
+  .card p{margin:0; color:var(--muted); font-size:15px}
+  .for{font-size:13px}.for b{color:var(--fg)}
+  .cta{margin-top:auto; font-weight:800; color:var(--link)}
+  footer{max-width:1100px; margin:0 auto; padding:18px 24px 28px; width:100%; color:var(--muted); font-size:12.5px}
+  footer a{color:var(--link)}
+  @media (max-width:780px){.grid{grid-template-columns:1fr}.card{min-height:auto}.hero{padding-top:26px}}
+  @media (max-width:420px){header,.hero,main,footer{padding-left:16px;padding-right:16px}.theme-toggle button{font-size:10.5px;padding:5px 8px}.brand .name{font-size:14px}}
 </style>
+<script>
+(function(){
+  var KEY='theme';
+  var stored=null;
+  try{stored=localStorage.getItem(KEY);}catch(e){}
+  var mode=stored||'system';
+  var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+  function apply(m){
+    var eff=m==='system'?(mq&&mq.matches?'dark':'light'):m;
+    document.documentElement.setAttribute('data-theme',eff);
+    document.documentElement.setAttribute('data-theme-mode',m);
+  }
+  apply(mode);
+  if(mq&&mq.addEventListener){mq.addEventListener('change',function(){if(mode==='system')apply('system');});}
+  window.__setTheme=function(m){
+    mode=m;
+    try{if(m==='system')localStorage.removeItem(KEY);else localStorage.setItem(KEY,m);}catch(e){}
+    apply(m);
+    document.querySelectorAll('.theme-toggle [data-tset]').forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-tset')===m?'true':'false');
+    });
+  };
+  document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('.theme-toggle [data-tset]').forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-tset')===mode?'true':'false');
+      b.addEventListener('click',function(){window.__setTheme(b.getAttribute('data-tset'));});
+    });
+  });
+})();
+</script>
 </head>
 <body>
   <header>
-    <div class="brand">
-      <img src="copilot-color.png" alt="">
-      <div class="name">Microsoft Copilot</div>
+    <div class="top-row">
+      <div class="brand">
+        <img src="copilot-color.png" alt="">
+        <div class="name">Microsoft Copilot</div>
+      </div>
+      <div class="theme-toggle" role="group" aria-label="Theme">
+        <button type="button" data-tset="system" title="Match system">Sys</button>
+        <button type="button" data-tset="light" title="Light">Light</button>
+        <button type="button" data-tset="dark" title="Dark">Dark</button>
+      </div>
     </div>
   </header>
 
   <section class="hero">
+    <div class="eyebrow">Pick your audience and depth</div>
     <h1>What to use when</h1>
-    <p class="lede">One practical guide to the Microsoft Copilot family: Microsoft 365 Copilot, Cowork, Copilot Studio and Scout. Pick the view that matches how you want to read it.</p>
+    <p class="lede">Choose the guide that matches how you want to read it: business friendly or technical, full Copilot family or Copilot plus Cowork only.</p>
   </section>
 
   <main>
     <div class="grid">
       <a class="card" href="business.html">
-        <span class="pill biz">Business view</span>
-        <h2>For everyday work</h2>
-        <p class="for">Best for <b>business teams, managers, and frontline users</b> deciding which Copilot fits a task.</p>
-        <p>Plain-language tool overview, job-to-be-done picker, scenarios by department, and a five-part prompt pattern.</p>
-        <span class="cta">Open the business view</span>
+        <span class="pill biz">Business view, full</span>
+        <h2>Copilot, Cowork, Studio, and Scout</h2>
+        <p class="for">Best for <b>business teams and managers</b> deciding which Microsoft Copilot option fits a task.</p>
+        <p>Friendly cards, practical scenarios, and plain-language guidance across all four tools.</p>
+        <span class="cta">Open business view</span>
+      </a>
+
+      <a class="card" href="business-lite.html">
+        <span class="pill biz">Business view, lite</span>
+        <h2>Microsoft 365 Copilot and Cowork</h2>
+        <p class="for">Best for <b>teams comparing everyday Copilot with an AI coworker</b>.</p>
+        <p>A simpler two-tool guide focused on in-app help, ready agents, and Cowork workflows.</p>
+        <span class="cta">Open business lite view</span>
       </a>
 
       <a class="card" href="dark.html">
-        <span class="pill it">Technical view</span>
-        <h2>For IT and makers</h2>
-        <p class="for">Best for <b>IT, admins, makers, and agent builders</b> who need the side-by-side detail.</p>
-        <p>Full capability matrix, app-by-app Copilot options, build-vs-buy guidance, and references to Microsoft Learn and Adoption.</p>
-        <span class="cta">Open the technical view</span>
+        <span class="pill it">Technical view, full</span>
+        <h2>Dense matrix for IT and makers</h2>
+        <p class="for">Best for <b>IT, admins, makers, and agent builders</b> who need side-by-side detail.</p>
+        <p>Capability matrix, app-by-app options, build guidance, and references for all four tools.</p>
+        <span class="cta">Open technical view</span>
+      </a>
+
+      <a class="card" href="dark-lite.html">
+        <span class="pill it">Technical view, lite</span>
+        <h2>Two-tool matrix for Copilot and Cowork</h2>
+        <p class="for">Best for <b>IT and makers</b> evaluating when to stay in Microsoft 365 Copilot and when to use Cowork.</p>
+        <p>A compact technical guide without Copilot Studio or Scout content.</p>
+        <span class="cta">Open technical lite view</span>
       </a>
     </div>
   </main>
 
   <footer>
-    Both views are grounded in <a href="https://learn.microsoft.com/copilot/" target="_blank" rel="noopener">Microsoft Learn</a> and <a href="https://adoption.microsoft.com/" target="_blank" rel="noopener">Microsoft Adoption</a>. Same content, two reading styles.
+    These guides are grounded in <a href="https://learn.microsoft.com/copilot/" target="_blank" rel="noopener">Microsoft Learn</a> and <a href="https://adoption.microsoft.com/" target="_blank" rel="noopener">Microsoft Adoption</a>.
   </footer>
 </body>
 </html>
