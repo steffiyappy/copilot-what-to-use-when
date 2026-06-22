@@ -59,6 +59,12 @@ COWORK_TASKS = {
     },
 }
 
+SCHEDULED_PROMPT_TIP = (
+    'Any of these Cowork tasks can be scheduled to run automatically. '
+    'In Microsoft 365 Copilot, hover a saved prompt and pick "Schedule this prompt", '
+    'then choose a daily or weekly cadence (requires a Microsoft 365 Copilot licence).'
+)
+
 PAGES = [
     ("business.html", "business.pptx", "business"),
     ("business-lite.html", "business-lite.pptx", "business"),
@@ -302,6 +308,15 @@ def add_cowork_tier_slide(prs: Presentation, tier: str, theme: dict) -> None:
                 y += 0.72
 
 
+def add_cowork_schedule_tip(prs: Presentation, theme: dict) -> None:
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    set_background(slide, theme["bg"])
+    add_header(slide, "Add-on tip: schedule Cowork prompts", theme, "Copilot Cowork")
+    add_panel(slide, 1.0, 1.75, 8.0, 2.45, theme, theme["accent2"])
+    add_textbox(slide, "Tip", 1.35, 2.08, 1.2, 0.45, 22, theme["accent2"], True)
+    add_textbox(slide, SCHEDULED_PROMPT_TIP, 1.35, 2.75, 7.2, 0.95, 17, theme["ink"])
+
+
 def add_refs_slide(prs: Presentation, refs: list[str], theme: dict) -> None:
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_background(slide, theme["bg"])
@@ -323,6 +338,7 @@ def build_deck(page_file: str, out_file: str, kind: str) -> None:
             add_cowork_summary(prs, theme)
             for tier in ["Light", "Medium", "Heavy"]:
                 add_cowork_tier_slide(prs, tier, theme)
+            add_cowork_schedule_tip(prs, theme)
         else:
             add_section_slide(prs, section, theme, section_number)
         section_number += 1
