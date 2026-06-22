@@ -297,7 +297,7 @@
   .task-card .tier-badge{display:inline-flex;font-weight:400;flex:0 0 auto}
   .task-card .task-title{display:block;color:var(--white);font-size:13px;font-weight:800;line-height:1.35}
   .task-modal-data{display:none}
-  .task-modal{width:min(780px,92vw);max-height:88vh;border:0;border-radius:16px;padding:0;background:var(--rowB);color:var(--white);box-shadow:0 24px 70px rgba(0,0,0,.5);opacity:0;transform:scale(.96);transition:opacity .18s ease,transform .18s ease;overflow:hidden}
+  .task-modal{position:fixed;inset:0;margin:auto;width:min(780px,92vw);max-height:88vh;border:0;border-radius:16px;padding:0;background:var(--rowB);color:var(--white);box-shadow:0 24px 70px rgba(0,0,0,.5);opacity:0;transform:scale(.96);transition:opacity .18s ease,transform .18s ease;overflow:hidden}
   .task-modal.modal-open{opacity:1;transform:scale(1)}
   .task-modal::backdrop{background:rgba(0,0,0,.68);opacity:0;transition:opacity .18s ease}
   .task-modal.modal-open::backdrop{opacity:1}
