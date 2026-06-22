@@ -109,7 +109,14 @@ def clean_text(value: str) -> str:
     value = re.sub(r"<style[\s\S]*?</style>", " ", value, flags=re.I)
     value = re.sub(r"<[^>]+>", " ", value)
     value = unescape(value)
-    value = value.replace("\u2013", ",").replace("\u2014", ",")
+    value = (
+        value.replace("\u2013", ",")
+        .replace("\u2014", ",")
+        .replace("\u2018", "'")
+        .replace("\u2019", "'")
+        .replace("\u201c", '"')
+        .replace("\u201d", '"')
+    )
     value = re.sub(r"\s+", " ", value).strip()
     return value
 
@@ -183,21 +190,21 @@ def extract_cowork_task_details(path: Path) -> list[dict]:
         for match in re.finditer(r'<details class="task-detail">([\s\S]*?)</details>', html, flags=re.I)
     ]
     if not detail_blocks:
+        starts = list(re.finditer(r'<div class="task-modal-data" id="[^"]+">', html, flags=re.I))
         detail_blocks = [
-            match.group(1)
-            for match in re.finditer(
-                r'<div class="task-modal-data" id="[^"]+">([\s\S]*?<ol class="exec-flow">[\s\S]*?</ol>\s*</div>)\s*</div>',
-                html,
-                flags=re.I,
-            )
+            html[match.start() : starts[index + 1].start() if index + 1 < len(starts) else len(html)]
+            for index, match in enumerate(starts)
         ]
     for detail in detail_blocks:
         tier = find_first(r'<span class="tier-badge\s+([^"]+)">', detail).title()
         title = find_first(r'<span class="task-title">([\s\S]*?)</span>', detail)
         prompt_match = re.search(r'<pre class="prompt-text">([\s\S]*?)</pre>', detail, flags=re.I)
         prompt = unescape(prompt_match.group(1)).strip() if prompt_match else ""
-        prompt = prompt.replace("\u2013", ",").replace("\u2014", ",")
-        flow = [clean_text(item) for item in re.findall(r"<li>([\s\S]*?)</li>", detail, flags=re.I)]
+        prompt = clean_text(prompt)
+        flow_match = re.search(r'<ol class="exec-flow">([\s\S]*?)</ol>', detail, flags=re.I)
+        flow = [clean_text(item) for item in re.findall(r"<li>([\s\S]*?)</li>", flow_match.group(1), flags=re.I)] if flow_match else []
+        notes_match = re.search(r'<ul class="task-notes">([\s\S]*?)</ul>', detail, flags=re.I)
+        notes = [clean_text(item) for item in re.findall(r"<li>([\s\S]*?)</li>", notes_match.group(1), flags=re.I)] if notes_match else []
         tasks.append(
             {
                 "tier": tier,
@@ -207,6 +214,7 @@ def extract_cowork_task_details(path: Path) -> list[dict]:
                 "outcome": extract_label_value(detail, "Outcome"),
                 "prompt": prompt,
                 "flow": flow,
+                "notes": notes,
             }
         )
     return tasks
@@ -390,8 +398,14 @@ def add_cowork_task_detail(prs: Presentation, task: dict, theme: dict) -> None:
     add_panel(slide, 5.1, 1.42, 4.35, 3.58, theme, TIER_COLORS[tier])
     add_textbox(slide, "Execution flow", 5.37, 1.7, 3.7, 0.28, 13, theme["ink"], True)
     flow = task["flow"][:5]
-    add_bullets(slide, [compact_text(item, 90) for item in flow], 5.35, 2.05, 3.75, 2.35, theme, 10)
-    add_textbox(slide, compact_text(task["outcome"], 140), 5.37, 4.52, 3.65, 0.34, 10, theme["muted"])
+    has_notes = bool(task.get("notes"))
+    add_bullets(slide, [compact_text(item, 90) for item in flow], 5.35, 2.05, 3.75, 1.95 if has_notes else 2.35, theme, 10)
+    if has_notes:
+        note_text = " ".join(task["notes"])
+        add_textbox(slide, "Note:", 5.37, 4.34, 0.58, 0.2, 9, theme["ink"], True)
+        add_textbox(slide, compact_text(note_text, 165), 5.95, 4.32, 3.2, 0.45, 8, theme["muted"])
+    else:
+        add_textbox(slide, compact_text(task["outcome"], 140), 5.37, 4.52, 3.65, 0.34, 10, theme["muted"])
 
 
 def add_cowork_schedule_tip(prs: Presentation, theme: dict) -> None:
