@@ -66,10 +66,10 @@ SCHEDULED_PROMPT_TIP = (
 )
 
 PAGES = [
-    ("business.html", "business.pptx", "business"),
-    ("business-lite.html", "business-lite.pptx", "business"),
-    ("technical.html", "technical.pptx", "technical"),
-    ("technical-lite.html", "technical-lite.pptx", "technical"),
+    ("business.html", "What to use when - Copilot, Cowork, Studio and Scout (Business - full).pptx", "business"),
+    ("business-lite.html", "What to use when - Copilot and Cowork (Business - lite).pptx", "business"),
+    ("technical.html", "What to use when - Copilot, Cowork, Studio and Scout (Technical - full).pptx", "technical"),
+    ("technical-lite.html", "What to use when - Copilot and Cowork (Technical - lite).pptx", "technical"),
 ]
 
 THEMES = {
@@ -263,10 +263,32 @@ def add_bullets(slide, items: Iterable[str], x: float, y: float, w: float, h: fl
         p.space_after = Pt(5)
 
 
+def style_title_placeholder(slide, text: str, theme: dict, size: int = 22):
+    title_shape = slide.shapes.title
+    title_shape.left = Inches(0.55)
+    title_shape.top = Inches(0.42)
+    title_shape.width = Inches(8.9)
+    title_shape.height = Inches(0.78)
+    tf = title_shape.text_frame
+    tf.word_wrap = True
+    tf.margin_left = Inches(0.03)
+    tf.margin_right = Inches(0.03)
+    tf.margin_top = Inches(0)
+    tf.margin_bottom = Inches(0)
+    tf.text = text
+    p = tf.paragraphs[0]
+    p.alignment = PP_ALIGN.LEFT
+    for run in p.runs:
+        run.font.name = "Segoe UI"
+        run.font.size = Pt(size)
+        run.font.bold = True
+        run.font.color.rgb = theme["ink"]
+
+
 def add_header(slide, title: str, theme: dict, kicker: str | None = None) -> None:
+    style_title_placeholder(slide, title, theme, 22)
     if kicker:
-        add_textbox(slide, kicker.upper(), 0.55, 0.25, 7.0, 0.25, 9, theme["muted"], True)
-    add_textbox(slide, title, 0.55, 0.48, 8.7, 0.72, 22, theme["ink"], True)
+        add_textbox(slide, kicker.upper(), 0.55, 0.22, 7.0, 0.22, 9, theme["muted"], True)
     line = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0.55), Inches(1.22), Inches(1.2), Inches(0.05))
     line.fill.solid()
     line.fill.fore_color.rgb = theme["accent"]
@@ -287,20 +309,40 @@ def add_panel(slide, x: float, y: float, w: float, h: float, theme: dict, accent
 
 
 def add_title_slide(prs: Presentation, page: dict, theme: dict, kind: str) -> None:
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    slide = prs.slides.add_slide(prs.slide_layouts[0])
     set_background(slide, theme["bg"])
     accent = slide.shapes.add_shape(MSO_SHAPE.OVAL, Inches(8.4), Inches(-0.4), Inches(2.2), Inches(2.2))
     accent.fill.solid()
     accent.fill.fore_color.rgb = theme["accent"]
     accent.line.fill.background()
-    add_textbox(slide, page["title"], 0.7, 0.95, 7.65, 1.35, 26, theme["ink"], True)
-    add_textbox(slide, page["lede"], 0.72, 2.42, 8.45, 1.1, 14, theme["muted"])
+    title_shape = slide.shapes.title
+    title_shape.left = Inches(0.7)
+    title_shape.top = Inches(0.95)
+    title_shape.width = Inches(7.65)
+    title_shape.height = Inches(1.35)
+    title_shape.text_frame.text = page["title"]
+    for run in title_shape.text_frame.paragraphs[0].runs:
+        run.font.name = "Segoe UI"
+        run.font.size = Pt(26)
+        run.font.bold = True
+        run.font.color.rgb = theme["ink"]
+    for ph in slide.placeholders:
+        if ph.placeholder_format.idx == 1:
+            ph.left = Inches(0.72)
+            ph.top = Inches(2.42)
+            ph.width = Inches(8.45)
+            ph.height = Inches(1.1)
+            ph.text_frame.text = page["lede"]
+            for run in ph.text_frame.paragraphs[0].runs:
+                run.font.name = "Segoe UI"
+                run.font.size = Pt(14)
+                run.font.color.rgb = theme["muted"]
     label = "Warm customer guide" if kind == "business" else "Technical decision guide"
     add_textbox(slide, label, 0.72, 4.8, 4.5, 0.3, 12, theme["accent"], True)
 
 
 def add_section_slide(prs: Presentation, section: dict, theme: dict, idx: int) -> None:
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    slide = prs.slides.add_slide(prs.slide_layouts[5])
     set_background(slide, theme["bg"])
     add_header(slide, section["title"], theme, f"Section {idx:02d}")
     if section.get("subtitle"):
@@ -319,7 +361,7 @@ def add_section_slide(prs: Presentation, section: dict, theme: dict, idx: int) -
 
 
 def add_cowork_summary(prs: Presentation, theme: dict) -> None:
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    slide = prs.slides.add_slide(prs.slide_layouts[5])
     set_background(slide, theme["bg"])
     add_header(slide, "Cowork tasks: light, medium, heavy", theme, "Copilot Cowork")
     notes = [
@@ -336,7 +378,7 @@ def add_cowork_summary(prs: Presentation, theme: dict) -> None:
 
 
 def add_cowork_tier_slide(prs: Presentation, tier: str, theme: dict) -> None:
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    slide = prs.slides.add_slide(prs.slide_layouts[5])
     set_background(slide, theme["bg"])
     add_header(slide, f"Cowork tasks: {tier.lower()}", theme, "Grouped by audience")
     audiences = [(k, v) for k, v in COWORK_TASKS[tier].items() if v]
@@ -375,7 +417,7 @@ def select_featured_cowork_tasks(tasks: list[dict]) -> list[dict]:
 
 def add_cowork_task_overview(prs: Presentation, task: dict, theme: dict) -> None:
     tier = task["tier"]
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    slide = prs.slides.add_slide(prs.slide_layouts[5])
     set_background(slide, theme["bg"])
     add_header(slide, compact_text(task["title"], 70), theme, f"Cowork {tier} task")
     add_panel(slide, 0.7, 1.55, 8.6, 2.95, theme, TIER_COLORS[tier])
@@ -389,7 +431,7 @@ def add_cowork_task_overview(prs: Presentation, task: dict, theme: dict) -> None
 
 def add_cowork_task_detail(prs: Presentation, task: dict, theme: dict) -> None:
     tier = task["tier"]
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    slide = prs.slides.add_slide(prs.slide_layouts[5])
     set_background(slide, theme["bg"])
     add_header(slide, "Goal, outcome, prompt, flow", theme, compact_text(task["title"], 78))
     add_panel(slide, 0.55, 1.42, 4.25, 3.58, theme, TIER_COLORS[tier])
@@ -409,7 +451,7 @@ def add_cowork_task_detail(prs: Presentation, task: dict, theme: dict) -> None:
 
 
 def add_cowork_schedule_tip(prs: Presentation, theme: dict) -> None:
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    slide = prs.slides.add_slide(prs.slide_layouts[5])
     set_background(slide, theme["bg"])
     add_header(slide, "Add-on tip: schedule Cowork prompts", theme, "Copilot Cowork")
     add_panel(slide, 1.0, 1.75, 8.0, 2.45, theme, theme["accent2"])
@@ -418,7 +460,7 @@ def add_cowork_schedule_tip(prs: Presentation, theme: dict) -> None:
 
 
 def add_refs_slide(prs: Presentation, refs: list[str], theme: dict) -> None:
-    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    slide = prs.slides.add_slide(prs.slide_layouts[5])
     set_background(slide, theme["bg"])
     add_header(slide, "References", theme, "Microsoft sources")
     clean_refs = [r for r in refs if r and r not in SECTION_STOP_WORDS][:8]
