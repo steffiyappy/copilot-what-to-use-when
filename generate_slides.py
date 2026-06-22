@@ -170,6 +170,36 @@ def parse_page(path: Path) -> dict:
     return {"title": title, "lede": lede, "sections": sections, "refs": ref_titles[:8]}
 
 
+def extract_label_value(detail_html: str, label: str) -> str:
+    match = re.search(rf"<p><b>{re.escape(label)}:</b>\s*([\s\S]*?)</p>", detail_html, flags=re.I)
+    return clean_text(match.group(1)) if match else ""
+
+
+def extract_cowork_task_details(path: Path) -> list[dict]:
+    html = path.read_text(encoding="utf-8")
+    tasks = []
+    for match in re.finditer(r'<details class="task-detail">([\s\S]*?)</details>', html, flags=re.I):
+        detail = match.group(1)
+        tier = find_first(r'<span class="tier-badge\s+([^"]+)">', detail).title()
+        title = find_first(r'<span class="task-title">([\s\S]*?)</span>', detail)
+        prompt_match = re.search(r'<pre class="prompt-text">([\s\S]*?)</pre>', detail, flags=re.I)
+        prompt = unescape(prompt_match.group(1)).strip() if prompt_match else ""
+        prompt = prompt.replace("\u2013", ",").replace("\u2014", ",")
+        flow = [clean_text(item) for item in re.findall(r"<li>([\s\S]*?)</li>", detail, flags=re.I)]
+        tasks.append(
+            {
+                "tier": tier,
+                "title": title,
+                "why": extract_label_value(detail, f"Why {tier.lower()}"),
+                "goal": extract_label_value(detail, "Goal"),
+                "outcome": extract_label_value(detail, "Outcome"),
+                "prompt": prompt,
+                "flow": flow,
+            }
+        )
+    return tasks
+
+
 def set_background(slide, color: RGBColor) -> None:
     slide.background.fill.solid()
     slide.background.fill.fore_color.rgb = color
@@ -308,6 +338,50 @@ def add_cowork_tier_slide(prs: Presentation, tier: str, theme: dict) -> None:
                 y += 0.72
 
 
+def compact_text(text: str, limit: int = 180) -> str:
+    text = clean_text(text)
+    if len(text) <= limit:
+        return text
+    return text[: limit - 1].rsplit(" ", 1)[0] + "..."
+
+
+def select_featured_cowork_tasks(tasks: list[dict]) -> list[dict]:
+    featured = []
+    for tier in ["Light", "Medium", "Heavy"]:
+        tier_tasks = [task for task in tasks if task["tier"] == tier]
+        featured.extend(tier_tasks[:2])
+    return featured
+
+
+def add_cowork_task_overview(prs: Presentation, task: dict, theme: dict) -> None:
+    tier = task["tier"]
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    set_background(slide, theme["bg"])
+    add_header(slide, compact_text(task["title"], 70), theme, f"Cowork {tier} task")
+    add_panel(slide, 0.7, 1.55, 8.6, 2.95, theme, TIER_COLORS[tier])
+    add_textbox(slide, tier, 1.0, 1.86, 1.45, 0.42, 20, TIER_COLORS[tier], True, PP_ALIGN.CENTER)
+    add_textbox(slide, compact_text(task["why"], 190), 2.65, 1.78, 6.1, 0.72, 13, theme["muted"])
+    add_textbox(slide, "Goal", 1.0, 2.8, 1.1, 0.26, 13, theme["ink"], True)
+    add_textbox(slide, compact_text(task["goal"], 170), 2.05, 2.78, 6.85, 0.42, 12, theme["ink"])
+    add_textbox(slide, "Outcome", 1.0, 3.52, 1.35, 0.26, 13, theme["ink"], True)
+    add_textbox(slide, compact_text(task["outcome"], 180), 2.05, 3.48, 6.85, 0.48, 12, theme["ink"])
+
+
+def add_cowork_task_detail(prs: Presentation, task: dict, theme: dict) -> None:
+    tier = task["tier"]
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    set_background(slide, theme["bg"])
+    add_header(slide, "Goal, outcome, prompt, flow", theme, compact_text(task["title"], 78))
+    add_panel(slide, 0.55, 1.42, 4.25, 3.58, theme, TIER_COLORS[tier])
+    add_textbox(slide, "Prompt to give Cowork", 0.82, 1.7, 3.7, 0.28, 13, theme["ink"], True)
+    add_textbox(slide, compact_text(task["prompt"], 430), 0.82, 2.06, 3.7, 2.45, 9, theme["muted"])
+    add_panel(slide, 5.1, 1.42, 4.35, 3.58, theme, TIER_COLORS[tier])
+    add_textbox(slide, "Execution flow", 5.37, 1.7, 3.7, 0.28, 13, theme["ink"], True)
+    flow = task["flow"][:5]
+    add_bullets(slide, [compact_text(item, 90) for item in flow], 5.35, 2.05, 3.75, 2.35, theme, 10)
+    add_textbox(slide, compact_text(task["outcome"], 140), 5.37, 4.52, 3.65, 0.34, 10, theme["muted"])
+
+
 def add_cowork_schedule_tip(prs: Presentation, theme: dict) -> None:
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     set_background(slide, theme["bg"])
@@ -326,7 +400,9 @@ def add_refs_slide(prs: Presentation, refs: list[str], theme: dict) -> None:
 
 
 def build_deck(page_file: str, out_file: str, kind: str) -> None:
-    page = parse_page(ROOT / page_file)
+    page_path = ROOT / page_file
+    page = parse_page(page_path)
+    cowork_task_details = extract_cowork_task_details(page_path)
     theme = THEMES[kind]
     prs = Presentation()
     prs.slide_width = Inches(10)
@@ -338,6 +414,9 @@ def build_deck(page_file: str, out_file: str, kind: str) -> None:
             add_cowork_summary(prs, theme)
             for tier in ["Light", "Medium", "Heavy"]:
                 add_cowork_tier_slide(prs, tier, theme)
+            for task in select_featured_cowork_tasks(cowork_task_details):
+                add_cowork_task_overview(prs, task, theme)
+                add_cowork_task_detail(prs, task, theme)
             add_cowork_schedule_tip(prs, theme)
         else:
             add_section_slide(prs, section, theme, section_number)

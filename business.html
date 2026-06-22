@@ -156,6 +156,21 @@
   .cowork-task span{display:block;color:var(--ink2);font-size:13.5px;line-height:1.42}
 
 
+
+  .tier-badge{display:inline-flex;align-items:center;border-radius:99px;padding:4px 10px;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#fff;line-height:1}
+  .tier-badge.light{background:var(--green)}.tier-badge.medium{background:var(--teal)}.tier-badge.heavy{background:var(--pink)}
+  .task-detail{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0;overflow:hidden;box-shadow:0 2px 10px rgba(27,27,44,.04)}
+  .task-detail summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:9px;padding:12px 13px;color:var(--ink);font-weight:800;line-height:1.35}
+  .task-detail summary::-webkit-details-marker{display:none}
+  .task-detail summary::after{content:"+";margin-left:auto;color:var(--mute);font-weight:900;font-size:18px}
+  .task-detail[open] summary{border-bottom:1px solid var(--line);background:var(--soft)}
+  .task-detail[open] summary::after{content:"-"}
+  .task-title{font-size:14.5px}
+  .task-body{padding:12px 14px 14px;color:var(--ink2);font-size:13.2px;line-height:1.48}
+  .task-body p{margin:0 0 10px}.task-body b{color:var(--ink)}
+  .prompt-text{white-space:pre-wrap;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin:4px 0 12px;color:var(--ink);font:12.5px/1.45 Consolas,"Courier New",monospace;overflow:auto}
+  .exec-flow{margin:0;padding-left:20px}.exec-flow li{margin:5px 0;color:var(--ink2)}
+
   /* refs footer */
   footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line)}
   .refs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:8px 18px}
@@ -584,35 +599,170 @@
       <div class="cowork-audience-grid">
         <div class="cowork-audience">
           <h4>All teams</h4>
-          <div class="cowork-task">
-            <b>Rebalance your week and protect focus time</b>
-            <span>Reshapes a fragmented calendar into a conflict-free week with focus blocks.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge light">Light</span>
+                <span class="task-title">Rebalance your week and protect focus time</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
+                <p><b>Goal:</b> Take control of a fragmented calendar before it takes control of your week.</p>
+                <p><b>Outcome:</b> A rebalanced schedule that protects focus time, prioritizes high-impact meetings, and resolves conflicts, without manually negotiating your own availability.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">Help me organize my week. Review my Outlook calendar.
+First, show me a summary: Total meetings and hours spent, where I have focus time (2+ hours), and days with the most meetings.
+Before taking changes, ask clarifying questions: my manager and management chain, note if they are on a meeting, how many attendees, what I'm trying to accomplish this week, how to prioritize conflicts, personal commitments, and which meetings to decline or shorten.
+Then show proposed changes with explanations: meetings to accept/decline/reschedule, conflicts to resolve (including emailing organizers), and focus blocks to add. Start with highest-impact changes first.
+Once I approve each change, make edits directly in my calendar one at a time.
+Follow-up prompts: Accept and decline meetings. Create a customer meeting prep document.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Calendar -&gt; Summarize meeting load + focus time</li>
+                  <li>Clarify -&gt; Weekly goals + constraints</li>
+                  <li>Evaluate -&gt; Meeting impact + conflicts</li>
+                  <li>Propose -&gt; Accept / decline / reschedule</li>
+                  <li>Recommend -&gt; Add focus blocks</li>
+                  <li>Approve -&gt; Proposed changes</li>
+                  <li>Execute -&gt; Apply updates one-by-one</li>
+                </ol>
+              </div>
+            </details>
           </div>
-          <div class="cowork-task">
-            <b>Wrap up projects and organize all related work</b>
-            <span>Closes a project with a clean, shareable OneDrive archive.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge light">Light</span>
+                <span class="task-title">Wrap up projects and organize all related work</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
+                <p><b>Goal:</b> Close out a project with a clean, shareable archive, not a scattered trail of files.</p>
+                <p><b>Outcome:</b> A single OneDrive folder with the project's deliverables and references, shared with the team so the work stays findable and easy to reference.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">I just wrapped up the [Project Name] project.
+Find all files in my OneDrive related to this project, docs, decks, spreadsheets.
+Create a new folder called "[Project Name], Archive" and move everything into it. Share the archive folder with the [Project Name] team so they have a clean reference.
+Then build a lightweight HTML recap page for the archive, project outcomes, key contributors, links to the headline deliverables, and a one-paragraph "what shipped" summary up top, so the archive is navigable, not just a folder of files.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>OneDrive -&gt; Locate project files</li>
+                  <li>Classify -&gt; Docs / decks / spreadsheets</li>
+                  <li>Create -&gt; Archive folder</li>
+                  <li>Move -&gt; Related artifacts</li>
+                  <li>Share -&gt; Archive folder</li>
+                  <li>Confirm -&gt; Central project reference</li>
+                  <li>Build -&gt; HTML project recap page for the archive</li>
+                </ol>
+              </div>
+            </details>
           </div>
-          <div class="cowork-task">
-            <b>Catch up on messages and send replies automatically</b>
-            <span>Handles routine replies and drafts higher-stakes responses for review.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge light">Light</span>
+                <span class="task-title">Catch up on messages and send replies automatically</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
+                <p><b>Goal:</b> Close the loop on unanswered questions without scrolling back through a week of threads.</p>
+                <p><b>Outcome:</b> Routine acknowledgments handled automatically, higher-stakes replies drafted for review, so you stay responsive without spending hours catching up.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">Go through my Teams messages and emails from this week where someone asked me a direct question and I haven't responded.
+For anything that just needs a quick acknowledgment or "got it," send the reply. For anything that needs a real answer, draft it and show me first.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Email + Teams -&gt; Scan weekly conversations</li>
+                  <li>Detect -&gt; Direct questions without response</li>
+                  <li>Classify -&gt; Acknowledgment vs. substantive reply</li>
+                  <li>Generate -&gt; Quick acknowledgment responses</li>
+                  <li>Draft -&gt; Substantive replies for review</li>
+                  <li>Auto-send -&gt; Low-risk acknowledgments</li>
+                  <li>Surface -&gt; Drafted replies for approval Catch up on messages and send replies automatically</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
         <div class="cowork-audience">
           <h4>Sales</h4>
-          <div class="cowork-task">
-            <b>Pricing screenshot to customer presentation</b>
-            <span>Turns approved pricing into a customer-ready deck and draft email.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge light">Light</span>
+                <span class="task-title">Pricing screenshot to customer presentation</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
+                <p><b>Goal:</b> Turn an approved pricing screenshot into a customer-ready deck, numbers exact, deck polished, email drafted.</p>
+                <p><b>Outcome:</b> A customer-ready PowerPoint deck (cover, context, pricing, next steps) and a draft customer email with the deck attached, pricing slide surfaced for your approval before the rest of the deck is built.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">I have a customer meeting on [Meeting Date] and just received final pricing approval from finance. This is a screenshot of approved pricing for [Product]. Use this to create a customer-ready presentation I can share. Do not alter any numbers, they must be accurately represented in the output.
+Before completing the full deck, show me the pricing slide first for review.
+Once confirmed, build out the full presentation with:
+A brief cover slide with [Company Name] and meeting date
+A context slide framing the offer (pull from any prior emails or files about this account if available)
+The pricing breakdown slide, exact figures, no rounding or paraphrasing
+A next steps slide with placeholder actions we can fill in together
+When the deck is ready, draft a short email to [Customer Contact Name] attaching the presentation, and flag if anything in the pricing image was unclear or ambiguous before I send.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Image -&gt; Extract pricing figures exactly as shown</li>
+                  <li>Email + Files -&gt; Pull prior account context for framing slide</li>
+                  <li>Review gate -&gt; Surface pricing slide for approval before proceeding</li>
+                  <li>PowerPoint -&gt; Full customer-ready deck (cover · context · pricing · next steps)</li>
+                  <li>Draft -&gt; Customer email with deck attached</li>
+                  <li>Flag -&gt; Any ambiguous figures in source image Note: This task uses an image as its source. Cowork preserves all pricing figures exactly as shown, no rounding or paraphrasing. It will surface the pricing slide for your review before completing the full deck.</li>
+                </ol>
+              </div>
+            </details>
           </div>
-          <div class="cowork-task">
-            <b>Weekly external customer email review</b>
-            <span>Surfaces customer action items, drafts replies, and sends a Teams reminder.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge light">Light</span>
+                <span class="task-title">Weekly external customer email review</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
+                <p><b>Goal:</b> Every Monday, surface action items from external customer emails, draft replies in thread, and remind yourself to review before anything goes out.</p>
+                <p><b>Outcome:</b> Outlook draft replies waiting in your Drafts folder, an email summary reminder, and a Teams self-message, queued every Monday morning so the inbox is already moving when you sit down.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">Every Monday morning, I want this to run automatically: review all unread emails from the previous week from external customers only, Specifically those with action items for me or [Account Team Members]. For each one, create a draft reply directly in that email thread (not a new email) and store it in my Outlook Drafts folder for my review before anything goes out.
+Once the drafts are ready, send me an email summary reminding me to review them, and send a Teams message to myself with the same reminder.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Schedule -&gt; Runs every Monday morning</li>
+                  <li>Email inbox -&gt; Filter prior week · external senders only · action items flagged</li>
+                  <li>Analyze -&gt; Identify required response per thread</li>
+                  <li>Draft -&gt; Reply in original thread (stored in Drafts, not sent)</li>
+                  <li>Email -&gt; Summary reminder to self</li>
+                  <li>Teams -&gt; Self-message reminder to review drafts</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
         <div class="cowork-audience">
           <h4>Marketing</h4>
-          <div class="cowork-task">
-            <b>Research and insights alignment recap</b>
-            <span>Posts decisions, open issues, and named next steps to Teams.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge light">Light</span>
+                <span class="task-title">Research and insights alignment recap</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
+                <p><b>Goal:</b> Surface everything that came out of this week's research sessions, what landed, what didn't, and what still needs an owner.</p>
+                <p><b>Outcome:</b> A Teams post recapping decisions made, open issues, and named next steps, posted to the team channel so everyone walks into next week aligned.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">After this week's [Research Project] debrief, the findings readout, the messaging review, and the implications discussion, pull everything together into one clear picture of where things stand.
+Read across the meeting transcripts from those sessions, the [Team Channel] discussions tied to the research, and the email threads that followed. Tell me what was decided, what's still open, and what needs a named owner before next week.
+Post a recap to [Team Channel] for the group.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Meetings (this week) -&gt; Capture what each stakeholder said</li>
+                  <li>Teams + email -&gt; Pull decisions and open threads</li>
+                  <li>Sort -&gt; Decided · open · pending</li>
+                  <li>Route -&gt; Owner per follow-up</li>
+                  <li>Deliver -&gt; Alignment recap in Word</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
       </div>
@@ -622,16 +772,74 @@
       <div class="cowork-audience-grid">
         <div class="cowork-audience">
           <h4>All teams</h4>
-          <div class="cowork-task">
-            <b>Turn inbox noise into a curated intelligence brief</b>
-            <span>Creates a weekly trend brief from the publications you follow.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge medium">Medium</span>
+                <span class="task-title">Turn inbox noise into a curated intelligence brief</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why medium:</b> Recurring multi-step work. Cowork reasons across several sources and produces one or more finished deliverables you would normally build by hand.</p>
+                <p><b>Goal:</b> Cut through a week of newsletters to the stories that actually matter to your work.</p>
+                <p><b>Outcome:</b> A curated weekly brief that surfaces meaningful trends across the publications you follow, without the time spent reading them.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">Search my inbox for all newsletters, digests, and industry publications received in the past 7 days.
+Then write a polished, article-style weekly brief covering four sections: (1) [Company] internal newsletters, (2) AI &amp; tech news, (3) World affairs/news publications, and (4) [Your industry], weaving the key stories and themes from each into flowing narrative paragraphs, not bullet lists.
+Exclude personal or consumer newsletters (hardware, food bank fundraisers, etc.).
+End with a 2,3 sentence throughline tying the week's themes together. Write the output inline as a readable article. Include links inline to the actual emails in case I want to read more.
+Then, as a Part 2, pick the top headline stories across the brief and run a deep research report on them, pull the primary sources behind each, summarize the substance, and surface the context, key data points, and "so what" for my work. Deliver this as a separate research companion to the brief.
+Send me this weekly brief every Friday afternoon.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Inbox -&gt; Identify newsletters + digests</li>
+                  <li>Categorize -&gt; Internal / AI / news / industry</li>
+                  <li>Filter -&gt; Exclude consumer content</li>
+                  <li>Synthesize -&gt; Narrative brief</li>
+                  <li>Compile -&gt; Inline article</li>
+                  <li>Link -&gt; Source emails</li>
+                  <li>Research -&gt; Deep dive on top headlines</li>
+                  <li>Send -&gt; Every Friday afternoon Note: This task features a scheduled prompt, which tells Cowork you want it to run automatically on a recurring basis. To create a scheduled prompt, simply describe what you want and when in your message.</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
         <div class="cowork-audience">
           <h4>Marketing</h4>
-          <div class="cowork-task">
-            <b>Partner and channel activation kit</b>
-            <span>Produces partner-ready and channel-ready kits with a routing plan.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge medium">Medium</span>
+                <span class="task-title">Partner and channel activation kit</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why medium:</b> Recurring multi-step work. Cowork reasons across several sources and produces one or more finished deliverables you would normally build by hand.</p>
+                <p><b>Goal:</b> Adapt the [Product/Campaign Name] launch materials for partners and channel teams and route them for review.</p>
+                <p><b>Outcome:</b> A partner-ready and channel-ready activation kit across Word and Excel, plus a routing plan so partner, field, and channel marketing can move fast.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">[Product/Campaign Name] is moving into partner and channel activation. I need the launch materials adapted so partner marketing and the channel teams can execute without translation.
+Source:
+Latest launch materials in [OneDrive Folder]
+Approved messaging in [Messaging Doc]
+Prior partner-facing communications for tone reference
+Create the following:
+Partner one-pager (Word)
+Co-marketing talking points (Word)
+Partner FAQ (Word)
+Partner email template (Word)
+Channel-ready social pack, three LinkedIn variants and two X variants with creative guidance (Excel)
+Route:
+Send to [Partner Marketing Owner] for partner-facing review
+Send to [Channel Marketing Owner] for channel readiness</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>OneDrive [Folder] -&gt; Read the launch materials</li>
+                  <li>Messaging Doc -&gt; Ground every adaptation in approved positioning</li>
+                  <li>Adapt -&gt; One-pager · talking points · FAQ</li>
+                  <li>Adapt -&gt; Email template · social pack</li>
+                  <li>Org directory -&gt; Identify partner and channel owners</li>
+                  <li>Route -&gt; Kit to owners for review</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
       </div>
@@ -641,55 +849,346 @@
       <div class="cowork-audience-grid">
         <div class="cowork-audience">
           <h4>All teams</h4>
-          <div class="cowork-task">
-            <b>Prepare a complete out-of-office handoff</b>
-            <span>Builds a handoff from active projects, owners, deadlines, and files.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Prepare a complete out-of-office handoff</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+                <p><b>Goal:</b> Step away from your laptop knowing nothing in flight will stall while you are out.</p>
+                <p><b>Outcome:</b> A handover document built from your real work, projects, owners, deadlines, and supporting files, so coverage stays clear and execution keeps moving.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">I am about to go out of office for x week(s) beginning this coming [date]. Build an out-of-office tracker to cover off on all ongoing projects and tasks that will require things to move forward while I am gone.
+This should cover all team meetings from this week, all emails, and all Teams messages (both in meeting chats, individual chats, and group chats). Please also analyze my calendar for next week, and any projects that have action items for next week and include these in the handover. This should cover big project asks as well as smaller project tasks.
+Please limit the team members who are covering to my internal team members.
+For this handover, include: Project name, Project Status, Upcoming next steps &amp; deadlines, Action items that need to be done, Who should cover it while I am out, and links to any relevant documents.
+Then act on my calendar for the OOO window: set my out-of-office auto-reply, decline or delegate non-critical meetings I'm invited to, and flag any meetings I own that should be rescheduled or covered. Hold all calendar changes for my review.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Meetings (this week) -&gt; Identify active projects + stakeholders</li>
+                  <li>Email threads -&gt; Extract open requests + dependencies</li>
+                  <li>Teams chats -&gt; Capture in-flight tasks</li>
+                  <li>Calendar (next week) -&gt; Detect upcoming deadlines</li>
+                  <li>Org directory -&gt; Match internal team coverage</li>
+                  <li>Files -&gt; Link supporting documents</li>
+                  <li>Compile -&gt; Ownership-assigned handover tracker</li>
+                  <li>Calendar -&gt; Set auto-reply, decline/ delegate meetings, flag owned meetings</li>
+                </ol>
+              </div>
+            </details>
           </div>
-          <div class="cowork-task">
-            <b>Analyze and optimize your OneDrive at scale</b>
-            <span>Creates a structured catalog with cleanup decisions queued for approval.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Analyze and optimize your OneDrive at scale</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+                <p><b>Goal:</b> Turn a sprawling OneDrive into a structured catalog you can actually act on.</p>
+                <p><b>Outcome:</b> An organization plan and visual overview of your files, with cleanup decisions queued up for your approval.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">Analyze my OneDrive. Catalog and categorize all of the files.
+Create a dynamic HTML presentation showing the disposition of the files, age, relevancy, customer, product etc. The presentation should be no more than five scrolling screens with an executive overview with animated interactivity. The sixth screen should be recommendations.
+Create a plan to optimize my files and reorganize them. The plan should include folders and files to delete which you will rename by prepending the original name with "Delete_" and place them all into a Delete folder.
+Present me with your plan before you act on it.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>OneDrive -&gt; Scan file inventory</li>
+                  <li>Catalog -&gt; Age + relevance</li>
+                  <li>Categorize -&gt; Customer / product</li>
+                  <li>Visualize -&gt; HTML dashboard</li>
+                  <li>Recommend -&gt; Optimization plan</li>
+                  <li>Rename -&gt; "Delete_" files</li>
+                  <li>Approve -&gt; Re-org actions</li>
+                </ol>
+              </div>
+            </details>
           </div>
-          <div class="cowork-task">
-            <b>Audit and surface against a standard</b>
-            <span>Audits many files against a policy and returns a sortable fix list.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Audit and surface against a standard</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+                <p><b>Goal:</b> Apply a brand guide, naming convention, compliance policy, or quality standard across dozens of files, without manually reviewing each one and without risking accidental changes.</p>
+                <p><b>Outcome:</b> A sortable audit report showing every violation, its severity, and a recommended fix, so you can prioritize manual cleanup confidently.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">Audit every [file / image / asset / document] in [folder] against [our standard / brand guidelines / compliance policy / naming convention]. Read each one in full.
+Categorize violations by severity:
+Critical
+Major
+Minor
+For each violation, describe the issue, the impact, and a specific recommended fix.
+Produce a sortable Excel report showing total items reviewed, violations by category, the most common issues, and the recommended order to address them.
+Don't change any files, give me the action list.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Folder -&gt; Read every item in full</li>
+                  <li>Compare -&gt; Each item against the standard</li>
+                  <li>Categorize -&gt; Violations by severity</li>
+                  <li>Describe -&gt; Issue · impact · recommended fix</li>
+                  <li>Compile -&gt; Sortable audit report</li>
+                  <li>Surface -&gt; Prioritized action list Note: This task pairs bulk reading with safety, Cowork doesn't change any files. It surfaces a complete action list so you can prioritize manual cleanup.</li>
+                </ol>
+              </div>
+            </details>
           </div>
-          <div class="cowork-task">
-            <b>Onboard a new hire with a complete 30-60-90 plan</b>
-            <span>Creates the plan, getting started dashboard, and check-ins.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Onboard a new hire with a complete 30-60-90 plan</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+                <p><b>Goal:</b> Set a new hire up to succeed from day one, without building the plan from scratch.</p>
+                <p><b>Outcome:</b> A Word 30-60-90 day onboarding plan, an interactive "Getting Started" HTML dashboard, and recurring check-ins scheduled with the new hire across their first month.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">I have a new hire, [Name / Role], joining the [Team Name] team on [Start Date]. The reference folder [Folder] has everything you need to ground this: the role's job description, a short team charter, a list of 5 key stakeholders the new hire should meet, and a link to the [Team Name] SharePoint.
+Build a 30-60-90 day onboarding plan (Word) with learning goals, key stakeholders to meet, deliverables by week, and a manager check-in cadence. Base the weekly deliverables on the role's responsibilities in the job description and the team's priorities in the charter so they're specific to this role. Keep the tone practical.
+Then create an interactive "Getting Started" HTML dashboard with a progress tracker across the three phases, a people map of who to meet, and first-week priorities up front.
+Finally, review my calendar and schedule twice-weekly check-ins with the new hire across their first month, fitting them around my existing availability.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>[Folder] -&gt; Read job description, charter, stakeholders, SharePoint</li>
+                  <li>Synthesize -&gt; Map role responsibilities + team priorities</li>
+                  <li>Word -&gt; 30-60-90 plan with role-specific weekly deliverables</li>
+                  <li>Build -&gt; Interactive "Getting Started" HTML dashboard</li>
+                  <li>Calendar -&gt; Review availability, schedule twice-weekly check-ins</li>
+                  <li>Deliver -&gt; Plan, dashboard, and check-ins in place Onboard a new hire with a complete 30-60-90 plan</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
         <div class="cowork-audience">
           <h4>Sales</h4>
-          <div class="cowork-task">
-            <b>Product launch customer pitch</b>
-            <span>Creates the comparison, value prop, and customer-ready pitch deck.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Product launch customer pitch</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+                <p><b>Goal:</b> Turn a competitor announcement into a sharp, differentiated customer pitch, built and ready before tomorrow's meeting.</p>
+                <p><b>Outcome:</b> An Excel competitive comparison, a Word value prop document, and a customer-ready PowerPoint pitch deck, a three-artifact kit ready for tomorrow's meeting.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">I have a customer meeting tomorrow and need a sharp competitive pitch for [Product]. Our competitor just announced [Competitor Product], I need to position [Product] distinctly.
+Start with a consultant-level comparison between [Product] and [Competitor Product], put it in an Excel with clear differentiation across the dimensions that matter most.
+Then build a value prop document focused entirely on [Product]: what makes it compelling, how it stands apart from our own portfolio, and why it's the right choice for this customer. Keep the language direct and easy to read, not marketing-heavy.
+Finally, bring it all together in a customer-ready PowerPoint pitch deck I can present tomorrow.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Web + Files -&gt; Research [Competitor Product] announcement</li>
+                  <li>Excel -&gt; Consultant-level product comparison table</li>
+                  <li>Word -&gt; Value prop document grounded in [Product] differentiation</li>
+                  <li>PowerPoint -&gt; Customer pitch deck (competitive framing · value prop · next steps)</li>
+                  <li>Deliver -&gt; Excel comparison + Word value prop + PowerPoint pitch deck</li>
+                </ol>
+              </div>
+            </details>
           </div>
-          <div class="cowork-task">
-            <b>New customer onboarding automation</b>
-            <span>Sets up onboarding artifacts, team message, and welcome email from one email.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">New customer onboarding automation</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+                <p><b>Goal:</b> Close a new customer and trigger the full onboarding sequence in one prompt.</p>
+                <p><b>Outcome:</b> A SharePoint folder, executive onboarding artifacts (PowerPoint + Word), a Teams message to the account team, and a welcome email draft, all triggered from a single new-customer email.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">I just closed a new customer and need to move fast on onboarding. Start by searching my inbox for an email with "NEW CUSTOMER" in the subject line, that's your source of truth.
+From there, run the full onboarding sequence:
+Research [Customer Name]'s location, industry, and revenue based on what's in the email
+Create a SharePoint folder formatted as "YYYY-MM-DD [Customer Name]"
+Build an executive-level PowerPoint and Word artifact in that folder based on your research
+Send a Teams message to [Account Team Members] with a new customer summary and a link to the folder
+Draft a welcome email to [Customer Contact Name] at [Customer Name] for my review before it goes out</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Email inbox -&gt; Locate "NEW CUSTOMER" email as source of truth</li>
+                  <li>Web -&gt; Research [Customer Name] location · industry · revenue</li>
+                  <li>SharePoint -&gt; Create "YYYY-MM-DD [Customer Name]" folder</li>
+                  <li>PowerPoint + Word -&gt; Build executive onboarding artifacts in folder</li>
+                  <li>Teams -&gt; Message [Account Team Members] with summary + folder link</li>
+                  <li>Draft -&gt; Welcome email to [Customer Contact Name] (held for review) Note: This is a 6-step orchestration across Email, Web, SharePoint, PowerPoint, Word, Teams, and Outlook. The welcome email is held as a draft for your review before it goes out.</li>
+                </ol>
+              </div>
+            </details>
           </div>
-          <div class="cowork-task">
-            <b>Customer adoption materials</b>
-            <span>Builds persona-tailored learning paths with a recommended rollout order.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Customer adoption materials</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+                <p><b>Goal:</b> Build a role-relevant learning curriculum for a customer, structured, sourced, and deployment-ready.</p>
+                <p><b>Outcome:</b> A full Markdown curriculum with three progressive learning paths (Beginner, Intermediate, Advanced), each with sequenced resource tables, persona-tailored application notes, and a recommended rollout order for the customer's champion or power-user program.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">I need to build a role-relevant [Product] learning curriculum for [Customer Name] using publicly available resources that help users progress from foundational awareness to confident, practical use.
+Before you start, ask me: who their user base is, whether this will be used in a champion or enablement program, and any known skill gaps or priorities.
+Once I've answered, design three progressive learning paths using official [Product Vendor] sources only, no internal or tenant-specific content. Format the output in Markdown.
+For each path:
+Beginner, foundational skills for users new to [Product]; focus on awareness, basic navigation, and first use cases
+Intermediate, practical, role-relevant application for users ready to build daily habits with [Product]
+Advanced, deeper capability and workflow integration for power users and champions
+For each level, produce a sequenced resource table with: title, source, link, estimated completion time (estimate and label clearly if not stated), 1,2 sentence summary, suggested audience, and prerequisites.
+Where relevant, call out how [Customer Role/Persona] would apply each skill in practice, for example, preparing client proposals, summarizing documents, managing follow-ups, or building presentations.
+Close with a recommended rollout order and suggestions for how [Customer Name] could deploy this within a [Champion Program / Power User Program].
+Use only public, accessible resources from [Product Vendor] and reputable third-party training platforms.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Q&amp;A -&gt; Gather customer context (user base · program type · skill gaps)</li>
+                  <li>Web -&gt; Research public [Product Vendor] training resources</li>
+                  <li>Validate -&gt; Official sources only · no internal or tenant-specific content</li>
+                  <li>Structure -&gt; Three progressive learning paths (Beginner · Intermediate · Advanced)</li>
+                  <li>Build -&gt; Sequenced resource table per level</li>
+                  <li>Tailor -&gt; Call out [Customer Role/Persona] application per skill</li>
+                  <li>Close -&gt; Rollout order + champion program deployment recommendations</li>
+                  <li>Deliver -&gt; Full curriculum in Markdown</li>
+                </ol>
+              </div>
+            </details>
           </div>
-          <div class="cowork-task">
-            <b>ROI and value selling artifact</b>
-            <span>Produces an executive deck and microsite with use cases and ROI model.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">ROI and value selling artifact</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+                <p><b>Goal:</b> Build an executive-level business value story for a customer, use cases, ROI model, and call to action, delivered as a deck and microsite.</p>
+                <p><b>Outcome:</b> A 5,7 slide PowerPoint executive deck and an interactive HTML executive microsite, strategic context, 9 use cases, prioritization matrix, pain → outcome map, KPIs, transparent ROI model, and a workshop → pilot → scale call to action.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">I need to build an executive-level business value story for [Customer Name] that positions [Product] as the right solution to their most pressing business priorities, delivered as a 5,7 slide PowerPoint and an interactive HTML executive microsite. Before you start, ask me these inputs one at a time: Customer website, industry, primary persona(s), known strategic priorities or pain points, confirmed KPIs, impacted user population, fully loaded hourly cost, volume metric, and realization factor (default 0.75 if unknown).
+If any inputs are missing, generate clearly labeled hypotheses, "Hypothesis, validate with customer", and proceed.
+Work through the following seven sections:
+Customer Strategic Context: Pull the top 3 strategic priorities from the customer's website, public filings, or earnings calls. Include a one-line priority summary, one direct quote per priority, and the source URL. Skip if already provided.
+[Product] Use Cases: Generate 9 high-value use cases aligned to the customer's strategy, distributed across [Use Case Category 1], [Use Case Category 2], and [Use Case Category 3]. Present in a table: Category, Use Case Name, Customer-Taskific Description, Business Outcome, Primary Metric Impacted, and Strategic Alignment.
+Prioritization View: Place all 9 use cases on a 2x2 matrix: Ease of Implementation (x-axis) vs. Business Impact (y-axis). Recommend 2,3 for a pilot and explain why.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Pain -&gt; Outcome -&gt; Solution Map: Build an executive table mapping: Pain/Constraint, Desired Business Outcome, and [Product] Capability that addresses it. Use customer language throughout, not vendor marketing language. KPIs: If already provided, use them. If not, propose 2,3 per outcome. For each include: Definition, baseline assumption (labeled), and the discovery question needed to validate it with the customer. ROI Model: Build a transparent value model from the inputs collected: time/cost saved per user, annualized value, realization factor applied, estimated investment ([License Type] + pilot services, stated as assumptions), ROI %, and break-even timing. Design so assumptions are editable and changes visually update the ROI and break-even output.</li>
+                  <li>Call to Action: Close with a clear progression: Executive Alignment Workshop -&gt; Pilot Engagement (1,3 priority use cases with a measurement plan) -&gt; Scale via [Engagement Program]. Cite all public sources with quotes and URLs. Ensure all visuals are explicitly described so they can be recreated.</li>
+                  <li>Q&amp;A -&gt; Gather customer inputs one at a time</li>
+                  <li>Web + Public Filings -&gt; Research customer strategic context</li>
+                  <li>Generate -&gt; 9 use cases aligned to customer strategy (3 per category)</li>
+                  <li>Prioritize -&gt; 2x2 matrix (Ease of Implementation vs. Business Impact)</li>
+                  <li>Map -&gt; Pain -&gt; Outcome -&gt; [Product] Capability</li>
+                  <li>Model -&gt; Transparent ROI calculation with editable assumptions</li>
+                  <li>CTA -&gt; Workshop -&gt; Pilot -&gt; Scale via [Engagement Program]</li>
+                  <li>Deliver -&gt; PowerPoint exec deck + interactive HTML microsite</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
         <div class="cowork-audience">
           <h4>Marketing</h4>
-          <div class="cowork-task">
-            <b>Analyst briefing prep and rehearsal routing</b>
-            <span>Builds a briefing dashboard and locks rehearsal time on the calendar.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Analyst briefing prep and rehearsal routing</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+                <p><b>Goal:</b> Prep the [Analyst Firm] briefing package and get the team rehearsed before the room.</p>
+                <p><b>Outcome:</b> An interactive HTML briefing dashboard, positioning, top three messages, anticipated Q&amp;A, speaker notes, and a rehearsal locked on the calendar 48 hours out with the dashboard attached on approval.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">I have an analyst briefing with [Analyst Firm] on [Date], and I want the team walking into the room aligned.
+Read across our prior interactions with the firm, email threads and meeting history, and the [Product Area] research they've published recently.
+Cross-reference that with our latest [Product/Launch] materials in [OneDrive Folder] and the approved positioning in [Messaging Doc].
+Build me an interactive HTML briefing dashboard with positioning, the top three messages, the questions we should expect with our answers, speaker notes for [Speaker Name], and links back to source materials.
+Then put a 60-minute rehearsal on the calendar with [Spokesperson] and [Briefing Owner] for 48 hours before the briefing, with the dashboard attached once I approve it.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Email + meetings (prior) -&gt; Read our history with the firm</li>
+                  <li>Web -&gt; Pull recent analyst coverage</li>
+                  <li>OneDrive [Folder] -&gt; Read product materials</li>
+                  <li>Messaging Doc -&gt; Ground positioning in the approved standard</li>
+                  <li>Brief -&gt; Positioning · Q&amp;A · speaker notes</li>
+                  <li>Build -&gt; Interactive HTML dashboard</li>
+                  <li>Calendar -&gt; Lock the rehearsal 48 hours out</li>
+                </ol>
+              </div>
+            </details>
           </div>
-          <div class="cowork-task">
-            <b>Messaging drift audit and remediation routing</b>
-            <span>Flags inconsistencies with severity, recommended fix, and owner.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Messaging drift audit and remediation routing</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+                <p><b>Goal:</b> Catch messaging drift across every asset in [Folder] before it shows up in market.</p>
+                <p><b>Outcome:</b> A sortable Excel audit report flagging every inconsistency by severity, recommended fix, and the right owner, so cleanup happens in priority order.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">Run a messaging drift audit across every asset in [Folder]. Read each one in full and benchmark it against the approved messaging in [Messaging Doc] and the brand guidelines in [Brand Guide].
+Categorize by severity:
+Critical, off-message claims, wrong product naming
+Major, drifted positioning, outdated value props
+Minor, tone, formatting
+For each finding:
+Capture the issue, the business impact, and a specific recommended fix
+Map the finding to an owner using file ownership metadata or the latest editor
+Bring it all together in a sortable Excel report, total assets reviewed, findings by severity, the most common drift patterns, an owner-routed fix list, and the recommended order to address. Route each finding to its owner through the report.</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>OneDrive [Folder] -&gt; Read every asset in full</li>
+                  <li>Messaging Doc + Brand Guide -&gt; Ground audit in the approved standard</li>
+                  <li>Compare -&gt; Each asset against the standard</li>
+                  <li>Categorize -&gt; Critical · Major · Minor</li>
+                  <li>Capture -&gt; Issue · impact · fix</li>
+                  <li>Map -&gt; Owner per finding</li>
+                  <li>Route -&gt; Findings via Excel</li>
+                  <li>Deliver -&gt; Sortable audit report</li>
+                </ol>
+              </div>
+            </details>
           </div>
-          <div class="cowork-task">
-            <b>Scheduled customer signal activation</b>
-            <span>Creates a Friday customer signal brief with campaign adjustments.</span>
+          <div class="cowork-task"><details class="task-detail">
+              <summary>
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Scheduled customer signal activation</span>
+              </summary>
+              <div class="task-body">
+                <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+                <p><b>Goal:</b> Run a weekly customer-signal sweep that feeds next week's messaging, content, and campaign moves, correlated against live campaign performance.</p>
+                <p><b>Outcome:</b> Every Friday, a Word customer signal brief, themes, objections, message implications, recommended campaign adjustments, and owner follow-ups, grounded in customer voice and Fabric IQ campaign response data.</p>
+                <p><b>Prompt:</b></p>
+                <pre class="prompt-text">Every Friday at 9 AM, run the customer signal sweep so we walk into Monday with next week's moves already informed by the last seven days of customer voice.
+Monitor:
+Customer call recordings and notes in [Customer Calls Folder]
+Sales feedback emails tagged [Sales Feedback Tag]
+[Sales Channel] and [Customer Success Channel] Teams discussions
+Support themes from [Support Ticket Folder]
+[Industry/Segment] market signals from research feeds
+Synthesize:
+Top three themes of the week
+Emerging objections
+Message implications
+Recommended campaign and content adjustments
+Owner-specific follow-ups across product marketing, content, sales enablement, and demand gen
+Deliver:
+Word customer signal brief
+Summary post for [Marketing Channel] (Teams)
+Tailored follow-up drafts queued for each owner</pre>
+                <p><b>Execution flow:</b></p>
+                <ol class="exec-flow">
+                  <li>Customer Calls [Folder] -&gt; Surface customer themes</li>
+                  <li>Email (sales feedback) -&gt; Pull front-line patterns into view</li>
+                  <li>Teams [Sales + CS Channels] -&gt; Read live discussions</li>
+                  <li>Support [Folder] -&gt; Identify support themes</li>
+                  <li>Web / research feeds -&gt; Capture market signals</li>
+                  <li>Synthesize -&gt; Themes · objections · implications</li>
+                  <li>Post -&gt; Summary to [Marketing Channel]</li>
+                  <li>Queue -&gt; Owner-specific follow-ups</li>
+                </ol>
+              </div>
+            </details>
           </div>
         </div>
       </div>
