@@ -162,7 +162,7 @@
   .cowork-tier-note.heavy{border-top:4px solid var(--pink)}
   .cowork-tier{margin-top:22px}
   .cowork-tier h3{font-size:18px;margin-bottom:10px;color:var(--white);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .tier-badge{display:inline-flex;align-items:center;border-radius:99px;padding:4px 10px;font-size:11px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:#0E1430}
+  .tier-badge{display:inline-flex;align-items:center;border-radius:99px;padding:4px 10px;font-size:11px;font-weight:400;letter-spacing:.4px;text-transform:uppercase;color:#0E1430}
   .tier-badge.light{background:var(--green)}.tier-badge.medium{background:var(--teal)}.tier-badge.heavy{background:var(--pink);color:#fff}
   .cowork-table{overflow-x:auto;border:1px solid var(--edge);border-radius:14px;background:var(--rowB)}
   .cowork-table table{min-width:980px;width:100%;border-collapse:collapse}
@@ -174,12 +174,6 @@
 
 
 
-  .task-detail{background:var(--rowA);border:1px solid var(--edge);border-radius:10px;overflow:hidden}
-  .task-detail summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:9px;padding:10px 11px;color:var(--white);font-weight:800;line-height:1.35}
-  .task-detail summary::-webkit-details-marker{display:none}
-  .task-detail summary::after{content:"+";margin-left:auto;color:var(--sub);font-weight:900;font-size:17px}
-  .task-detail[open] summary{border-bottom:1px solid var(--edge);background:var(--band)}
-  .task-detail[open] summary::after{content:"-"}
   .task-title{font-size:13px}.task-body{padding:11px 12px 13px;color:var(--mute);font-size:12.6px;line-height:1.45}
   .task-body p{margin:0 0 9px}.task-body b{color:var(--white)}
   .prompt-text{white-space:pre-wrap;background:var(--bg2);border:1px solid var(--edge);border-radius:8px;padding:10px 11px;margin:4px 0 11px;color:var(--white);font:12px/1.42 Consolas,"Courier New",monospace;overflow:auto}
@@ -286,6 +280,38 @@
     .sec-head h2{font-size:18px}
     .wrap{padding:0 14px}
   }
+
+  .tier-badge{font-weight:400}
+  .cowork-table{border:0;background:transparent;overflow:visible}
+  .cowork-table table{min-width:0;width:100%;display:block;border-collapse:separate}
+  .cowork-table thead{display:none}
+  .cowork-table tbody{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .cowork-table tr{display:grid;grid-template-columns:86px minmax(0,1fr);background:var(--rowB);border:1px solid var(--edge);border-radius:10px;overflow:hidden;min-height:70px}
+  .cowork-table th,.cowork-table td{border-bottom:0}
+  .cowork-table td{display:block;padding:0;text-align:left;vertical-align:top}
+  .cowork-table td:first-child{width:auto;padding:10px;color:var(--sub);font-weight:800;text-transform:uppercase;font-size:11.5px;letter-spacing:.4px;background:var(--band)}
+  .cowork-table td:nth-child(2){width:auto;padding:8px;color:var(--white);font-weight:700}
+  .task-card{appearance:none;width:100%;height:100%;min-height:54px;background:var(--rowA);border:1px solid var(--edge);border-radius:10px;padding:10px 11px;display:flex;align-items:center;gap:9px;text-align:left;cursor:pointer;font:inherit;transition:transform .15s ease,border-color .15s ease,background .15s ease}
+  .task-card:hover{transform:translateY(-1px);border-color:var(--link);background:var(--band)}
+  .task-card:focus-visible{outline:2px solid var(--link);outline-offset:2px}
+  .task-card .tier-badge{display:inline-flex;font-weight:400;flex:0 0 auto}
+  .task-card .task-title{display:block;color:var(--white);font-size:13px;font-weight:800;line-height:1.35}
+  .task-modal-data{display:none}
+  .task-modal{width:min(780px,92vw);max-height:88vh;border:0;border-radius:16px;padding:0;background:var(--rowB);color:var(--white);box-shadow:0 24px 70px rgba(0,0,0,.5);opacity:0;transform:scale(.96);transition:opacity .18s ease,transform .18s ease;overflow:hidden}
+  .task-modal.modal-open{opacity:1;transform:scale(1)}
+  .task-modal::backdrop{background:rgba(0,0,0,.68);opacity:0;transition:opacity .18s ease}
+  .task-modal.modal-open::backdrop{opacity:1}
+  .task-modal-close{position:absolute;right:14px;top:12px;width:34px;height:34px;border:0;border-radius:999px;background:var(--band);color:var(--white);font:700 18px/1 "Segoe UI",system-ui,sans-serif;cursor:pointer}
+  .task-modal-close:hover{background:var(--edge)}
+  .task-modal-content{max-height:88vh;overflow:auto;padding:24px 26px 26px}
+  .task-modal-heading{display:flex;align-items:center;gap:10px;padding-right:42px;margin-bottom:14px}
+  .task-modal-heading .tier-badge{font-weight:400;flex:0 0 auto}
+  .task-modal-heading .task-title{color:var(--white);font-size:19px;font-weight:800;line-height:1.25}
+  .task-modal .task-body{padding:0;color:var(--mute);font-size:13px;line-height:1.5}
+  .task-modal .prompt-text{max-height:32vh}
+  @media (max-width:900px){.cowork-table tbody{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:640px){.cowork-table tbody{grid-template-columns:1fr}.cowork-table tr{grid-template-columns:1fr}.cowork-table td:first-child{padding:8px 10px}.task-modal{width:95vw;max-height:92vh}.task-modal-content{max-height:92vh;padding:22px 18px 20px}.task-modal-heading{align-items:flex-start;flex-direction:column}}
+
 </style>
 <script>
 (function(){
@@ -662,13 +688,17 @@
         <table>
           <thead><tr><th>Audience</th><th colspan="2">Task details</th></tr></thead>
           <tbody>
-            <tr><td>All teams</td><td colspan="2"><details class="task-detail">
-                <summary>
+            <tr><td>All teams</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-1">
+                <span class="tier-badge light">Light</span>
+                <span class="task-title">Rebalance your week and protect focus time</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-1">
+                <div class="task-modal-heading">
                   <span class="tier-badge light">Light</span>
                   <span class="task-title">Rebalance your week and protect focus time</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
+<p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
                   <p><b>Goal:</b> Take control of a fragmented calendar before it takes control of your week.</p>
                   <p><b>Outcome:</b> A rebalanced schedule that protects focus time, prioritizes high-impact meetings, and resolves conflicts, without manually negotiating your own availability.</p>
                   <p><b>Prompt:</b></p>
@@ -689,14 +719,18 @@ Follow-up prompts: Accept and decline meetings. Create a customer meeting prep d
                     <li>Execute -&gt; Apply updates one-by-one</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>All teams</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>All teams</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-2">
+                <span class="tier-badge light">Light</span>
+                <span class="task-title">Wrap up projects and organize all related work</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-2">
+                <div class="task-modal-heading">
                   <span class="tier-badge light">Light</span>
                   <span class="task-title">Wrap up projects and organize all related work</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
+<p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
                   <p><b>Goal:</b> Close out a project with a clean, shareable archive, not a scattered trail of files.</p>
                   <p><b>Outcome:</b> A single OneDrive folder with the project's deliverables and references, shared with the team so the work stays findable and easy to reference.</p>
                   <p><b>Prompt:</b></p>
@@ -715,14 +749,18 @@ Then build a lightweight HTML recap page for the archive, project outcomes, key 
                     <li>Build -&gt; HTML project recap page for the archive</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>All teams</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>All teams</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-3">
+                <span class="tier-badge light">Light</span>
+                <span class="task-title">Catch up on messages and send replies automatically</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-3">
+                <div class="task-modal-heading">
                   <span class="tier-badge light">Light</span>
                   <span class="task-title">Catch up on messages and send replies automatically</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
+<p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
                   <p><b>Goal:</b> Close the loop on unanswered questions without scrolling back through a week of threads.</p>
                   <p><b>Outcome:</b> Routine acknowledgments handled automatically, higher-stakes replies drafted for review, so you stay responsive without spending hours catching up.</p>
                   <p><b>Prompt:</b></p>
@@ -739,14 +777,18 @@ For anything that just needs a quick acknowledgment or "got it," send the reply.
                     <li>Surface -&gt; Drafted replies for approval Catch up on messages and send replies automatically</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>Sales</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>Sales</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-4">
+                <span class="tier-badge light">Light</span>
+                <span class="task-title">Pricing screenshot to customer presentation</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-4">
+                <div class="task-modal-heading">
                   <span class="tier-badge light">Light</span>
                   <span class="task-title">Pricing screenshot to customer presentation</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
+<p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
                   <p><b>Goal:</b> Turn an approved pricing screenshot into a customer-ready deck, numbers exact, deck polished, email drafted.</p>
                   <p><b>Outcome:</b> A customer-ready PowerPoint deck (cover, context, pricing, next steps) and a draft customer email with the deck attached, pricing slide surfaced for your approval before the rest of the deck is built.</p>
                   <p><b>Prompt:</b></p>
@@ -768,14 +810,18 @@ When the deck is ready, draft a short email to [Customer Contact Name] attaching
                     <li>Flag -&gt; Any ambiguous figures in source image Note: This task uses an image as its source. Cowork preserves all pricing figures exactly as shown, no rounding or paraphrasing. It will surface the pricing slide for your review before completing the full deck.</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>Sales</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>Sales</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-5">
+                <span class="tier-badge light">Light</span>
+                <span class="task-title">Weekly external customer email review</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-5">
+                <div class="task-modal-heading">
                   <span class="tier-badge light">Light</span>
                   <span class="task-title">Weekly external customer email review</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
+<p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
                   <p><b>Goal:</b> Every Monday, surface action items from external customer emails, draft replies in thread, and remind yourself to review before anything goes out.</p>
                   <p><b>Outcome:</b> Outlook draft replies waiting in your Drafts folder, an email summary reminder, and a Teams self-message, queued every Monday morning so the inbox is already moving when you sit down.</p>
                   <p><b>Prompt:</b></p>
@@ -791,14 +837,18 @@ Once the drafts are ready, send me an email summary reminding me to review them,
                     <li>Teams -&gt; Self-message reminder to review drafts</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>Marketing</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>Marketing</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-6">
+                <span class="tier-badge light">Light</span>
+                <span class="task-title">Research and insights alignment recap</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-6">
+                <div class="task-modal-heading">
                   <span class="tier-badge light">Light</span>
                   <span class="task-title">Research and insights alignment recap</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
+<p><b>Why light:</b> Quick, single-purpose handoff. Cowork pulls from one or two sources and returns a ready-to-use artifact in minutes.</p>
                   <p><b>Goal:</b> Surface everything that came out of this week's research sessions, what landed, what didn't, and what still needs an owner.</p>
                   <p><b>Outcome:</b> A Teams post recapping decisions made, open issues, and named next steps, posted to the team channel so everyone walks into next week aligned.</p>
                   <p><b>Prompt:</b></p>
@@ -814,7 +864,7 @@ Post a recap to [Team Channel] for the group.</pre>
                     <li>Deliver -&gt; Alignment recap in Word</li>
                   </ol>
                 </div>
-              </details></td></tr>
+              </div></td></tr>
           </tbody>
         </table>
       </div>
@@ -825,13 +875,17 @@ Post a recap to [Team Channel] for the group.</pre>
         <table>
           <thead><tr><th>Audience</th><th colspan="2">Task details</th></tr></thead>
           <tbody>
-            <tr><td>All teams</td><td colspan="2"><details class="task-detail">
-                <summary>
+            <tr><td>All teams</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-7">
+                <span class="tier-badge medium">Medium</span>
+                <span class="task-title">Turn inbox noise into a curated intelligence brief</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-7">
+                <div class="task-modal-heading">
                   <span class="tier-badge medium">Medium</span>
                   <span class="task-title">Turn inbox noise into a curated intelligence brief</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why medium:</b> Recurring multi-step work. Cowork reasons across several sources and produces one or more finished deliverables you would normally build by hand.</p>
+<p><b>Why medium:</b> Recurring multi-step work. Cowork reasons across several sources and produces one or more finished deliverables you would normally build by hand.</p>
                   <p><b>Goal:</b> Cut through a week of newsletters to the stories that actually matter to your work.</p>
                   <p><b>Outcome:</b> A curated weekly brief that surfaces meaningful trends across the publications you follow, without the time spent reading them.</p>
                   <p><b>Prompt:</b></p>
@@ -853,14 +907,18 @@ Send me this weekly brief every Friday afternoon.</pre>
                     <li>Send -&gt; Every Friday afternoon Note: This task features a scheduled prompt, which tells Cowork you want it to run automatically on a recurring basis. To create a scheduled prompt, simply describe what you want and when in your message.</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>Marketing</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>Marketing</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-8">
+                <span class="tier-badge medium">Medium</span>
+                <span class="task-title">Partner and channel activation kit</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-8">
+                <div class="task-modal-heading">
                   <span class="tier-badge medium">Medium</span>
                   <span class="task-title">Partner and channel activation kit</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why medium:</b> Recurring multi-step work. Cowork reasons across several sources and produces one or more finished deliverables you would normally build by hand.</p>
+<p><b>Why medium:</b> Recurring multi-step work. Cowork reasons across several sources and produces one or more finished deliverables you would normally build by hand.</p>
                   <p><b>Goal:</b> Adapt the [Product/Campaign Name] launch materials for partners and channel teams and route them for review.</p>
                   <p><b>Outcome:</b> A partner-ready and channel-ready activation kit across Word and Excel, plus a routing plan so partner, field, and channel marketing can move fast.</p>
                   <p><b>Prompt:</b></p>
@@ -888,7 +946,7 @@ Send to [Channel Marketing Owner] for channel readiness</pre>
                     <li>Route -&gt; Kit to owners for review</li>
                   </ol>
                 </div>
-              </details></td></tr>
+              </div></td></tr>
           </tbody>
         </table>
       </div>
@@ -899,13 +957,17 @@ Send to [Channel Marketing Owner] for channel readiness</pre>
         <table>
           <thead><tr><th>Audience</th><th colspan="2">Task details</th></tr></thead>
           <tbody>
-            <tr><td>All teams</td><td colspan="2"><details class="task-detail">
-                <summary>
+            <tr><td>All teams</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-9">
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Prepare a complete out-of-office handoff</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-9">
+                <div class="task-modal-heading">
                   <span class="tier-badge heavy">Heavy</span>
                   <span class="task-title">Prepare a complete out-of-office handoff</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+<p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
                   <p><b>Goal:</b> Step away from your laptop knowing nothing in flight will stall while you are out.</p>
                   <p><b>Outcome:</b> A handover document built from your real work, projects, owners, deadlines, and supporting files, so coverage stays clear and execution keeps moving.</p>
                   <p><b>Prompt:</b></p>
@@ -926,14 +988,18 @@ Then act on my calendar for the OOO window: set my out-of-office auto-reply, dec
                     <li>Calendar -&gt; Set auto-reply, decline/ delegate meetings, flag owned meetings</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>All teams</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>All teams</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-10">
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Analyze and optimize your OneDrive at scale</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-10">
+                <div class="task-modal-heading">
                   <span class="tier-badge heavy">Heavy</span>
                   <span class="task-title">Analyze and optimize your OneDrive at scale</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+<p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
                   <p><b>Goal:</b> Turn a sprawling OneDrive into a structured catalog you can actually act on.</p>
                   <p><b>Outcome:</b> An organization plan and visual overview of your files, with cleanup decisions queued up for your approval.</p>
                   <p><b>Prompt:</b></p>
@@ -952,14 +1018,18 @@ Present me with your plan before you act on it.</pre>
                     <li>Approve -&gt; Re-org actions</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>All teams</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>All teams</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-11">
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Audit and surface against a standard</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-11">
+                <div class="task-modal-heading">
                   <span class="tier-badge heavy">Heavy</span>
                   <span class="task-title">Audit and surface against a standard</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+<p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
                   <p><b>Goal:</b> Apply a brand guide, naming convention, compliance policy, or quality standard across dozens of files, without manually reviewing each one and without risking accidental changes.</p>
                   <p><b>Outcome:</b> A sortable audit report showing every violation, its severity, and a recommended fix, so you can prioritize manual cleanup confidently.</p>
                   <p><b>Prompt:</b></p>
@@ -981,14 +1051,18 @@ Don't change any files, give me the action list.</pre>
                     <li>Surface -&gt; Prioritized action list Note: This task pairs bulk reading with safety, Cowork doesn't change any files. It surfaces a complete action list so you can prioritize manual cleanup.</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>All teams</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>All teams</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-12">
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Onboard a new hire with a complete 30-60-90 plan</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-12">
+                <div class="task-modal-heading">
                   <span class="tier-badge heavy">Heavy</span>
                   <span class="task-title">Onboard a new hire with a complete 30-60-90 plan</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+<p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
                   <p><b>Goal:</b> Set a new hire up to succeed from day one, without building the plan from scratch.</p>
                   <p><b>Outcome:</b> A Word 30-60-90 day onboarding plan, an interactive "Getting Started" HTML dashboard, and recurring check-ins scheduled with the new hire across their first month.</p>
                   <p><b>Prompt:</b></p>
@@ -1006,14 +1080,18 @@ Finally, review my calendar and schedule twice-weekly check-ins with the new hir
                     <li>Deliver -&gt; Plan, dashboard, and check-ins in place Onboard a new hire with a complete 30-60-90 plan</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>Sales</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>Sales</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-13">
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Product launch customer pitch</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-13">
+                <div class="task-modal-heading">
                   <span class="tier-badge heavy">Heavy</span>
                   <span class="task-title">Product launch customer pitch</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+<p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
                   <p><b>Goal:</b> Turn a competitor announcement into a sharp, differentiated customer pitch, built and ready before tomorrow's meeting.</p>
                   <p><b>Outcome:</b> An Excel competitive comparison, a Word value prop document, and a customer-ready PowerPoint pitch deck, a three-artifact kit ready for tomorrow's meeting.</p>
                   <p><b>Prompt:</b></p>
@@ -1030,14 +1108,18 @@ Finally, bring it all together in a customer-ready PowerPoint pitch deck I can p
                     <li>Deliver -&gt; Excel comparison + Word value prop + PowerPoint pitch deck</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>Sales</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>Sales</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-14">
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">New customer onboarding automation</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-14">
+                <div class="task-modal-heading">
                   <span class="tier-badge heavy">Heavy</span>
                   <span class="task-title">New customer onboarding automation</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+<p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
                   <p><b>Goal:</b> Close a new customer and trigger the full onboarding sequence in one prompt.</p>
                   <p><b>Outcome:</b> A SharePoint folder, executive onboarding artifacts (PowerPoint + Word), a Teams message to the account team, and a welcome email draft, all triggered from a single new-customer email.</p>
                   <p><b>Prompt:</b></p>
@@ -1058,14 +1140,18 @@ Draft a welcome email to [Customer Contact Name] at [Customer Name] for my revie
                     <li>Draft -&gt; Welcome email to [Customer Contact Name] (held for review) Note: This is a 6-step orchestration across Email, Web, SharePoint, PowerPoint, Word, Teams, and Outlook. The welcome email is held as a draft for your review before it goes out.</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>Sales</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>Sales</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-15">
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Customer adoption materials</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-15">
+                <div class="task-modal-heading">
                   <span class="tier-badge heavy">Heavy</span>
                   <span class="task-title">Customer adoption materials</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+<p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
                   <p><b>Goal:</b> Build a role-relevant learning curriculum for a customer, structured, sourced, and deployment-ready.</p>
                   <p><b>Outcome:</b> A full Markdown curriculum with three progressive learning paths (Beginner, Intermediate, Advanced), each with sequenced resource tables, persona-tailored application notes, and a recommended rollout order for the customer's champion or power-user program.</p>
                   <p><b>Prompt:</b></p>
@@ -1092,14 +1178,18 @@ Use only public, accessible resources from [Product Vendor] and reputable third-
                     <li>Deliver -&gt; Full curriculum in Markdown</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>Sales</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>Sales</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-16">
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">ROI and value selling artifact</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-16">
+                <div class="task-modal-heading">
                   <span class="tier-badge heavy">Heavy</span>
                   <span class="task-title">ROI and value selling artifact</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+<p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
                   <p><b>Goal:</b> Build an executive-level business value story for a customer, use cases, ROI model, and call to action, delivered as a deck and microsite.</p>
                   <p><b>Outcome:</b> A 5,7 slide PowerPoint executive deck and an interactive HTML executive microsite, strategic context, 9 use cases, prioritization matrix, pain → outcome map, KPIs, transparent ROI model, and a workshop → pilot → scale call to action.</p>
                   <p><b>Prompt:</b></p>
@@ -1123,14 +1213,18 @@ Prioritization View: Place all 9 use cases on a 2x2 matrix: Ease of Implementati
                     <li>Deliver -&gt; PowerPoint exec deck + interactive HTML microsite</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>Marketing</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>Marketing</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-17">
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Analyst briefing prep and rehearsal routing</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-17">
+                <div class="task-modal-heading">
                   <span class="tier-badge heavy">Heavy</span>
                   <span class="task-title">Analyst briefing prep and rehearsal routing</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+<p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
                   <p><b>Goal:</b> Prep the [Analyst Firm] briefing package and get the team rehearsed before the room.</p>
                   <p><b>Outcome:</b> An interactive HTML briefing dashboard, positioning, top three messages, anticipated Q&amp;A, speaker notes, and a rehearsal locked on the calendar 48 hours out with the dashboard attached on approval.</p>
                   <p><b>Prompt:</b></p>
@@ -1150,14 +1244,18 @@ Then put a 60-minute rehearsal on the calendar with [Spokesperson] and [Briefing
                     <li>Calendar -&gt; Lock the rehearsal 48 hours out</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>Marketing</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>Marketing</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-18">
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Messaging drift audit and remediation routing</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-18">
+                <div class="task-modal-heading">
                   <span class="tier-badge heavy">Heavy</span>
                   <span class="task-title">Messaging drift audit and remediation routing</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+<p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
                   <p><b>Goal:</b> Catch messaging drift across every asset in [Folder] before it shows up in market.</p>
                   <p><b>Outcome:</b> A sortable Excel audit report flagging every inconsistency by severity, recommended fix, and the right owner, so cleanup happens in priority order.</p>
                   <p><b>Prompt:</b></p>
@@ -1182,14 +1280,18 @@ Bring it all together in a sortable Excel report, total assets reviewed, finding
                     <li>Deliver -&gt; Sortable audit report</li>
                   </ol>
                 </div>
-              </details></td></tr>
-            <tr><td>Marketing</td><td colspan="2"><details class="task-detail">
-                <summary>
+              </div></td></tr>
+            <tr><td>Marketing</td><td colspan="2"><button type="button" class="task-card" data-task-id="task-technical-lite-19">
+                <span class="tier-badge heavy">Heavy</span>
+                <span class="task-title">Scheduled customer signal activation</span>
+              </button>
+              <div class="task-modal-data" id="task-technical-lite-19">
+                <div class="task-modal-heading">
                   <span class="tier-badge heavy">Heavy</span>
                   <span class="task-title">Scheduled customer signal activation</span>
-                </summary>
+                </div>
                 <div class="task-body">
-                  <p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
+<p><b>Why heavy:</b> Multi-part work you would block out serious time for. Cowork pulls from across your tools, does the deep thinking, and delivers a full set of artifacts.</p>
                   <p><b>Goal:</b> Run a weekly customer-signal sweep that feeds next week's messaging, content, and campaign moves, correlated against live campaign performance.</p>
                   <p><b>Outcome:</b> Every Friday, a Word customer signal brief, themes, objections, message implications, recommended campaign adjustments, and owner follow-ups, grounded in customer voice and Fabric IQ campaign response data.</p>
                   <p><b>Prompt:</b></p>
@@ -1222,7 +1324,7 @@ Tailored follow-up drafts queued for each owner</pre>
                     <li>Queue -&gt; Owner-specific follow-ups</li>
                   </ol>
                 </div>
-              </details></td></tr>
+              </div></td></tr>
           </tbody>
         </table>
       </div>
@@ -1246,5 +1348,56 @@ Tailored follow-up drafts queued for each owner</pre>
   </footer>
 
 </div>
+
+<dialog class="task-modal" id="task-modal" aria-labelledby="task-modal-title">
+  <button type="button" class="task-modal-close" aria-label="Close task details">X</button>
+  <div class="task-modal-content"></div>
+</dialog>
+<script>
+(function(){
+  var modal;
+  var content;
+  var lastTrigger;
+  var closeTimer;
+  function openTask(button){
+    var source=document.getElementById(button.getAttribute('data-task-id'));
+    if(!source||!modal||!content){return;}
+    lastTrigger=button;
+    content.innerHTML=source.innerHTML;
+    if(!content.querySelector('#task-modal-title')){
+      var title=content.querySelector('.task-title');
+      if(title){title.id='task-modal-title';}
+    }
+    if(typeof modal.showModal==='function'){
+      modal.showModal();
+    }else{
+      modal.setAttribute('open','');
+    }
+    window.requestAnimationFrame(function(){modal.classList.add('modal-open');});
+  }
+  function closeTask(){
+    if(!modal||!modal.hasAttribute('open')){return;}
+    modal.classList.remove('modal-open');
+    window.clearTimeout(closeTimer);
+    closeTimer=window.setTimeout(function(){
+      if(typeof modal.close==='function'){modal.close();}else{modal.removeAttribute('open');}
+      content.innerHTML='';
+      if(lastTrigger){lastTrigger.focus();}
+    },180);
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    modal=document.getElementById('task-modal');
+    if(!modal){return;}
+    content=modal.querySelector('.task-modal-content');
+    document.querySelectorAll('.task-card[data-task-id]').forEach(function(button){
+      button.addEventListener('click',function(){openTask(button);});
+    });
+    modal.querySelector('.task-modal-close').addEventListener('click',closeTask);
+    modal.addEventListener('click',function(event){if(event.target===modal){closeTask();}});
+    modal.addEventListener('cancel',function(event){event.preventDefault();closeTask();});
+  });
+})();
+</script>
+
 </body>
 </html>

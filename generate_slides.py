@@ -178,8 +178,20 @@ def extract_label_value(detail_html: str, label: str) -> str:
 def extract_cowork_task_details(path: Path) -> list[dict]:
     html = path.read_text(encoding="utf-8")
     tasks = []
-    for match in re.finditer(r'<details class="task-detail">([\s\S]*?)</details>', html, flags=re.I):
-        detail = match.group(1)
+    detail_blocks = [
+        match.group(1)
+        for match in re.finditer(r'<details class="task-detail">([\s\S]*?)</details>', html, flags=re.I)
+    ]
+    if not detail_blocks:
+        detail_blocks = [
+            match.group(1)
+            for match in re.finditer(
+                r'<div class="task-modal-data" id="[^"]+">([\s\S]*?<ol class="exec-flow">[\s\S]*?</ol>\s*</div>)\s*</div>',
+                html,
+                flags=re.I,
+            )
+        ]
+    for detail in detail_blocks:
         tier = find_first(r'<span class="tier-badge\s+([^"]+)">', detail).title()
         title = find_first(r'<span class="task-title">([\s\S]*?)</span>', detail)
         prompt_match = re.search(r'<pre class="prompt-text">([\s\S]*?)</pre>', detail, flags=re.I)
