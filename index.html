@@ -1,502 +1,96 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Copilot, Cowork, Studio & Scout: what to use when</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microsoft Copilot, what to use when</title>
+<link rel="icon" href="copilot-color.png">
 <style>
   :root{
-    --ink:#1B1B2C; --ink2:#3A3A52; --mute:#6B6B82; --line:#E4E4ED;
-    --bg:#FFFFFF; --soft:#F6F7FB; --card:#FFFFFF;
-    --teal:#0E8E92; --blue:#1A6FD6; --purp:#7A4FCF; --magenta:#A53AAE;
-    --green:#3E8E22; --pink:#C73E78; --gold:#B27B05;
-    --link:#1A6FD6;
+    --bg:#0b1020; --fg:#e9ecf6; --muted:#aab0c6;
+    --card:#121833; --line:rgba(255,255,255,.08);
+    --grad:linear-gradient(135deg,#2563eb 0%,#22d3ee 50%,#a855f7 100%);
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
   body{
-    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
-    background:var(--bg); color:var(--ink); line-height:1.6; padding:0 0 32px;
-    font-size:16px;
-    -webkit-font-smoothing:antialiased;
+    font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
+    background:radial-gradient(1200px 600px at 10% -10%, #1a2150 0%, transparent 60%),
+               radial-gradient(900px 500px at 110% 10%, #1b3a52 0%, transparent 55%),
+               var(--bg);
+    color:var(--fg); min-height:100vh; display:flex; flex-direction:column;
   }
-  .wrap{max-width:1600px;margin:0 auto;padding:0 18px}
-  a{color:var(--link);text-decoration:none}
-  a:hover{text-decoration:underline}
-
-  header.top{padding:24px 0 18px;border-bottom:1px solid var(--line)}
-  header .eyebrow{font-size:13px;font-weight:700;letter-spacing:1.2px;color:var(--teal);text-transform:uppercase}
-  h1{font-size:clamp(28px,3.6vw,38px);font-weight:700;margin:6px 0 8px;letter-spacing:-.4px;color:var(--ink)}
-  h1 .accent{color:var(--blue)}
-  .lede{color:var(--ink2);font-size:17px;max-width:1000px;line-height:1.55}
-
-  section{margin-top:34px}
-  .sec-eyebrow{font-size:13px;font-weight:700;letter-spacing:1.2px;color:var(--mute);text-transform:uppercase;margin-bottom:6px}
-  h2{font-size:26px;font-weight:700;letter-spacing:-.2px;color:var(--ink);margin-bottom:6px}
-  .sec-sub{color:var(--mute);font-size:15.5px;margin-bottom:16px}
-
-  /* product cards */
-  .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;align-items:stretch}
-  .pcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px 16px;
-    border-top:5px solid var(--teal); transition:box-shadow .2s;display:flex;flex-direction:column}
-  .pcard:hover{box-shadow:0 6px 20px rgba(27,27,44,.06)}
-  .pcard.b{border-top-color:var(--green)}
-  .pcard.c{border-top-color:var(--magenta)}
-  .pcard.d{border-top-color:var(--pink)}
-  .pcard .ico{font-size:22px;line-height:1}
-  .pcard .nm{font-weight:700;font-size:18px;margin:6px 0 4px;color:var(--ink)}
-  .pcard .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;
-    padding:2px 7px;border-radius:5px;margin-left:6px;vertical-align:2px}
-  .tag.ga{background:#E6F3DC;color:var(--green)}
-  .tag.fr{background:#FCE3EE;color:var(--pink)}
-  .pcard .what{color:var(--mute);font-size:15px;margin:6px 0 10px;line-height:1.5}
-  .pcard .bullets{list-style:none;padding:0}
-  .pcard .bullets li{font-size:15px;color:var(--ink2);padding:5px 0 5px 18px;position:relative;line-height:1.5}
-  .pcard .bullets li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;border-radius:50%;background:var(--teal)}
-  .pcard.b .bullets li::before{background:var(--green)}
-  .pcard.c .bullets li::before{background:var(--magenta)}
-  .pcard.d .bullets li::before{background:var(--pink)}
-
-  /* best for each task - card list */
-  .taskgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;align-items:stretch}
-  .tcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px 14px;
-    display:flex;flex-direction:column;gap:6px}
-  .tcard .task{font-weight:700;color:var(--ink);font-size:16px;line-height:1.4;min-height:2.8em}
-  .tcard .reco{font-size:14.5px;color:var(--ink2);display:flex;align-items:center;gap:10px;margin-top:6px;flex-wrap:wrap}
-  .tcard .pill{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-weight:800;font-size:13.5px;
-    color:#fff;padding:6px 14px;border-radius:99px;letter-spacing:.2px;white-space:nowrap;min-width:180px;text-align:center}
-  .p-chat{background:var(--teal)}.p-app{background:var(--blue)}.p-agt{background:var(--purp)}
-  .p-std{background:var(--magenta)}.p-cow{background:var(--green)}.p-sct{background:var(--pink)}
-  .tcard .why{color:var(--mute);font-size:14px;margin-top:4px;line-height:1.5}
-  .tcard .alt{color:var(--mute);font-size:13.5px;font-style:italic;line-height:1.5}
-
-  /* rule callout */
-  .rule{margin-top:16px;background:var(--soft);border:1px solid var(--line);border-left:5px solid var(--gold);
-    border-radius:10px;padding:14px 18px;color:var(--ink2);font-size:15.5px;line-height:1.55}
-  .rule b{color:var(--ink)}
-
-  /* prompt frame */
-  .prompt{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:18px 20px 16px}
-  .prompt h3{font-size:17px;font-weight:700;margin-bottom:6px;color:var(--ink)}
-  .prompt .sub{color:var(--mute);font-size:15px;margin-bottom:12px}
-  .prompt .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:12px}
-  .step{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;border-top:3px solid var(--teal)}
-  .step:nth-child(2){border-top-color:var(--blue)}
-  .step:nth-child(3){border-top-color:var(--purp)}
-  .step:nth-child(4){border-top-color:var(--magenta)}
-  .step:nth-child(5){border-top-color:var(--green)}
-  .step .n{font-weight:700;font-size:12.5px;color:var(--ink);margin-bottom:3px}
-  .step .d{font-size:11.5px;color:var(--mute);line-height:1.4}
-  .ex{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:8px}
-  .ex.bad{border-left:3px solid var(--pink)}
-  .ex.good{border-left:3px solid var(--green)}
-  .ex .lab{font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:4px}
-  .ex.bad .lab{color:var(--pink)}
-  .ex.good .lab{color:var(--green)}
-  .ex p{color:var(--ink2);font-size:13px;font-style:italic}
-  .ex p b{font-style:normal;color:var(--ink)}
-
-  /* in-app picker */
-  .appgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;align-items:stretch}
-  .acard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px 14px;display:flex;flex-direction:column}
-  .acard .ah{display:flex;align-items:center;gap:10px;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid var(--line)}
-  .acard .ah .ic{font-size:22px;line-height:1}
-  .acard .ah .nm{font-weight:800;font-size:17px;color:var(--ink)}
-  .acard .opt{display:flex;flex-direction:column;gap:6px;padding:10px 0;border-top:1px dashed var(--line)}
-  .acard .opt:first-of-type{border-top:0;padding-top:2px}
-  .acard .opt .pill{align-self:flex-start;font-size:13px;font-weight:800;padding:5px 13px;color:#fff;border-radius:99px;display:inline-flex;align-items:center;letter-spacing:.2px;white-space:nowrap}
-  .acard .opt .desc{font-size:14.5px;color:var(--ink2);line-height:1.55}
-  .acard .opt .desc b{color:var(--ink)}
-
-  /* scenarios */
-  .scgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;align-items:stretch}
-  .scen{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;
-    border-top:4px solid var(--blue);display:flex;flex-direction:column}
-  .scen.b{border-top-color:var(--purp)}
-  .scen.c{border-top-color:var(--green)}
-  .scen.d{border-top-color:var(--pink)}
-  .scen.e{border-top-color:var(--magenta)}
-  .scen .role{font-size:12px;font-weight:800;letter-spacing:.7px;color:var(--mute);text-transform:uppercase}
-  .scen .t{font-weight:700;font-size:16px;margin:5px 0 6px;color:var(--ink);line-height:1.35}
-  .scen .desc{color:var(--ink2);font-size:14.5px;margin-bottom:10px;line-height:1.5;flex:1}
-  .scen .use{font-size:14px;color:var(--mute);line-height:1.5}
-
-  /* validate steps */
-  .steps4{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-  .s4{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;border-top:3px solid var(--teal);position:relative}
-  .s4:nth-child(2){border-top-color:var(--purp)}
-  .s4:nth-child(3){border-top-color:var(--green)}
-  .s4:nth-child(4){border-top-color:var(--magenta)}
-  .s4 .num{position:absolute;top:14px;right:16px;font-size:26px;font-weight:800;color:var(--line)}
-  .s4 .lab{font-size:11px;font-weight:700;letter-spacing:.6px;color:var(--mute);text-transform:uppercase}
-  .s4 h3{font-size:15px;margin:4px 0 6px;color:var(--ink)}
-  .s4 p{font-size:13px;color:var(--ink2)}
-
-  /* refs footer */
-  footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line)}
-  .refs{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:8px 18px}
-  .refs a{font-size:12.5px;color:var(--ink2);display:flex;gap:8px;padding:4px 0}
-  .refs a:hover{color:var(--link)}
-  .refs .src-lab{display:inline-block;font-weight:700;color:#fff;font-size:9.5px;background:var(--ink2);
-    border-radius:4px;padding:2px 6px;letter-spacing:.4px;min-width:54px;text-align:center}
-  .refs .src-lab.learn{background:var(--blue)}
-  .refs .src-lab.blog{background:var(--purp)}
-  .refs .src-lab.adopt{background:var(--green)}
-
-  /* show/hide toggles */
-  .toggle-bar{display:flex;gap:18px;align-items:center;padding:14px 18px;background:var(--soft);border:1px solid var(--line);border-radius:10px;margin-top:16px;font-size:15px;flex-wrap:wrap}
-  .toggle-bar .lab{font-weight:800;color:var(--ink);font-size:13px;letter-spacing:.5px;text-transform:uppercase;margin-right:4px}
-  .toggle-bar label{display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;color:var(--ink2);user-select:none;padding:6px 12px;border:1px solid var(--line);border-radius:99px;background:var(--card);transition:all .15s}
-  .toggle-bar label:hover{border-color:var(--blue);color:var(--ink)}
-  .toggle-bar label.off{opacity:.5;text-decoration:line-through}
-  .toggle-bar input{width:16px;height:16px;cursor:pointer;accent-color:var(--blue);margin:0}
-  body.hide-studio [data-prod~="studio"]{display:none !important}
-  body.hide-scout [data-prod~="scout"]{display:none !important}
+  header{padding:28px 24px 8px; max-width:1100px; margin:0 auto; width:100%}
+  .brand{display:flex; align-items:center; gap:12px}
+  .brand img{width:38px; height:38px}
+  .brand .name{font-weight:700; letter-spacing:.2px}
+  .hero{max-width:1100px; margin:0 auto; padding:32px 24px 16px; width:100%}
+  h1{font-size:clamp(28px,4vw,44px); line-height:1.15; margin:8px 0 12px;
+     background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent}
+  .lede{font-size:17px; color:var(--muted); max-width:760px; line-height:1.55; margin:0}
+  main{max-width:1100px; margin:0 auto; padding:24px; width:100%; flex:1}
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+  @media (max-width:780px){ .grid{grid-template-columns:1fr} }
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:18px;
+    padding:24px; display:flex; flex-direction:column; gap:14px;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    text-decoration:none; color:inherit;
+  }
+  .card:hover{transform:translateY(-2px); border-color:rgba(255,255,255,.18);
+              box-shadow:0 14px 40px rgba(0,0,0,.35)}
+  .pill{display:inline-block; font-size:12px; font-weight:700; letter-spacing:.4px;
+        padding:4px 10px; border-radius:999px; text-transform:uppercase; align-self:flex-start}
+  .pill.biz{background:rgba(34,211,238,.15); color:#7dd3fc; border:1px solid rgba(125,211,252,.35)}
+  .pill.it{background:rgba(168,85,247,.15); color:#d8b4fe; border:1px solid rgba(216,180,254,.35)}
+  .card h2{margin:2px 0 0; font-size:22px}
+  .card p{margin:0; color:var(--muted); line-height:1.55; font-size:15px}
+  .for{font-size:13px; color:#cbd5e1}
+  .for b{color:#fff}
+  .cta{margin-top:auto; display:inline-flex; align-items:center; gap:8px;
+       font-weight:700; color:#fff}
+  .cta:after{content:"→"; transition:transform .15s ease}
+  .card:hover .cta:after{transform:translateX(4px)}
+  footer{max-width:1100px; margin:0 auto; padding:18px 24px 28px; width:100%;
+         color:var(--muted); font-size:12.5px; line-height:1.5}
+  footer a{color:#9ec5fe}
 </style>
 </head>
 <body>
-
-<header class="top"><div class="wrap">
-  <div class="eyebrow">A practical guide</div>
-  <h1>Copilot, Cowork, Studio &amp; Scout: <span class="accent">what to use when</span></h1>
-  <p class="lede">Most tasks work in more than one tool. This is the simplest way to pick the right one and graduate as the work gets bigger. Every claim is grounded in Microsoft Learn or microsoft.com, with links at the bottom.</p>
-</div></header>
-
-<div class="wrap">
-
-  <!-- Section 1: four tools -->
-  <section>
-    <div class="sec-eyebrow">01 · The four tools</div>
-    <h2>At a glance</h2>
-    <p class="sec-sub">Pick by how the work shows up: a question, a process, a repeated team task, or something that needs to run on its own.</p>
-
-    <div class="pgrid">
-      <div class="pcard">
-        <div class="ico">💬</div>
-        <div class="nm">Microsoft 365 Copilot</div>
-        <div class="what">Your everyday AI assistant in Word, Excel, PowerPoint, Outlook, and Teams.</div>
-        <ul class="bullets">
-          <li>You ask, it responds</li>
-          <li>Grounded in your work content and the web</li>
-          <li>Includes ready agents like Researcher and Analyst</li>
-        </ul>
-      </div>
-      <div class="pcard b">
-        <div class="ico">🤝</div>
-        <div class="nm">Copilot Cowork</div>
-        <div class="what">An AI coworker that actually does the work, end-to-end, from one prompt.</div>
-        <ul class="bullets">
-          <li>Sends emails, books meetings, creates files, posts in Teams</li>
-          <li>You approve each action before it happens</li>
-          <li>Loads built-in and custom skills, pauses for risky actions</li>
-        </ul>
-      </div>
-      <div class="pcard c">
-        <div class="ico">🛠️</div>
-        <div class="nm">Copilot Studio</div>
-        <div class="what">Low-code platform to build and govern your own agents.</div>
-        <ul class="bullets">
-          <li>For repeated processes a whole team or department uses</li>
-          <li>Connect to CRM, ERP, and other line-of-business systems</li>
-          <li>Publish to Teams, web, or your own channels</li>
-        </ul>
-      </div>
-      <div class="pcard d">
-        <div class="ico">🛰️</div>
-        <div class="nm">Microsoft Scout</div>
-        <div class="what">An always-on agent that stays ahead of your day, acting on your behalf.</div>
-        <ul class="bullets">
-          <li>Proactive: works without being prompted each time</li>
-          <li>Spots risks early, blocks prep time, coordinates across time zones</li>
-          <li>Runs under its own governed identity with Purview controls</li>
-        </ul>
-      </div>
+  <header>
+    <div class="brand">
+      <img src="copilot-color.png" alt="">
+      <div class="name">Microsoft Copilot</div>
     </div>
+  </header>
+
+  <section class="hero">
+    <h1>What to use when</h1>
+    <p class="lede">One practical guide to the Microsoft Copilot family: Microsoft 365 Copilot, Cowork, Copilot Studio and Scout. Pick the view that matches how you want to read it.</p>
   </section>
 
-  <!-- Section 2: best for each task -->
-  <section>
-    <div class="sec-eyebrow">02 · Best tool for each task</div>
-    <h2>Pick by the job to be done</h2>
-    <p class="sec-sub">One recommendation per task, with a note when something else also works.</p>
+  <main>
+    <div class="grid">
+      <a class="card" href="business.html">
+        <span class="pill biz">Business view</span>
+        <h2>For everyday work</h2>
+        <p class="for">Best for <b>business teams, managers, and frontline users</b> deciding which Copilot fits a task.</p>
+        <p>Plain-language tool overview, job-to-be-done picker, scenarios by department, and a five-part prompt pattern.</p>
+        <span class="cta">Open the business view</span>
+      </a>
 
-    <div class="taskgrid">
-
-      <div class="tcard">
-        <div class="task">Quick question, brainstorm, or short reply</div>
-        <div class="reco"><span class="pill p-chat">Copilot Chat</span></div>
-        <div class="why">Fastest path for a one-off ask, no setup needed.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">Draft or reply in Outlook, summarise a Teams meeting, edit a document</div>
-        <div class="reco"><span class="pill p-app">In the app</span></div>
-        <div class="why">Best inside the open file or thread, with full context.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">Deep, multi-source research with citations</div>
-        <div class="reco"><span class="pill p-agt">Researcher agent</span></div>
-        <div class="why">Designed for thoughtful analysis across your work and the web.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">Take real action across M365 (send, schedule, create, post)</div>
-        <div class="reco"><span class="pill p-cow">Copilot Cowork</span></div>
-        <div class="why">It does the work, not just describes it. You approve each step.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">One prompt, multiple deliverables (brief, model, deck)</div>
-        <div class="reco"><span class="pill p-cow">Copilot Cowork</span></div>
-        <div class="why">Builds Word, Excel, and PowerPoint together in one flow.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">A small Q&amp;A bot for yourself or a small team</div>
-        <div class="reco"><span class="pill p-std">Agent Builder</span></div>
-        <div class="why">Quick to set up in Copilot Chat, no code, grounded on your content.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">A repeated, team-wide process with workflows and approvals</div>
-        <div class="reco"><span class="pill p-std">Copilot Studio</span></div>
-        <div class="why">For broader audiences and enterprise governance.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">Connect to a line-of-business system (ERP, CRM, banking core)</div>
-        <div class="reco"><span class="pill p-std">Copilot Studio</span></div>
-        <div class="why">Prebuilt and custom connectors with lifecycle controls.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">Proactive morning briefing before the day starts</div>
-        <div class="reco"><span class="pill p-sct">Microsoft Scout</span></div>
-        <div class="alt">Or Cowork on demand if you want to trigger it yourself.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">Continuous monitoring that acts on your behalf</div>
-        <div class="reco"><span class="pill p-sct">Microsoft Scout</span></div>
-        <div class="why">Watches signals in the background, flags risks early.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">Reach beyond M365 (browser, local files, MCP servers)</div>
-        <div class="reco"><span class="pill p-sct">Microsoft Scout</span></div>
-        <div class="why">Extends through the desktop app to outside resources.</div>
-      </div>
-
-      <div class="tcard">
-        <div class="task">Run a prompt on a recurring schedule</div>
-        <div class="reco"><span class="pill p-chat">M365 Copilot</span></div>
-        <div class="why">In licensed Microsoft 365 Copilot, hover a prompt and pick "Schedule this prompt". Daily, weekly, or any cadence. Requires a Microsoft 365 Copilot licence.</div>
-      </div>
-
+      <a class="card" href="dark.html">
+        <span class="pill it">Technical view</span>
+        <h2>For IT and makers</h2>
+        <p class="for">Best for <b>IT, admins, makers, and agent builders</b> who need the side-by-side detail.</p>
+        <p>Full capability matrix, app-by-app Copilot options, build-vs-buy guidance, and references to Microsoft Learn and Adoption.</p>
+        <span class="cta">Open the technical view</span>
+      </a>
     </div>
-
-    <div class="rule">
-      <b>The simple rule.</b> One app for one file. One Studio agent for one team-wide process. Cowork for an entire process on demand. Scout to stay ahead of your day automatically.
-    </div>
-  </section>
-
-  <!-- Section 3: which tool inside each app -->
-  <section>
-    <div class="sec-eyebrow">03 · Which Copilot for each app's work</div>
-    <h2>Same app, different power</h2>
-    <p class="sec-sub">When the work involves an M365 app, you have more than one Copilot option. Some live inside the app, others act on its files and signals from their own surface. Pick by how much heavy lifting you need.</p>
-
-    <div class="appgrid">
-
-      <div class="acard">
-        <div class="ah"><span class="ic">📊</span><span class="nm">Excel</span></div>
-        <div class="opt"><span class="pill p-app">Copilot in Excel</span><span class="desc"><b>Edit the open workbook.</b> Format, summarise, suggest formulas, build a quick chart in the side pane.</span></div>
-        <div class="opt"><span class="pill p-agt">Analyst agent</span><span class="desc"><b>Deeper data analysis.</b> Code-grounded reasoning across one or several files, with cited working.</span></div>
-        <div class="opt"><span class="pill p-cow">Copilot Cowork</span><span class="desc"><b>Build it end-to-end.</b> Create a workbook from emails, Teams threads, or SharePoint inputs, then share or schedule it.</span></div>
-      </div>
-
-      <div class="acard">
-        <div class="ah"><span class="ic">📝</span><span class="nm">Word</span></div>
-        <div class="opt"><span class="pill p-app">Copilot in Word</span><span class="desc"><b>Work the open document.</b> Draft, rewrite, summarise, and reference other files inline.</span></div>
-        <div class="opt"><span class="pill p-agt">Researcher agent</span><span class="desc"><b>Cited multi-source report.</b> Use when the analysis must be defensible and traceable.</span></div>
-        <div class="opt"><span class="pill p-cow">Copilot Cowork</span><span class="desc"><b>Brief plus supporting docs.</b> Produce the set, save to the right folder, post the link in Teams.</span></div>
-      </div>
-
-      <div class="acard">
-        <div class="ah"><span class="ic">📬</span><span class="nm">Outlook</span></div>
-        <div class="opt"><span class="pill p-app">Copilot in Outlook</span><span class="desc"><b>Draft and triage.</b> Reply, summarise long threads, and write in your tone from the reading pane.</span></div>
-        <div class="opt"><span class="pill p-cow">Copilot Cowork</span><span class="desc"><b>Send and schedule.</b> Send emails, book meetings, follow up after the meeting, all with your approval.</span></div>
-        <div class="opt"><span class="pill p-sct">Microsoft Scout</span><span class="desc"><b>Proactive watch across M365.</b> Scout is its own Autopilot agent (Frontier preview): reads inbox and calendar signals, surfaces what needs attention, schedules across time zones, acts ahead of you.</span></div>
-      </div>
-
-      <div class="acard">
-        <div class="ah"><span class="ic">📽️</span><span class="nm">PowerPoint</span></div>
-        <div class="opt"><span class="pill p-app">Copilot in PowerPoint</span><span class="desc"><b>Polish the open deck.</b> Add a slide, rewrite a slide, refine speaker notes, reformat.</span></div>
-        <div class="opt"><span class="pill p-cow">Copilot Cowork</span><span class="desc"><b>Build the deck from a brief.</b> Generate the full pack from a Word doc, with a matching summary and sharing email.</span></div>
-      </div>
-
-      <div class="acard">
-        <div class="ah"><span class="ic">💬</span><span class="nm">Teams</span></div>
-        <div class="opt"><span class="pill p-app">Copilot in Teams</span><span class="desc"><b>Meeting and chat help.</b> Recap, action items, catch up on a channel, search across chats.</span></div>
-        <div class="opt"><span class="pill p-std">Copilot Studio</span><span class="desc"><b>Channel agent.</b> Publish a team-specific agent for repeated questions or workflows in a channel.</span></div>
-        <div class="opt"><span class="pill p-cow">Copilot Cowork</span><span class="desc"><b>Turn talk into action.</b> Post updates, kick off follow-up tasks, convert a meeting into deliverables across apps.</span></div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Section 4: how to ask Cowork well -->
-  <section>
-    <div class="sec-eyebrow">04 · Get better results from Cowork</div>
-    <h2>How to ask Cowork well</h2>
-    <p class="sec-sub">A vague prompt forces Cowork to guess. Five small parts make the difference.</p>
-
-    <div class="prompt">
-      <div class="steps">
-        <div class="step"><div class="n">1. Outcome</div><div class="d">One sentence describing what done looks like.</div></div>
-        <div class="step"><div class="n">2. Inputs</div><div class="d">The people, files, sites, or time ranges to use.</div></div>
-        <div class="step"><div class="n">3. Definition of done</div><div class="d">The concrete deliverable, sent, saved, or scheduled.</div></div>
-        <div class="step"><div class="n">4. Constraints</div><div class="d">Things to avoid or honour (template, length, audience).</div></div>
-        <div class="step"><div class="n">5. Approval scope</div><div class="d">Which actions you want to review explicitly.</div></div>
-      </div>
-      <div class="ex bad">
-        <div class="lab">Before</div>
-        <p>"Help me prep for my offsite next week."</p>
-      </div>
-      <div class="ex good">
-        <div class="lab">After</div>
-        <p><b>Outcome:</b> A briefing pack and a draft agenda for the offsite on June 12. <b>Inputs:</b> The offsite invite, the three pre-reads attached to it, and emails from the offsite distribution list in the last two weeks. <b>Definition of done:</b> A one-page Word doc saved to my OneDrive Offsite folder, and a draft agenda emailed to my direct reports for feedback. <b>Constraints:</b> No external attendees. <b>Approval scope:</b> Default, review the email before sending.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 5: scenarios -->
-  <section>
-    <div class="sec-eyebrow">05 · Scenarios by department</div>
-    <h2>How these tools play together in real work</h2>
-    <p class="sec-sub">A picture of the right tool for typical jobs in each function.</p>
-
-    <div class="scgrid">
-
-      <div class="scen">
-        <div class="role">Sales</div>
-        <div class="t">Monday pipeline review</div>
-        <div class="desc">This week's closed deals, slipping opportunities, and at-risk renewals, in a 10-minute update.</div>
-        <div class="use"><b>Use:</b> Copilot in Outlook and Excel for the open file. <b>Add:</b> Researcher for a competitor scan.</div>
-      </div>
-
-      <div class="scen b">
-        <div class="role">Marketing</div>
-        <div class="t">Campaign launch pack</div>
-        <div class="desc">A brief, a deck, social copy, and a launch email, all from a single input document.</div>
-        <div class="use"><b>Use:</b> Copilot Cowork. One prompt builds the set; Copilot in PowerPoint to polish slides.</div>
-      </div>
-
-      <div class="scen c">
-        <div class="role">Finance</div>
-        <div class="t">Month-end variance pack</div>
-        <div class="desc">Variance analysis, executive summary, and a board pack from finance and CRM data.</div>
-        <div class="use"><b>Use:</b> Analyst agent for the analysis. Cowork to compile the summary and deck.</div>
-      </div>
-
-      <div class="scen d">
-        <div class="role">HR</div>
-        <div class="t">New-hire 30-day onboarding journey</div>
-        <div class="desc">Welcome email, training plan, manager check-in cadence, repeated for every joiner.</div>
-        <div class="use"><b>Use:</b> Copilot Studio. Build once, run for every new starter.</div>
-      </div>
-
-      <div class="scen e">
-        <div class="role">IT</div>
-        <div class="t">Internal helpdesk triage</div>
-        <div class="desc">Triage tickets, route to the right team, deflect common issues with self-service.</div>
-        <div class="use"><b>Use:</b> Copilot Studio. Publish to Teams so staff can self-serve.</div>
-      </div>
-
-      <div class="scen">
-        <div class="role">Operations</div>
-        <div class="t">Supplier and inventory risk</div>
-        <div class="desc">Watch supplier on-time delivery and stock thresholds; flag exposure before it bites.</div>
-        <div class="use"><b>Use:</b> Microsoft Scout. Always-on monitoring with proactive alerts.</div>
-      </div>
-
-      <div class="scen b">
-        <div class="role">Customer Service</div>
-        <div class="t">Top 30 query bot</div>
-        <div class="desc">Cover the queries that drive most volume, on website and inside Teams.</div>
-        <div class="use"><b>Use:</b> Copilot Studio. Grounded in your knowledge base, with handoff to a human.</div>
-      </div>
-
-      <div class="scen c">
-        <div class="role">Legal</div>
-        <div class="t">Contract redline against your playbook</div>
-        <div class="desc">Compare a counterparty draft against standard clauses; mark the gaps and risks.</div>
-        <div class="use"><b>Use:</b> Copilot in Word for the redline. Researcher for case law or regulatory context.</div>
-      </div>
-
-      <div class="scen d">
-        <div class="role">Procurement</div>
-        <div class="t">RFP shortlist and evaluation</div>
-        <div class="desc">Compare vendor responses against criteria; draft a recommendation memo for the panel.</div>
-        <div class="use"><b>Use:</b> Researcher for the comparative analysis. Cowork to compile the memo and panel email.</div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Section 6: before building -->
-  <section>
-    <div class="sec-eyebrow">06 · Before you build</div>
-    <h2>Check this order first</h2>
-    <p class="sec-sub">Building your own agent should be the last step, not the first.</p>
-
-    <div class="steps4">
-      <div class="s4">
-        <div class="num">1</div>
-        <div class="lab">Simplest</div>
-        <h3>Can a saved prompt do it?</h3>
-        <p>If a repeatable prompt handles the job, save it and reuse it. Licensed Microsoft 365 Copilot also lets you schedule a prompt to run on a cadence you set (Microsoft 365 Copilot licence required).</p>
-      </div>
-      <div class="s4">
-        <div class="num">2</div>
-        <div class="lab">Reuse</div>
-        <h3>Is there a ready Microsoft agent?</h3>
-        <p>Researcher and Analyst are already there for Copilot licence holders. Check the agent store first.</p>
-      </div>
-      <div class="s4">
-        <div class="num">3</div>
-        <div class="lab">Scale on demand</div>
-        <h3>Does Cowork already cover it?</h3>
-        <p>For end-to-end processes that produce several deliverables, Cowork often handles it without a custom build.</p>
-      </div>
-      <div class="s4">
-        <div class="num">4</div>
-        <div class="lab">Build it</div>
-        <h3>Agent Builder or Copilot Studio</h3>
-        <p>Agent Builder for yourself or a small team. Studio for a department, organisation, or external customers.</p>
-      </div>
-    </div>
-  </section>
+  </main>
 
   <footer>
-    <div class="sec-eyebrow" style="margin-bottom:10px">References</div>
-    <div class="refs">
-      <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/which-copilot-for-your-organization" target="_blank"><span class="src-lab learn">LEARN</span>Decide which Copilot is right for you</a>
-      <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/" target="_blank"><span class="src-lab learn">LEARN</span>Copilot Cowork overview</a>
-      <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-faq" target="_blank"><span class="src-lab learn">LEARN</span>Copilot Cowork common questions</a>
-      <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio" target="_blank"><span class="src-lab learn">LEARN</span>Microsoft Copilot Studio overview</a>
-      <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/copilot-studio-experience" target="_blank"><span class="src-lab learn">LEARN</span>Agent Builder vs Copilot Studio</a>
-      <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/researcher-agent" target="_blank"><span class="src-lab learn">LEARN</span>Researcher agent in Microsoft 365 Copilot</a>
-      <a href="https://learn.microsoft.com/en-us/copilot/agents" target="_blank"><span class="src-lab learn">LEARN</span>Agents for Microsoft 365 Copilot Chat</a>
-      <a href="https://learn.microsoft.com/microsoft-scout" target="_blank"><span class="src-lab learn">LEARN</span>Microsoft Scout setup</a>
-      <a href="https://www.microsoft.com/en-us/microsoft-365/blog/2026/06/02/introducing-microsoft-scout-your-always-on-personal-agent/" target="_blank"><span class="src-lab blog">BLOG</span>Introducing Microsoft Scout</a>
-      <a href="https://support.microsoft.com/en-us/microsoft-365-copilot/schedule-your-most-used-copilot-prompts" target="_blank"><span class="src-lab learn">SUPPORT</span>Schedule your most used Copilot prompts</a>
-      <a href="https://adoption.microsoft.com/en-us/copilot/cowork/ai-user/" target="_blank"><span class="src-lab adopt">ADOPT</span>Cowork for the AI user (prompt structure)</a>
-      <a href="https://adoption.microsoft.com/" target="_blank"><span class="src-lab adopt">ADOPT</span>Microsoft Copilot Adoption hub</a>
-    </div>
+    Both views are grounded in <a href="https://learn.microsoft.com/copilot/" target="_blank" rel="noopener">Microsoft Learn</a> and <a href="https://adoption.microsoft.com/" target="_blank" rel="noopener">Microsoft Adoption</a>. Same content, two reading styles.
   </footer>
-
-</div>
 </body>
 </html>
